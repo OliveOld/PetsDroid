@@ -102,21 +102,6 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        // 스캔버튼으로 기기 다시 검색 =>  옵션 메뉴로 바꿈
-        /*
-        scanButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                    DeviceDialog();
-                }
-                catch (Exception e)
-                {
-                    ErrorDialog("재연결실패");
-                }
-            }
-        });
-        */
 
         //11. Send 버튼을 누르면 sendData함수가 호출됩니다.
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +146,11 @@ public class MainActivity extends AppCompatActivity
                 ErrorDialog("재연결실패");
             }
             return true;
+        }
+        else {
+            doClose();
+            mRecv.setText(" ");
+            myLabel.setText("disconnect");
         }
         return super.onOptionsItemSelected(item);
     }
