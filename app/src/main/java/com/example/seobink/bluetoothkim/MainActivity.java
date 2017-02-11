@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
-    // DB용 변수
+    // DB용 변수다 ㅋ
     SQLiteDatabase db;
     MySQLiteHelper helper;
 
