@@ -476,6 +476,7 @@ public class MainActivity extends AppCompatActivity
                 try{
                     //public boolean deleteFile (String name)
                     if(deleteFile("data.txt")){ //정상적으로 파일이 삭제되면 true
+                        text.setText(" ");
                         Toast toast = Toast.makeText(this, "파일 삭제 성공",
                                 Toast.LENGTH_SHORT);
                         toast.show();
