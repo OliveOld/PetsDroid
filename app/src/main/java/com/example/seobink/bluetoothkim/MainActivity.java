@@ -1,5 +1,7 @@
 package com.example.seobink.bluetoothkim;
 
+// 김민지는 바보다
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +37,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
-    // DB용 변수다 ㅋ
+    // DB용 변수다
     SQLiteDatabase db;
     MySQLiteHelper helper;
 
