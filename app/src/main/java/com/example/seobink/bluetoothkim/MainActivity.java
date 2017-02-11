@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         myLabel = (TextView)findViewById(R.id.label);
         myTextbox = (EditText)findViewById(R.id.entry);
         mRecv = (TextView)findViewById(R.id.recv);
-        text= (TextView)findViewById(R.id.text);
+        text= (TextView)findViewById(R.id.result);
 
         mContext = this;
         activity=this;
