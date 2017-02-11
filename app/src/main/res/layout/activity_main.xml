@@ -76,6 +76,13 @@
             android:text="Save cancel"
             android:onClick="mOnClick"/>
 
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="file delete"
+            android:onClick="mOnClick"/>
+
         <ScrollView
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"

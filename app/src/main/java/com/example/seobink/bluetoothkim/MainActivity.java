@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -425,6 +426,12 @@ public class MainActivity extends AppCompatActivity
         try {
             //FileOutputStream 객체생성, 파일명 "data.txt", 새로운 텍스트 추가하기 모드
             FileOutputStream fos = openFileOutput("data.txt", Context.MODE_APPEND);
+            /*
+             * MODE_PRIVATE : 혼자만 사용하는 배타적모드의 파일생성(기본설정)
+             * MODE_APPEND : 덮어씌우지 않고 추가모드로 연다.
+             * MODE_WORLD_READABLE : 다른 응용프로그램이 파일을 읽을 수 있도록 허용한다.
+             * MODE_WORLD_WRITABLE : 다른 응용프로그램이 파일을 기록할 수 있도록 허용한다.
+             */
             PrintWriter writer = new PrintWriter(fos);
             writer.println(_data);
             writer.close();
@@ -453,6 +460,7 @@ public class MainActivity extends AppCompatActivity
                     BufferedReader reader= new BufferedReader(new InputStreamReader(fis));
                     String str=reader.readLine();//한 줄씩 읽어오기
 
+
                     while(str!=null){
                         buffer.append(str+"\n");
                         str=reader.readLine();
@@ -461,6 +469,26 @@ public class MainActivity extends AppCompatActivity
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                break;
+
+
+            case R.id.btn_delete:
+                try{
+                    //public boolean deleteFile (String name)
+                    if(deleteFile("data.txt")){ //정상적으로 파일이 삭제되면 true
+                        Toast toast = Toast.makeText(this, "파일 삭제 성공",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }else{
+                        Toast toast = Toast.makeText(this, "삭제할 파일이 없습니다.",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                }catch (Exception e) {
+                    //
+                }
+
                 break;
         }
     }
