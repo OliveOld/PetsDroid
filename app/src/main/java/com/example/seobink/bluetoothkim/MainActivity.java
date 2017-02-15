@@ -1,6 +1,6 @@
 package com.example.seobink.bluetoothkim;
 
-// 김민지는 바보다
+//  이것은 주석이다
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
