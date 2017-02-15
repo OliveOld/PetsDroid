@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity
     Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
-    int counter;
     volatile boolean stopWorker;
     int flag=0;
 
