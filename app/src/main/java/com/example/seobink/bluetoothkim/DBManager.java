@@ -5,23 +5,26 @@ package com.example.seobink.bluetoothkim;
  */
 
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-public class MySQLiteHelper extends SQLiteOpenHelper {
+public class DBManager extends SQLiteOpenHelper {
 
     // DBHelper 생성자로 관리할 DB 이름과 버전 정보를 받음
-    public MySQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, "/mnt/sdcard/" + name, factory, version);
     }
 
     // DB를 새로 생성할 때 호출되는 함수
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String sql = "CREATE TABLE DATA (_id INTEGER PRIMARY KEY AUTOINCREMENT, accel_X FLOAT, accel_Y FLOAT, accel_Z FLOAT, gyro_X FLOAT, gyro_Y FLOAT, gyro_Z FLOAT);";
+        String sql = "CREATE TABLE dog_profile (_id INTEGER PRIMARY KEY AUTOINCREMENT, dog_name TEXT, dog_age INTEGER, dog_sex TEXT);";
         // 새로운 테이블 생성
         /* 이름은 DATA, 자동으로 값이 증가하는 _id 정수형 기본키*/
         db.execSQL(sql);
@@ -31,11 +34,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        String sql = "drop table if exists student";
+        String sql = "drop table if exists dog_profile";
         db.execSQL(sql);
 
         onCreate(db); // 테이블을 지웠으므로 다시 테이블을 만들어주는 과정
     }
-
 
 }

@@ -39,7 +39,7 @@ public class BTActivity extends AppCompatActivity
 {
     // DB용 변수다
     SQLiteDatabase db;
-    MySQLiteHelper helper;
+    DBManager helper;
 
     private final static int DEVICES_DIALOG = 1;
     private final static int ERROR_DIALOG = 2;
@@ -115,7 +115,7 @@ public class BTActivity extends AppCompatActivity
             }
         });
 
-        helper = new MySQLiteHelper(BTActivity.this, "petinfo.db",null,1 );
+       // helper = new DBManager(BTActivity.this, "petinfo.db",null,1 );
 
        // if()
     }
