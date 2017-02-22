@@ -18,6 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BTActivity" />
+        <activity android:name=".DailyReportActivity" />
+        <activity android:name=".DailyWorkRateActivity"/>
+        <activity android:name=".DailyActivityActivity"/>
+        <activity android:name=".ManagerInfoActivity"/>
+        <activity android:name=".DogInfoActivity"/>
     </application>
 </manifest>
-
