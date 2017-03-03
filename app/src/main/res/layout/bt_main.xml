@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Type here:"/>
+
+        <EditText
+            android:id="@+id/entry"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/editbox_background"
+            android:layout_below="@id/label"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/entry"
+                android:layout_centerHorizontal="true"
+                android:text="Send"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="25dp"
+            android:text=""
+            />
+
+        <!-- Scan버튼 상단 타이틀 옵션 메뉴로 보냄
+        <Button
+            android:id="@+id/button_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/entry"
+            android:layout_centerHorizontal="true"
+            android:text="Scan"
+            />
+         -->
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="save file"
+            android:onClick="mOnClick"/>
+
+        <Button
+            android:id="@+id/btn_load"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="load file"
+            android:onClick="mOnClick"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save cancel"
+            android:onClick="mOnClick"/>
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="file delete"
+            android:onClick="mOnClick"/>
+
+        <ScrollView
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show data from file"/>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

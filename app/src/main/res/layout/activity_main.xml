@@ -1,98 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"    >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.seobink.bluetoothkim.MainActivity"
+    >
+<RelativeLayout
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+
+    <ImageButton
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/menu"
+        android:background= "#00FF0000"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"/>
+
+    <ImageButton
+        android:id="@+id/config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/settings"
+        android:background = "#00FF0000"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"/>
+
+    <ImageView
+        android:id="@+id/dog_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/dog"/>
+
+    <TextView
+        android:id="@+id/dog_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dog_image"
+        android:layout_centerHorizontal="true"
+        android:text="dog_name"
+        android:textColor="#FF0000FF"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/dog_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dog_name"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFF0000"
+        android:text="dog_info"
+        android:textSize="15dp"
+        />
+
+    <DatePicker
+        android:id="@+id/daily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dog_info"
+        android:layout_centerHorizontal="true"
+        android:datePickerMode="spinner"
+        android:scaleY="0.8"
+        android:scaleX="0.8"
+        android:calendarViewShown="false"/>
+
+    <Button
+        android:background="#FFCCCC"
+        android:padding="10dp"
+        android:id="@+id/daily_report"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/daily"
+        android:layout_centerHorizontal="true"
+        android:text="활동 분석 및 추천 / daily_report"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@drawable/right_arrow"
+        />
 
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Type here:"/>
+    <Button
+        android:background="#98DFFF"
+        android:padding="10dp"
+        android:id="@+id/daily_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/daily_report"
+        android:layout_centerHorizontal="true"
+        android:text="활동 목표 달성 / daily_activity"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@drawable/right_arrow"
+        />
 
-        <EditText
-            android:id="@+id/entry"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
-            android:layout_below="@id/label"/>
+    <Button
+        android:background="#FFF064"
+        android:padding="10dp"
+        android:id="@+id/daily_work_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/daily_activity"
+        android:layout_centerHorizontal="true"
+        android:text="최근 활동량 / daily_work_rate"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@drawable/right_arrow"
+        />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <Button
+        android:background="#99FF99"
+        android:padding="10dp"
+        android:id="@+id/manager_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/daily_work_rate"
+        android:layout_centerHorizontal="true"
+        android:text="관리자 정보 / Manager Info"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@drawable/right_arrow"
+        />
 
-            <Button
-                android:id="@+id/send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/entry"
-                android:layout_centerHorizontal="true"
-                android:text="Send"
-                />
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/recv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:height="25dp"
-            android:text=""
-            />
+</RelativeLayout>
 
-        <!-- Scan버튼 상단 타이틀 옵션 메뉴로 보냄
-        <Button
-            android:id="@+id/button_scan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/entry"
-            android:layout_centerHorizontal="true"
-            android:text="Scan"
-            />
-         -->
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="save file"
-            android:onClick="mOnClick"/>
-
-        <Button
-            android:id="@+id/btn_load"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="load file"
-            android:onClick="mOnClick"/>
-
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Save cancel"
-            android:onClick="mOnClick"/>
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="file delete"
-            android:onClick="mOnClick"/>
-
-        <ScrollView
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Show data from file"/>
-        </ScrollView>
-    </LinearLayout>
-</LinearLayout>
+</ScrollView>
