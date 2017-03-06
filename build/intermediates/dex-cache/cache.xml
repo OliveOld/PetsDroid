@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\f9262881a3785cc0c0445437123433e3b86b6a76\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a3f0f24c179c8d1d1326fa991aa99455f341559b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\7660d0efd3864ba3a0fdcb433a08a0a3e67f28f9\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b64dd5f01bc37de289f90fd59299b0c76d119611">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a30b7aa5452738d3a160dc9a7d9fb954c0bab0ba\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\36f42b029d94b3c465e3bf0a899bff71bb144dcc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9c3fc7b976a495fc975aed98946721ae64f46c3c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\10bb13940e906fcc092dce1be56d7f9d873f4ba6\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_beb5cb1fa8910e2490224d0fe1b6cb7355b6ac3d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.gradle\caches\modules-2\files-2.1\io.realm\realm-annotations\3.0.0\32a01bbb8cb421b6d53d7a102412142b0391c8c7\realm-annotations-3.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="32a01bbb8cb421b6d53d7a102412142b0391c8c7">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\realm-annotations-3.0.0_13bdd0f89769b22e3175f623218331a2cf3442ec\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\16a5234e10a2ceb277e6b16d8269ffae0e4cbff8\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ff8c3fb333e97221bfd8302a6bfe9abebad3bd45\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_25d6353f105bb4129f94f92319d33394b51a19bd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e18a497925ad0d00a8e8325f5e042caa77adc6c7">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_10e7a6fb6923d88a91297ddafa72a93559b93cbf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\da5030a24e55e9728be90b420a83ad619f4d647e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_eb859458d53d4e6afa15f9791e12ebb67973581b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\d792f734e76262a216fb0154f01e588a28743891\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b22ad818d2d620cbe43ee3a714fcb2f2b176d097\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\8533962256744ea7ccaa8176a7576c80c1f88cfd\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="aed23c739ad564efb5193b88bc785868f7de878b">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_db054ee70eb25b294b00d45dac0e480a206872f8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_66c2f1cc60548ab50370134aa6f1245fccae5a3e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\431ed19de7549fa38151474c748bcc6f2ded9985\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c40c40059e805809fd4013e6010eb45a35ded9a9">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_87a30a75c73da373ca9d9f380958139bc5386c59\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\5f2b50d8b720e7fde80de3faa50d27cccce8d516\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_eaadada7b7b1854c7cbc3f6736ed4c25bb4c00b3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\e0f49c7997fc68936bc0f339c5ad498c03ec7df6\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_269a3a2e12c543fa1d036937131a118028a0ac32\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\KMJ\.android\build-cache\14cc5173d82eae3d82479d64bffd6ce70b49a3ca\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="C:\Users\KMJ\PetTrack_Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6347bd05d9a406d5aa9d967da81c8796e8e6fe7d\classes.dex" />
+    </item>
+
+</items>
