@@ -13,8 +13,6 @@ import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.example.seobink.bluetoothkim.R;
-
 import charting.charts.PieChart;
 import charting.components.Legend;
 import charting.data.ChartData;
@@ -22,6 +20,7 @@ import charting.data.PieData;
 import charting.formatter.PercentFormatter;
 import charting.utils.ColorTemplate;
 
+import org.olive.pets.R;
 
 /**
  * Created by seobink on 2017-02-27.

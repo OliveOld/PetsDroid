@@ -14,8 +14,6 @@ import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.seobink.bluetoothkim.R;
-
 import java.util.ArrayList;
 
 import charting.animation.Easing;
@@ -31,6 +29,7 @@ import charting.interfaces.datasets.IDataSet;
 import charting.listener.OnChartValueSelectedListener;
 import charting.utils.ColorTemplate;
 import charting.utils.MPPointF;
+import org.olive.pets.R;
 
 /**
  * Created by seobink on 2017-02-27.

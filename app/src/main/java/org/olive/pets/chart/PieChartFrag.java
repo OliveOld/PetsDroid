@@ -14,8 +14,7 @@ import android.view.ViewGroup;
 import charting.charts.PieChart;
 import charting.components.Legend;
 
-import com.example.seobink.bluetoothkim.R;
-
+import org.olive.pets.R;
 
 /**
  * Created by seobink on 2017-02-27.

@@ -1,4 +1,5 @@
 package org.olive.pets.chart;
+import org.olive.pets.R;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,8 +11,6 @@ import android.text.style.StyleSpan;
 import android.view.WindowManager;
 
 import com.example.realm.implementation.RealmPieDataSet;
-import com.example.seobink.bluetoothkim.R;
-
 import charting.charts.PieChart;
 import charting.data.PieData;
 import charting.utils.ColorTemplate;
