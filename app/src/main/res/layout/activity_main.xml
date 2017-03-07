@@ -12,120 +12,120 @@
     android:layout_height="match_parent">
 
 
-    <ImageButton
-        android:id="@+id/menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/menu"
-        android:background= "#00FF0000"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"/>
-
-    <ImageButton
-        android:id="@+id/config"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/settings"
-        android:background = "#00FF0000"
-        android:paddingTop="5dp"
-        android:paddingRight="5dp"/>
-
-    <ImageView
-        android:id="@+id/dog_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/menu"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/dog"/>
-
-    <TextView
-        android:id="@+id/dog_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dog_image"
-        android:layout_centerHorizontal="true"
-        android:text="dog_name"
-        android:textColor="#FF0000FF"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/dog_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dog_name"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFF0000"
-        android:text="dog_info"
-        android:textSize="15dp"
-        />
-
-    <DatePicker
-        android:id="@+id/daily"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dog_info"
-        android:layout_centerHorizontal="true"
-        android:datePickerMode="spinner"
-        android:scaleY="0.8"
-        android:scaleX="0.8"
-        android:calendarViewShown="false"/>
-
-    <Button
-        android:background="#FFCCCC"
-        android:padding="10dp"
-        android:id="@+id/daily_report"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/daily"
-        android:layout_centerHorizontal="true"
-        android:text="활동 분석 및 추천 / daily_report"
-        android:gravity="left|center_vertical"
-        android:drawableRight="@drawable/right_arrow"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:background="#98DFFF"
-        android:padding="10dp"
-        android:id="@+id/daily_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/daily_report"
-        android:layout_centerHorizontal="true"
-        android:text="활동 목표 달성 / daily_activity"
-        android:gravity="left|center_vertical"
-        android:drawableRight="@drawable/right_arrow"
-        />
+        <ImageButton
+            android:id="@+id/config"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FF0000"
+            android:src="@drawable/settings" />
 
-    <Button
-        android:background="#FFF064"
-        android:padding="10dp"
-        android:id="@+id/daily_work_rate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/daily_activity"
-        android:layout_centerHorizontal="true"
-        android:text="최근 활동량 / daily_work_rate"
-        android:gravity="left|center_vertical"
-        android:drawableRight="@drawable/right_arrow"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <Button
-        android:background="#99FF99"
-        android:padding="10dp"
-        android:id="@+id/manager_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/daily_work_rate"
-        android:layout_centerHorizontal="true"
-        android:text="관리자 정보 / Manager Info"
-        android:gravity="left|center_vertical"
-        android:drawableRight="@drawable/right_arrow"
-        />
+            <ImageView
+                android:id="@+id/dog_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:layout_below="@id/config"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/dog"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dog_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:text="dog_name"
+                    android:textColor="#e49e9e"
+                    android:textSize="30dp"
+                    android:padding="10dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dog_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:text="dog_info"
+                    android:textColor="#FFCCCC"
+                    android:padding="10dp"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#e49e9e"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <Button
+            android:id="@+id/daily_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#FFCCCC"
+            android:gravity="left|center_vertical"
+            android:padding="10dp"
+            android:text="활동 분석 및 추천 / daily_report" />
+
+        <Button
+            android:id="@+id/daily_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/daily_report"
+            android:layout_centerHorizontal="true"
+            android:background="#98DFFF"
+            android:gravity="left|center_vertical"
+            android:padding="10dp"
+            android:text="활동 목표 달성 / daily_activity" />
+
+        <Button
+            android:id="@+id/daily_work_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/daily_activity"
+            android:layout_centerHorizontal="true"
+            android:background="#FFF064"
+            android:gravity="left|center_vertical"
+            android:padding="10dp"
+            android:text="최근 활동량 / daily_work_rate" />
+
+        <Button
+            android:id="@+id/manager_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/daily_work_rate"
+            android:layout_centerHorizontal="true"
+            android:background="#99FF99"
+            android:gravity="left|center_vertical"
+            android:padding="10dp"
+            android:text="관리자 정보 / Manager Info" />
+
+    </LinearLayout>
 
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
 
-</ScrollView>
+

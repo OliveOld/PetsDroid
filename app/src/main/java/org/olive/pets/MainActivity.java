@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.seobink.bluetoothkim.chart.PieChartActivity;
+
 public class MainActivity extends AppCompatActivity {
     private Button dailyReport;
     private Button dailyActivity;
@@ -41,10 +43,22 @@ public class MainActivity extends AppCompatActivity {
 
         dailyWorkRate=(Button)findViewById(R.id.daily_work_rate);
         dailyWorkRate.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, DailyWorkRateActivity.class);
-                startActivity(intent);
+
+                try {
+                    Intent i = new Intent(MainActivity.this, PieChartActivity.class);
+                    startActivity(i);
+                    Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                catch (Exception e) {
+                    Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
             }
         });
 
