@@ -1,1 +1,1 @@
-include ':app', ':chartlib', ':realm'
+include ':app'
