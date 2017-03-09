@@ -5,6 +5,10 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
+
 import org.olive.pets.R;
 
 /**
@@ -43,4 +47,6 @@ public abstract class DemoBase extends FragmentActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
+
+    public abstract void onValueSelected(Entry e, Highlight h);
 }

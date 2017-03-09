@@ -4,14 +4,16 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
-import charting.charts.BarLineChartBase;
-import charting.charts.Chart;
-import charting.components.XAxis;
-import charting.components.YAxis;
-import charting.data.ChartData;
-import charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.charts.BarLineChartBase;
+import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.ChartData;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+
 
 /**
  * Created by seobink on 2017-02-27.

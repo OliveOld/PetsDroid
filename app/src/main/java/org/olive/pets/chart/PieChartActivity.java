@@ -14,22 +14,22 @@ import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
-import charting.animation.Easing;
-import charting.charts.PieChart;
-import charting.components.Legend;
-import charting.data.Entry;
-import charting.data.PieData;
-import charting.data.PieDataSet;
-import charting.data.PieEntry;
-import charting.formatter.PercentFormatter;
-import charting.highlight.Highlight;
-import charting.interfaces.datasets.IDataSet;
-import charting.listener.OnChartValueSelectedListener;
-import charting.utils.ColorTemplate;
-import charting.utils.MPPointF;
 import org.olive.pets.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by seobink on 2017-02-27.
@@ -90,7 +90,7 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         // mChart.setDrawUnitsInChart(true);
 
         // add a selection listener
-        mChart.setOnChartValueSelectedListener(this);
+        mChart.setOnChartValueSelectedListener((OnChartValueSelectedListener) this);
 
 
 
@@ -140,7 +140,8 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
             }
             case R.id.actionToggleIcons: {
                 for (IDataSet<?> set : mChart.getData().getDataSets())
-                    set.setDrawIcons(!set.isDrawIconsEnabled());
+                    // 여기서 에러 발생
+                   // set.setDrawIcons(!set.isDrawIconsEnabled());
 
                 mChart.invalidate();
                 break;
@@ -230,12 +231,14 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         // 오른쪽 상단
         PieDataSet dataSet = new PieDataSet(entries, "Election Results");
 
-        dataSet.setDrawIcons(false);
-
+        // 여기서 에러발생 2
+        // dataSet.setDrawIcons(false);
+        // 여기서 에러발생 3
+        /*
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         dataSet.setSelectionShift(5f);
-
+*/
         // add a lot of colors
 
         ArrayList<Integer> colors = new ArrayList<Integer>();

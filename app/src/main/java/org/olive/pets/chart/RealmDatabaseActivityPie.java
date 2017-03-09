@@ -1,5 +1,4 @@
 package org.olive.pets.chart;
-import org.olive.pets.R;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,17 +9,20 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.WindowManager;
 
-import com.example.realm.implementation.RealmPieDataSet;
-import charting.charts.PieChart;
-import charting.data.PieData;
-import charting.utils.ColorTemplate;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.realm.implementation.RealmPieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import org.olive.pets.R;
+
 import io.realm.RealmResults;
 
 
 /**
  * Created by seobink on 2017-02-27.
  */
-public class RealmDatabaseActivityPie extends RealmBaseActivity {
+public abstract class RealmDatabaseActivityPie extends RealmBaseActivity {
 
     private PieChart mChart;
 
