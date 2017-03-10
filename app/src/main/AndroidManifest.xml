@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.seobink.bluetoothkim">
+    package="org.olive.pets">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -25,5 +24,7 @@
         <activity android:name=".DailyActivityActivity"/>
         <activity android:name=".ManagerInfoActivity"/>
         <activity android:name=".DogInfoActivity"/>
+        <activity android:name=".chart.PieChartActivity"/>
     </application>
+
 </manifest>
