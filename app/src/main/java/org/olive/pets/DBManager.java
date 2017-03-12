@@ -5,13 +5,9 @@ package org.olive.pets;
  */
 
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DBManager extends SQLiteOpenHelper {
 
@@ -24,7 +20,7 @@ public class DBManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String sql = "CREATE TABLE dog_profile (_id INTEGER PRIMARY KEY AUTOINCREMENT, dog_name TEXT, dog_age INTEGER, dog_sex TEXT);";
+        String sql = "CREATE TABLE dog_profile (_id INTEGER PRIMARY KEY AUTOINCREMENT, dog_name TEXT, dog_age INTEGER, dog_sex TEXT, dog_photo TEXT);";
         // 새로운 테이블 생성
         /* 이름은 DATA, 자동으로 값이 증가하는 _id 정수형 기본키*/
         db.execSQL(sql);

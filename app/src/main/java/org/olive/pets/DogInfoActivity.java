@@ -2,16 +2,13 @@ package org.olive.pets;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +19,11 @@ import android.widget.Toast;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
+import static java.lang.Integer.parseInt;
 
 public class DogInfoActivity extends Activity implements View.OnClickListener{
     private static final int PICK_FROM_CAMERA = 0;
@@ -36,15 +38,12 @@ public class DogInfoActivity extends Activity implements View.OnClickListener{
     private int id_view;
     private String absolutePath;
 
-    private DBManager dbmanager;
-    SQLiteDatabase db;
+    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_info);
-
-        dbmanager = new DBManager(this, "pet_profile.db", null, 1);
 
         iv_DogPhoto = (ImageView) this.findViewById(R.id.dog_image_modify);
         Button btn_agreeSubmit = (Button) this.findViewById(R.id.btn_submit_profile);
@@ -57,6 +56,9 @@ public class DogInfoActivity extends Activity implements View.OnClickListener{
         et_DogSex = (EditText) this.findViewById(R.id.dog_sex);
         et_DogName.setSingleLine(true);
         et_DogSex.setSingleLine(true);
+
+        // Realm 초기화
+        mRealm.init(this);
     }
 
     // 카메라에서 사진 촬영하기 => 촬영 후 이미지 가져옴
@@ -141,23 +143,26 @@ public class DogInfoActivity extends Activity implements View.OnClickListener{
         }
     }
 
-
     @Override
     public void onClick(View v) {
         id_view = v.getId();
         if(v.getId() == R.id.btn_submit_profile) {
-            // SQLite 통하여 프로필 업데이트
-            // 처음 저장 인 경우
-            db = dbmanager.getWritableDatabase(); // db 객체를 얻어온다. 쓰기 가능
-            ContentValues values = new ContentValues();
-            // db.insert의 매개변수인 values가 ContentValues 변수이므로 그에 맞춤
-            // 데이터의 삽입은 put을 이용한다.
-            values.put("dog_name", et_DogName.getText().toString());
-            values.put("dog_age", String.valueOf(et_DogAge.getText()));
-            values.put("dog_sex", et_DogSex.getText().toString());
-            db.insert("dog_profile", null, values);
 
-            // 프로필 업데이트의 경우
+            RealmConfiguration myConfig = new RealmConfiguration.Builder()
+                    .name("myrealm.realm")
+                    .build();
+            Realm mRealm = Realm.getInstance(myConfig);
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    DogProfileVO myDog = realm.where(DogProfileVO.class).equalTo("id", 1).findFirst();
+                    myDog.setDogName(et_DogName.getText().toString());
+                    myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
+                    myDog.setDogSex(et_DogSex.getText().toString());
+                    myDog.setDogPhoto(absolutePath);
+                }
+            });
+
             Intent mainIntent = new Intent(DogInfoActivity.this, MainActivity.class);
             DogInfoActivity.this.startActivity(mainIntent);
             DogInfoActivity.this.finish();
@@ -220,4 +225,6 @@ public class DogInfoActivity extends Activity implements View.OnClickListener{
             e.printStackTrace();
         }
     }
+
+
 }

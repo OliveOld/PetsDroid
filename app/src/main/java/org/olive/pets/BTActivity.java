@@ -124,7 +124,7 @@ public class BTActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // 옵션 메뉴 이어주기
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_bluetooth, menu);
         return true;
     }
 
