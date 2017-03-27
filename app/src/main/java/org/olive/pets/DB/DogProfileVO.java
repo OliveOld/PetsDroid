@@ -1,5 +1,6 @@
-package org.olive.pets;
+package org.olive.pets.DB;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -10,15 +11,16 @@ import io.realm.annotations.PrimaryKey;
 public class DogProfileVO extends RealmObject {
     
     @PrimaryKey
-    private long id;
+    private int dog_id;
     private String dog_name;
     private int dog_age;
     private String dog_sex;
     private String dog_photo;
+    private RealmList<DateDataVO> date_data;
 
     // auto increment 기능이 따로 없음에 주의
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
+    public int getDogId() { return dog_id; }
+    public void setDogId(int dog_id) { this.dog_id = dog_id; }
 
     public String getDogName() { return dog_name; }
     public void setDogName(String dog_name) {

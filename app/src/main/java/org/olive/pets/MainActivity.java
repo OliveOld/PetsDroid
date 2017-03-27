@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.olive.pets.DB.DogProfileVO;
 import org.olive.pets.chart.PieChartActivity;
 
 import java.io.File;
@@ -104,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         RealmConfiguration myConfig = new RealmConfiguration.Builder()
-                .name("myrealm.realm")
+                .name("PetTrack.realm")
                 .build();
         Realm mRealm = Realm.getInstance(myConfig);
 
         DogProfileVO myDog = mRealm.where(DogProfileVO.class).equalTo("id", 1).findFirst();
 
 
-        // Realm 객체 생성 => default
+        // Realm 객체 생성 => default값을 아래에 지정
         //한번만 실행
         if(myDog==null) {
             Toast.makeText(this, "강아지 프로필이 업습니다.", Toast.LENGTH_SHORT).show();
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.bluetooth) {
-            Intent intent = new Intent(MainActivity.this, BTActivity.class);
+            Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
             startActivity(intent);
             return true;
         } else {

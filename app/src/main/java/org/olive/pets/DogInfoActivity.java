@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.olive.pets.DB.DogProfileVO;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -149,7 +151,7 @@ public class DogInfoActivity extends Activity implements View.OnClickListener{
         if(v.getId() == R.id.btn_submit_profile) {
 
             RealmConfiguration myConfig = new RealmConfiguration.Builder()
-                    .name("myrealm.realm")
+                    .name("PetTrack.realm")
                     .build();
             Realm mRealm = Realm.getInstance(myConfig);
             mRealm.executeTransaction(new Realm.Transaction() {
