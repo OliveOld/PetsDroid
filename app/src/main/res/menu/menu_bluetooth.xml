@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.olive.pets.MainActivity">
     <item
-        android:id="@+id/bluetooth"
+        android:id="@+id/bluetooth_scan"
         android:orderInCategory="100"
-        android:icon="@drawable/settings"
-        android:title="블루투스"
+        android:icon="@mipmap/ic_launcher"
+        android:title="블루투스 연결"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/profile"
+        android:id="@+id/bluetooth_cancel"
         android:orderInCategory="100"
-        android:title="프로필 수정"/>
+        android:icon="@mipmap/ic_launcher"
+        android:title="연결 끊기"/>
 
 
 </menu>
