@@ -6,12 +6,8 @@ package org.olive.pets;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.bluetooth.BluetoothDevice;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-
-import java.util.Set;
 
 public class MyDialogFragment extends DialogFragment  {
 
@@ -40,39 +36,39 @@ public class MyDialogFragment extends DialogFragment  {
         switch(id)
         {
             case DEVICES_DIALOG:
-                alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setTitle("Select device");
-
-                Set<BluetoothDevice> pairedDevices = BTActivity.getPairedDevices();
-                final BluetoothDevice[] devices = pairedDevices.toArray(new BluetoothDevice[0]);
-                String[] items = new String[devices.length];
-                for (int i=0;i<devices.length;i++) {
-                    items[i] = devices[i].getName();
-                }
-
-                alertDialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        ((BTActivity) BTActivity.mContext).doConnect(devices[which]);
-                    }
-                });
-                alertDialogBuilder.setCancelable(false);
-                break;
-
-
-            case ERROR_DIALOG:
-                alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setTitle("ERROR");
-                alertDialogBuilder.setMessage(content);
-                alertDialogBuilder.setPositiveButton("OK",  new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        ((BTActivity) BTActivity.mContext).finish();
-                    }
-                });
-                break;
+//                alertDialogBuilder = new AlertDialog.Builder(getActivity());
+//                alertDialogBuilder.setTitle("Select device");
+//
+//                Set<BluetoothDevice> pairedDevices = BTActivity.getPairedDevices();
+//                final BluetoothDevice[] devices = pairedDevices.toArray(new BluetoothDevice[0]);
+//                String[] items = new String[devices.length];
+//                for (int i=0;i<devices.length;i++) {
+//                    items[i] = devices[i].getName();
+//                }
+//
+//                alertDialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                        ((BTActivity) BTActivity.mContext).doConnect(devices[which]);
+//                    }
+//                });
+//                alertDialogBuilder.setCancelable(false);
+//                break;
+//
+//
+//            case ERROR_DIALOG:
+//                alertDialogBuilder = new AlertDialog.Builder(getActivity());
+//                alertDialogBuilder.setTitle("ERROR");
+//                alertDialogBuilder.setMessage(content);
+//                alertDialogBuilder.setPositiveButton("OK",  new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                        ((BTActivity) BTActivity.mContext).finish();
+//                    }
+//                });
+//                break;
 
          /*       alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override

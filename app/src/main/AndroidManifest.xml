@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BTActivity" />
+        <activity android:name=".BluetoothActivity" />
         <activity android:name=".DailyReportActivity" />
         <activity android:name=".DailyWorkRateActivity"/>
         <activity android:name=".DailyActivityActivity"/>

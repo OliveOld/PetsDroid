@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId 'org.olive.petsdroid'
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -35,4 +35,5 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0'
     compile files('libs/Weka/weka-src.jar')
     compile files('libs/Weka/weka.jar')
+    compile 'com.punchthrough.bean.sdk:sdk:1.0.2'
 }
