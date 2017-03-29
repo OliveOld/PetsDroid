@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         Realm mRealm = Realm.getInstance(myConfig);
 
-        DogProfileVO myDog = mRealm.where(DogProfileVO.class).equalTo("id", 1).findFirst();
+        DogProfileVO myDog = mRealm.where(DogProfileVO.class).equalTo("dog_id", 1).findFirst();
 
 
         // Realm 객체 생성 => default값을 아래에 지정
