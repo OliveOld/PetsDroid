@@ -1,4 +1,4 @@
-package org.olive;
+package org.olive.pets.core;
 
 import weka.classifiers.bayes.NaiveBayes;
 import weka.core.Instance;
@@ -6,10 +6,10 @@ import weka.core.Instances;
 import weka.core.Utils;
 import weka.core.converters.ConverterUtils.DataSource;
 
-public class Main {
+public class Dummy {
 
     // https://weka.wikispaces.com/Use+Weka+in+your+Java+code
-    public static void main(String[] args) throws Exception {
+    public static void dumdum() throws Exception {
 
         // load data
         Instances learn = DataSource.read("./L5.arff");
