@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import org.olive.pets.R;
+
 public class Q1yes2Activity extends AppCompatActivity{
     private Button next2;
 

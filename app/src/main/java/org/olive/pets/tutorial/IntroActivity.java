@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
+import org.olive.pets.R;
+
 public class IntroActivity extends Activity {
 
     Handler h;//핸들러 선언

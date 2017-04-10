@@ -3,6 +3,8 @@ package org.olive.pets.tutorial;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import org.olive.pets.R;
+
 public class Q1no1Activity extends AppCompatActivity {
 
     @Override
