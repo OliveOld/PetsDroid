@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_q1yes2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffcad5"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/account_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="계정 정보" />
+
+        <EditText
+            android:id="@+id/account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/account_info"
+            android:layout_centerHorizontal="true"
+            android:hint="이메일" />
+
+        <EditText
+            android:id="@+id/pw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/account"
+            android:layout_centerHorizontal="true"
+            android:hint="비밀번호" />
+
+        <EditText
+            android:id="@+id/pw_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pw"
+            android:layout_centerHorizontal="true"
+            android:hint="비밀번호 확인" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/pw_check"
+            android:layout_margin="20dp"
+            android:background="#4682B4" />
+
+        <TextView
+            android:id="@+id/dog_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line2"
+            android:text="강아지 정보" />
+
+        <EditText
+            android:id="@+id/dog_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dog_info"
+            android:layout_centerHorizontal="true"
+            android:hint="견종_박스로 바꿀것" />
+
+        <EditText
+            android:id="@+id/dog_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dog_type"
+            android:layout_centerHorizontal="true"
+            android:hint="이름" />
+
+        <EditText
+            android:id="@+id/dog_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dog_name"
+            android:layout_centerHorizontal="true"
+            android:hint="나이_박스로 바꿀것" />
+
+        <RelativeLayout
+            android:id="@+id/dog_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dog_age"
+            android:layout_centerHorizontal="true" />
+
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/info_input2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="다음으로" />
+
+</RelativeLayout>
