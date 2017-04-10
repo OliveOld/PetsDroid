@@ -1,9 +1,10 @@
-package com.example.jeong.myapplication;
+package org.olive.pets.tutorial;
 
-import android.os.*;
 import android.app.Activity;
-import android.content.*;
-import android.view.*;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.Window;
 
 public class IntroActivity extends Activity {
 
