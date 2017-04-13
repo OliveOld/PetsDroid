@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.olive.pets.DB.DogProfileVO;
+import org.olive.pets.DB.DogProfile;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -157,7 +157,7 @@ public class DogInfoActivity extends Activity implements View.OnClickListener{
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    DogProfileVO myDog = realm.where(DogProfileVO.class).equalTo("id", 1).findFirst();
+                    DogProfile myDog = realm.where(DogProfile.class).equalTo("id", 1).findFirst();
                     myDog.setDogName(et_DogName.getText().toString());
                     myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
                     myDog.setDogSex(et_DogSex.getText().toString());

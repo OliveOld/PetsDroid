@@ -8,7 +8,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by KMJ on 2017-03-12.
  */
 
-public class DogProfileVO extends RealmObject {
+public class DogProfile extends RealmObject {
     
     @PrimaryKey
     private int dog_id;
@@ -16,7 +16,7 @@ public class DogProfileVO extends RealmObject {
     private int dog_age;
     private String dog_sex;
     private String dog_photo;
-    private RealmList<DateDataVO> date_data;
+    private PostureData posture_data;
 
     // auto increment 기능이 따로 없음에 주의
     public int getDogId() { return dog_id; }

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.olive.pets.DB.DogProfileVO;
+import org.olive.pets.DB.DogProfile;
 import org.olive.pets.chart.PieChartActivity;
 
 import java.io.File;
@@ -109,17 +109,17 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         Realm mRealm = Realm.getInstance(myConfig);
 
-        DogProfileVO myDog = mRealm.where(DogProfileVO.class).equalTo("dog_id", 1).findFirst();
+        DogProfile myDog = mRealm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
 
 
         // Realm 객체 생성 => default값을 아래에 지정
         //한번만 실행
         if(myDog==null) {
-            Toast.makeText(this, "강아지 프로필이 업습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "강아지 프로필이 없습니다.", Toast.LENGTH_SHORT).show();
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    DogProfileVO myDog = realm.createObject(DogProfileVO.class, 1);
+                    DogProfile myDog = realm.createObject(DogProfile.class, 1);
                     myDog.setDogName("Seobin");
                     myDog.setDogAge(26);
                     myDog.setDogSex("female");
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            myDog = mRealm.where(DogProfileVO.class).equalTo("id", 1).findFirst();
+            myDog = mRealm.where(DogProfile.class).equalTo("id", 1).findFirst();
 
             String dogName = myDog.getDogName();
             int dogAge = myDog.getDogAge();
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.bluetooth) {
-            Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(MainActivity.this, BluetoothTestActivity.class);
             startActivity(intent);
             return true;
         } else {

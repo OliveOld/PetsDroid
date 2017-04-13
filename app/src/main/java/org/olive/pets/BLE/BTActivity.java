@@ -20,8 +20,8 @@
 //import android.widget.EditText;
 //import android.widget.TextView;
 //
-//import org.olive.pets.DB.DateDataVO;
-//import org.olive.pets.DB.DogProfileVO;
+//import org.olive.pets.DB.DateData;
+//import org.olive.pets.DB.DogProfile;
 //
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
@@ -389,13 +389,13 @@
 //
 //        // 데이터베이스에 값 저장 하기 전에 앞서, 현재 사용중인 강아지 id 얻는다 => 현재 강아지 id를 어케 얻어올지 생각
 //        // 일단은 1번 강아지로 헀음
-//        DogProfileVO myDog = mRealm.where(DogProfileVO.class).equalTo("dog_id", 1).findFirst();
+//        DogProfile myDog = mRealm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
 //
 //
 //        mRealm.executeTransaction(new Realm.Transaction() {
 //            @Override
 //            public void execute(Realm realm) {
-//                DateDataVO myDogDate = realm.where(DateDataVO.class).equalTo("date_id", 1).findFirst();
+//                DateData myDogDate = realm.where(DateData.class).equalTo("date_id", 1).findFirst();
 //                myDogDate.setDogName(et_DogName.getText().toString());
 //                myDogDate.setDogAge(parseInt(et_DogAge.getText().toString()));
 //                myDogDate.setDogSex(et_DogSex.getText().toString());

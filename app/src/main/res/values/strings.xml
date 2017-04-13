@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">PetTrack by OliveOld</string>
+    <string name="app_name">PetTrack</string>
+
+    <string name="action_about">About</string>
+
+    <item name="TAG_DEVICE_ITEM" type="id" />
+
+    <string name="action_bt_reset">Reset Bluetooth</string>
+    <string name="action_bt_scan">Scan Bluetooth</string>
+
+    <string name="label_no_device">No Bean detected.\n
+        \nPlease check that Beans are in range, and scan again.</string>
+
+    <string name="label_pushbutton">PUSH AND HOLD</string>
+
+    <string name="label_hint_unselected">To use and remember this deviceVO, please click the checkmark.</string>
+
 </resources>
