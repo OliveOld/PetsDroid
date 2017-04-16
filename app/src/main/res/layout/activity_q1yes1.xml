@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_q1yes1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffcad5"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="어떤 강아지를 키우고 계신가요?"
+            android:textSize="18sp"
+            android:layout_margin="10dp"
+            android:textStyle="bold" />
+
+
+        <RelativeLayout
+            android:id="@+id/dog_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text"
+            android:layout_centerHorizontal="true"
+            android:gravity="center">
+
+
+            <Button
+                android:id="@+id/small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소형견" />
+
+            <Button
+                android:id="@+id/midium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/small"
+                android:text="중형견" />
+
+            <Button
+                android:id="@+id/large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/midium"
+                android:text="대형견" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dog_explain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dog_type"
+            android:layout_centerHorizontal="true"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/e_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="10Kg 미만" />
+
+            <TextView
+                android:id="@+id/e_midium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="15dp"
+                android:layout_toRightOf="@id/e_small"
+                android:text="25Kg 미만" />
+
+            <TextView
+                android:id="@+id/e_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_toRightOf="@id/e_midium"
+                android:text="25Kg 이상" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/dog_explain"
+            android:layout_margin="20dp"
+            android:background="#4682B4" />
+
+
+        <Button
+            android:id="@+id/info_input1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="다음으로" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+

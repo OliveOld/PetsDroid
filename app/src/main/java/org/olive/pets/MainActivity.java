@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.chart.PieChartActivity;
+import org.olive.pets.tutorial.IntroActivity;
 
 import java.io.File;
 
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 처음 실행의 경우 tutorial 페이지로 넘어가도록 함
+        Intent intent=new Intent(MainActivity.this,IntroActivity.class);
+        startActivity(intent);
 
         dailyReport =(Button)findViewById(R.id.daily_report);
         dailyReport.setOnClickListener(new View.OnClickListener(){
