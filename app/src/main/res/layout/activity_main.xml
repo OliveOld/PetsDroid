@@ -15,7 +15,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/dog_image"
+                android:id="@+id/iv_my_dog_image"
                 android:layout_width="116dp"
                 android:layout_height="match_parent"
                 android:paddingLeft="30dp"
@@ -30,7 +30,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/dog_name"
+                    android:id="@+id/tv_my_dog_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -43,7 +43,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/dog_info"
+                    android:id="@+id/tv_my_dog_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -80,47 +80,44 @@
         android:weightSum="100">
 
         <Button
-            android:id="@+id/daily_report"
+            android:id="@+id/btn_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="#FFCCCC"
             android:gravity="left|center_vertical"
             android:padding="10dp"
-            android:text="활동 분석 및 추천 / daily_report" />
+            android:text="메인 화면" />
 
         <Button
-            android:id="@+id/daily_activity"
+        android:id="@+id/btn_daily_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#FFCCCC"
+        android:gravity="left|center_vertical"
+        android:padding="10dp"
+        android:text="날짜별 활동량" />
+
+        <Button
+            android:id="@+id/btn_dog_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/daily_report"
             android:layout_centerHorizontal="true"
             android:background="#98DFFF"
             android:gravity="left|center_vertical"
             android:padding="10dp"
-            android:text="활동 목표 달성 / daily_activity" />
+            android:text="강아지 정보" />
 
         <Button
-            android:id="@+id/daily_work_rate"
+            android:id="@+id/btn_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/daily_activity"
-            android:layout_centerHorizontal="true"
-            android:background="#FFF064"
-            android:gravity="left|center_vertical"
-            android:padding="10dp"
-            android:text="최근 활동량 / daily_work_rate" />
-
-        <Button
-            android:id="@+id/manager_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/daily_work_rate"
             android:layout_centerHorizontal="true"
             android:background="#99FF99"
             android:gravity="left|center_vertical"
             android:padding="10dp"
-            android:text="관리자 정보 / Manager Info" />
+            android:text="환경설정" />
 
     </LinearLayout>
 

@@ -7,13 +7,6 @@
         android:id="@+id/bluetooth"
         android:orderInCategory="100"
         android:icon="@drawable/settings"
-        android:title="블루투스"
+        android:title="데이터 받아오기"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/profile"
-        android:orderInCategory="100"
-        android:title="프로필 수정"/>
-
-
 </menu>

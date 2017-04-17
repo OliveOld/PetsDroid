@@ -21,8 +21,25 @@ public class PostureData extends RealmObject {
         this.data_id = data_id;
     }
 
+    public int getDataId() { return data_id; }
+    public void setDataId(int data_id) {
+        this.data_id = data_id;
+    }
+
     public String getDate() { return date; }
     public void setDate(String date) {
         this.date = date;
     }
+
+    public double getLieTime() { return lie_time; }
+    public void setLieTime(double lie_time) { this.stand_time = lie_time; }
+
+    public double getStandTime() { return stand_time; }
+    public void setStandTime(double stand_time) { this.stand_time = stand_time; }
+
+    public double getWalkTime() { return walk_time; }
+    public void setWalkTime(double walk_time) { this.walk_time = walk_time; }
+
+    public double getRunTime() { return run_time; }
+    public void setRunTime(double run_time) { this.run_time = run_time; }
 }

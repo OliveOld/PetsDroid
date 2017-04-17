@@ -1,9 +1,11 @@
 package org.olive.pets;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,10 +25,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
-    private Button dailyReport;
-    private Button dailyActivity;
-    private Button dailyWorkRate;
-    private Button managerInfo;
+    private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
 
     private ImageView ivdogImage;
     private TextView tvdogName;
@@ -39,31 +38,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 처음 실행의 경우 tutorial 페이지로 넘어가도록 함
-        Intent intent=new Intent(MainActivity.this,IntroActivity.class);
-        startActivity(intent);
+        // 튜토리얼 완료를 체크
+        SharedPreferences shPref = getSharedPreferences("MyPref", 0);
+        int tutorialFlag = shPref.getInt("Flag", 0);
 
-        dailyReport =(Button)findViewById(R.id.daily_report);
-        dailyReport.setOnClickListener(new View.OnClickListener(){
+        /*
+        if(tutorialFlag == 0) {    // 튜토리얼을 끝내지 못한 경우
+            Intent intent=new Intent(MainActivity.this,IntroActivity.class);
+            startActivity(intent);
+        }
+        */
+
+        //btn_main
+        btnMain=(Button)findViewById(R.id.btn_main);
+        btnMain.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,DailyReportActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        dailyActivity=(Button)findViewById(R.id.daily_activity);
-        dailyActivity.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, DailyActivityActivity.class);
+                Intent intent=new Intent(MainActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
-        dailyWorkRate=(Button)findViewById(R.id.daily_work_rate);
-        dailyWorkRate.setOnClickListener(new View.OnClickListener(){
+        //btn_daily_report
+        btnDailyReport=(Button)findViewById(R.id.btn_daily_report);
+        btnDailyReport.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -83,8 +81,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        managerInfo=(Button)findViewById(R.id.manager_info);
-        managerInfo.setOnClickListener(new View.OnClickListener(){
+        //btn_dog_info
+        btnDogInfo =(Button)findViewById(R.id.btn_dog_info);
+        btnDogInfo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,DogInfoActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        //btn_setting
+        btnSetting=(Button)findViewById(R.id.btn_setting);
+        btnSetting.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, ManagerInfoActivity.class);
@@ -92,34 +102,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        dogInfo=(ImageButton)findViewById(R.id.config);
-        dogInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DogInfoActivity.class);
-                startActivity(intent);
-            }
-        });
-        */
+        tvdogName =(TextView)findViewById(R.id.tv_my_dog_name);
+        tvdogInfo=(TextView)findViewById(R.id.tv_my_dog_info);
 
-        tvdogName =(TextView)findViewById(R.id.dog_name);
-        tvdogInfo=(TextView)findViewById(R.id.dog_info);
-
+        // 전 어플리케이션을 통틀어 Realm을 초기화
+        // Context.getFilesDir()에 "PetTrack.realm"란 이름으로 Realm 파일이 위치한다
         mRealm.init(this);
-
-
-        RealmConfiguration myConfig = new RealmConfiguration.Builder()
+        RealmConfiguration myConfig = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
                 .name("PetTrack.realm")
                 .build();
-        Realm mRealm = Realm.getInstance(myConfig);
+        mRealm = Realm.getInstance(myConfig);
 
         DogProfile myDog = mRealm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
 
-
         // Realm 객체 생성 => default값을 아래에 지정
-        //한번만 실행
         if(myDog==null) {
+            // 강아지 관련 DB없을 시 실행 > default 값 지정
             Toast.makeText(this, "강아지 프로필이 없습니다.", Toast.LENGTH_SHORT).show();
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
@@ -132,6 +132,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            /*
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    DogProfile myDog = realm.createObject(DogProfile.class, 2);
+                    myDog.setDogName("Tayeon");
+                    myDog.setDogAge(25);
+                    myDog.setDogSex("female");
+                    myDog.setDogPhoto("null");
+                }
+            });
+
+
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    DogProfile myDog = realm.createObject(DogProfile.class, 3);
+                    myDog.setDogName("Jerry");
+                    myDog.setDogAge(1);
+                    myDog.setDogSex("female");
+                    myDog.setDogPhoto("null");
+                }
+            });
+            */
+
             myDog = mRealm.where(DogProfile.class).equalTo("id", 1).findFirst();
 
             String dogName = myDog.getDogName();
@@ -142,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
         }
         else {
-
+            // 강아지 관련 DB있을 시
             String dogName = myDog.getDogName();
             int dogAge = myDog.getDogAge();
             String dogSex = myDog.getDogSex();
@@ -152,16 +177,15 @@ public class MainActivity extends AppCompatActivity {
             tvdogName.setText(dogName);
             tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
 
-
             File imgFile = new  File(dir);
 
             if(imgFile.exists()){
                 Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                ivdogImage = (ImageView)findViewById(R.id.dog_image);
+                ivdogImage = (ImageView)findViewById(R.id.iv_my_dog_image);
                 ivdogImage.setImageBitmap(myBitmap);
             }
-
         }
+        mRealm.close();
     }
 
     /* 옵션 메뉴 관련 메소드 시작 */
@@ -183,15 +207,18 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.bluetooth) {
-            Intent intent = new Intent(MainActivity.this, BluetoothTestActivity.class);
+            Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
             startActivity(intent);
             return true;
-        } else {
+
+        } /*else {
             //강아지 프로필 수정으로 이동
-            Intent intent = new Intent(MainActivity.this, DogInfoActivity.class);
+            Intent intent = new Intent(MainActivity.this, DogInfoEditActivity.class);
             startActivity(intent);
             return true;
         }
+        */
+        return true;
     }
 
 }

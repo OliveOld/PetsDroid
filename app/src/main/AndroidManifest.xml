@@ -18,11 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BluetoothTestActivity" />
+        <activity android:name=".BluetoothActivity" />
         <activity android:name=".DailyReportActivity" />
         <activity android:name=".DailyWorkRateActivity"/>
         <activity android:name=".DailyActivityActivity"/>
         <activity android:name=".ManagerInfoActivity"/>
+        <activity android:name=".DogInfoEditActivity"/>
         <activity android:name=".DogInfoActivity"/>
         <activity android:name=".chart.PieChartActivity"/>
         <activity android:name=".tutorial.IntroActivity"/>

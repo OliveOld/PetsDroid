@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_dog_image"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/dog"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="15dp"
+        android:paddingLeft="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_dog_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:text="dog_name"
+            android:textColor="#e49e9e"
+            android:textSize="30dp"
+            android:padding="10dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_dog_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:text="dog_info"
+            android:textColor="#FFCCCC"
+            android:padding="10dp"
+            android:textSize="20dp" />
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/cb_dog_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+</LinearLayout>
