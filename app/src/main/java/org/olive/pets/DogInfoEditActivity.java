@@ -148,10 +148,11 @@ public class DogInfoEditActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         id_view = v.getId();
         if(v.getId() == R.id.btn_submit_profile) {
+            // 프로필 저장
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    DogProfile myDog = realm.where(DogProfile.class).equalTo("id", 1).findFirst();
+                    DogProfile myDog = realm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
                     myDog.setDogName(et_DogName.getText().toString());
                     myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
                     myDog.setDogSex(et_DogSex.getText().toString());

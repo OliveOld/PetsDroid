@@ -8,18 +8,6 @@ import io.realm.Realm;
 
 public class DataHelper {
 
-    // Create 3 counters and insert them into random place of the list.
-    public static void randomAddItemAsync(Realm realm) {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                for (int i = 0; i < 3; i++) {
-                    DogProfile.create(realm, true);
-                }
-            }
-        });
-    }
-
     public static void addItemAsync(Realm realm) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override

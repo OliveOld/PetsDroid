@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <ImageView
         android:id="@+id/iv_dog_image"
         android:layout_width="116dp"
@@ -29,7 +30,7 @@
             android:layout_gravity="center_horizontal"
             android:text="dog_name"
             android:textColor="#e49e9e"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:padding="10dp"
             android:textStyle="bold" />
 
@@ -42,8 +43,14 @@
             android:text="dog_info"
             android:textColor="#FFCCCC"
             android:padding="10dp"
-            android:textSize="20dp" />
+            android:textSize="10dp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <CheckBox
         android:id="@+id/cb_dog_delete"
         android:layout_width="wrap_content"
@@ -51,4 +58,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"/>
 
+    <Button
+        android:id="@+id/btn_dog_edit"
+        android:text="E"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+    </LinearLayout>
 </LinearLayout>

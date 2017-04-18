@@ -7,16 +7,28 @@
         <item android:id="@+id/action_add"
             android:icon="@android:drawable/ic_menu_add"
             android:title="Add"
-            app:showAsAction="ifRoom"/>
+            app:showAsAction="never"/>
 
         <item android:id="@+id/action_start_delete_mode"
             android:icon="@android:drawable/ic_menu_delete"
             android:title="Delete"
-            app:showAsAction="ifRoom"/>
+            app:showAsAction="never"/>
 
-        <item android:id="@+id/action_random"
-            android:title="Add Random"
-            app:showAsAction="ifRoom|withText"/>
+        <item android:id="@+id/action_start_edit_mode"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Edit"
+            app:showAsAction="never"/>
+    </group>
+
+    <group android:id="@+id/group_edit_mode">
+        <item android:id="@+id/action_end_edit_mode"
+            android:icon="@android:drawable/ic_menu_save"
+            android:title="Edit"
+            app:showAsAction="always"/>
+        <item android:id="@+id/action_cancel_edit_mode"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:title="Edit"
+            app:showAsAction="always"/>
     </group>
 
     <group android:id="@+id/group_delete_mode">

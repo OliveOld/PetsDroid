@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.DB.PostureData;
 import org.olive.pets.chart.PieChartActivity;
 import org.olive.pets.tutorial.IntroActivity;
 
@@ -23,6 +24,7 @@ import java.io.File;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
@@ -107,20 +109,38 @@ public class MainActivity extends AppCompatActivity {
 
         // 전 어플리케이션을 통틀어 Realm을 초기화
         // Context.getFilesDir()에 "PetTrack.realm"란 이름으로 Realm 파일이 위치한다
+
+
+
+
+
         mRealm.init(this);
         RealmConfiguration myConfig = new RealmConfiguration
                 .Builder()
                 .deleteRealmIfMigrationNeeded()
+                .initialData(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.createObject(Parent.class);
+                    }})
                 .name("PetTrack.realm")
                 .build();
+
+       // mRealm.deleteRealm(myConfig); // Delete Realm between app restarts.
+        mRealm.setDefaultConfiguration(myConfig);
         mRealm = Realm.getInstance(myConfig);
 
-        DogProfile myDog = mRealm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
+        RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAll();
+        //DogProfile myDog = mRealm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
 
-        // Realm 객체 생성 => default값을 아래에 지정
-        if(myDog==null) {
+        // 아무 값도 없을 경우 Realm 객체 생성 => default값을 아래에 지정
+        if(puppies.size()==0) {
             // 강아지 관련 DB없을 시 실행 > default 값 지정
             Toast.makeText(this, "강아지 프로필이 없습니다.", Toast.LENGTH_SHORT).show();
+
+            //DogProfile dog1 = new DogProfile("Seobin", 26, "female", "null", null);
+
+
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -132,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            /*
+
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -155,37 +175,42 @@ public class MainActivity extends AppCompatActivity {
                     myDog.setDogPhoto("null");
                 }
             });
+
+
+            /*
+            DogProfile myDog = puppies.first();
+            String dogName = myDog.getDogName();
+            int dogAge = myDog.getDogAge();
+            String dogSex = myDog.getDogSex();
+
+            tvdogName.setText(dogName);
+            tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
             */
-
-            myDog = mRealm.where(DogProfile.class).equalTo("id", 1).findFirst();
-
-            String dogName = myDog.getDogName();
-            int dogAge = myDog.getDogAge();
-            String dogSex = myDog.getDogSex();
-
-            tvdogName.setText(dogName);
-            tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
         }
-        else {
-            // 강아지 관련 DB있을 시
-            String dogName = myDog.getDogName();
-            int dogAge = myDog.getDogAge();
-            String dogSex = myDog.getDogSex();
-            String dir = myDog.getDogPhoto();
+        // 다시 검색할거임
+        puppies = mRealm.where(DogProfile.class).findAll();
+        DogProfile myDog = puppies.first();
+        Toast.makeText(this, myDog.getDogId()+":id", Toast.LENGTH_SHORT).show();
 
-            // 사진 설정
-            tvdogName.setText(dogName);
-            tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
+        // 강아지 관련 DB있을 시
+        String dogName = myDog.getDogName();
+        int dogAge = myDog.getDogAge();
+        String dogSex = myDog.getDogSex();
+        String dir = myDog.getDogPhoto();
 
-            File imgFile = new  File(dir);
+        // 사진 설정
+        tvdogName.setText(dogName);
+        tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
 
-            if(imgFile.exists()){
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                ivdogImage = (ImageView)findViewById(R.id.iv_my_dog_image);
-                ivdogImage.setImageBitmap(myBitmap);
-            }
+        File imgFile = new  File(dir);
+
+        if(imgFile.exists()){
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            ivdogImage = (ImageView)findViewById(R.id.iv_my_dog_image);
+            ivdogImage.setImageBitmap(myBitmap);
         }
-        mRealm.close();
+
+        //mRealm.close();
     }
 
     /* 옵션 메뉴 관련 메소드 시작 */
