@@ -1,4 +1,4 @@
-package org.olive.pets;
+package org.olive.pets.Profile;
 
 import org.olive.pets.DB.DogProfile;
 

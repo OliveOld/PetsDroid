@@ -90,7 +90,7 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         // mChart.setDrawUnitsInChart(true);
 
         // add a selection listener
-        mChart.setOnChartValueSelectedListener((OnChartValueSelectedListener) this);
+        mChart.setOnChartValueSelectedListener(this);
 
 
 

@@ -20,9 +20,8 @@ public class Q1yes1Activity extends AppCompatActivity {
         next1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Q1yes1Activity.this,Q1yes2Activity.class);
+                Intent intent=new Intent(Q1yes1Activity.this,DogInfoEnterActivity.class);
                 startActivity(intent);
-
             }
     });
 }

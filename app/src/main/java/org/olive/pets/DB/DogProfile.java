@@ -1,6 +1,6 @@
 package org.olive.pets.DB;
 
-import org.olive.pets.Parent;
+import org.olive.pets.Profile.DogInfoEditActivity;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -74,7 +74,7 @@ public class DogProfile extends RealmObject {
         create(realm, false);
     }
 
-    public static void create(Realm realm, boolean randomlyInsert) {
+    static void create(Realm realm, boolean randomlyInsert) {
         Parent parent = realm.where(Parent.class).findFirst();
         RealmList<DogProfile> dogprofiles = parent.getdogProfileList();
         DogProfile dogprofile = realm.createObject(DogProfile.class, increment());

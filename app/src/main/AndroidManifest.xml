@@ -23,13 +23,13 @@
         <activity android:name=".DailyWorkRateActivity"/>
         <activity android:name=".DailyActivityActivity"/>
         <activity android:name=".ManagerInfoActivity"/>
-        <activity android:name=".DogInfoEditActivity"/>
-        <activity android:name=".DogInfoActivity"/>
+        <activity android:name=".Profile.DogInfoEditActivity"/>
+        <activity android:name=".tutorial.DogInfoEnterActivity"/>
+        <activity android:name=".Profile.DogInfoActivity"/>
         <activity android:name=".chart.PieChartActivity"/>
         <activity android:name=".tutorial.IntroActivity"/>
         <activity android:name=".tutorial.Q1Activity"/>
         <activity android:name=".tutorial.Q1yes1Activity"/>
-        <activity android:name=".tutorial.Q1yes2Activity"/>
         <activity android:name=".tutorial.Q1yes3Activity"/>
         <activity android:name=".tutorial.Q1no1Activity"/>
     </application>

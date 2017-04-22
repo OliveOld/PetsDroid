@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
-import org.olive.pets.DB.PostureData;
+import org.olive.pets.DB.Parent;
+import org.olive.pets.Profile.DogInfoActivity;
+import org.olive.pets.Profile.DogInfoEditActivity;
 import org.olive.pets.chart.PieChartActivity;
 import org.olive.pets.tutorial.IntroActivity;
 
@@ -40,179 +42,157 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 튜토리얼 완료를 체크
         SharedPreferences shPref = getSharedPreferences("MyPref", 0);
+        // 튜토리얼 완료를 체크
         int tutorialFlag = shPref.getInt("Flag", 0);
+        int firstFlag = shPref.getInt("firstFlag", 0);
 
-        /*
-        if(tutorialFlag == 0) {    // 튜토리얼을 끝내지 못한 경우
+        if(tutorialFlag == 0) {
+            // 튜토리얼 실행 전
+            setContentView(R.layout.activity_main);
+            Realm.init(this);
+            RealmConfiguration myConfig = new RealmConfiguration
+                    .Builder()
+                    .deleteRealmIfMigrationNeeded()
+                    .initialData(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.createObject(Parent.class);
+                        }
+                    })
+                    .name("PetTrack.realm")
+                    .build();
+            Realm.setDefaultConfiguration(myConfig);
+            mRealm = Realm.getInstance(myConfig);
+
             Intent intent=new Intent(MainActivity.this,IntroActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        }
-        */
 
-        //btn_main
-        btnMain=(Button)findViewById(R.id.btn_main);
-        btnMain.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
+        }else {
+            // 튜토리얼 끝났을 경우
+            // 앱의 첫번째 실행일 경우
+            if(firstFlag==0 )
+            {
+                mRealm = Realm.getDefaultInstance();
+                firstFlag = 1;   // 첫번째 실행이 아님
+                SharedPreferences.Editor prefEditor = shPref.edit();
+                prefEditor.putInt("firstFlag", firstFlag);
+                prefEditor.commit();
+            } else {
+                // Realm 설정
+                Realm.init(this);
+                RealmConfiguration myConfig = new RealmConfiguration
+                        .Builder()
+                        .deleteRealmIfMigrationNeeded()
+                        .initialData(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                realm.createObject(Parent.class);
+                            }
+                        })
+                        .name("PetTrack.realm")
+                        .build();
+                Realm.setDefaultConfiguration(myConfig);
+                mRealm = Realm.getInstance(myConfig);
             }
-        });
-
-        //btn_daily_report
-        btnDailyReport=(Button)findViewById(R.id.btn_daily_report);
-        btnDailyReport.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-                try {
-                    Intent i = new Intent(MainActivity.this, PieChartActivity.class);
-                    startActivity(i);
-                    Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
-                catch (Exception e) {
-                    Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
-            }
-        });
-
-        //btn_dog_info
-        btnDogInfo =(Button)findViewById(R.id.btn_dog_info);
-        btnDogInfo.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,DogInfoActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        //btn_setting
-        btnSetting=(Button)findViewById(R.id.btn_setting);
-        btnSetting.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, ManagerInfoActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        tvdogName =(TextView)findViewById(R.id.tv_my_dog_name);
-        tvdogInfo=(TextView)findViewById(R.id.tv_my_dog_info);
-
-        // 전 어플리케이션을 통틀어 Realm을 초기화
-        // Context.getFilesDir()에 "PetTrack.realm"란 이름으로 Realm 파일이 위치한다
-
-
-
-
-
-        mRealm.init(this);
-        RealmConfiguration myConfig = new RealmConfiguration
-                .Builder()
-                .deleteRealmIfMigrationNeeded()
-                .initialData(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        realm.createObject(Parent.class);
-                    }})
-                .name("PetTrack.realm")
-                .build();
-
-       // mRealm.deleteRealm(myConfig); // Delete Realm between app restarts.
-        mRealm.setDefaultConfiguration(myConfig);
-        mRealm = Realm.getInstance(myConfig);
-
-        RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAll();
-        //DogProfile myDog = mRealm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
-
-        // 아무 값도 없을 경우 Realm 객체 생성 => default값을 아래에 지정
-        if(puppies.size()==0) {
-            // 강아지 관련 DB없을 시 실행 > default 값 지정
-            Toast.makeText(this, "강아지 프로필이 없습니다.", Toast.LENGTH_SHORT).show();
-
-            //DogProfile dog1 = new DogProfile("Seobin", 26, "female", "null", null);
-
-
-            mRealm.executeTransaction(new Realm.Transaction() {
+            //btn_main
+            btnMain = (Button) findViewById(R.id.btn_main);
+            btnMain.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void execute(Realm realm) {
-                    DogProfile myDog = realm.createObject(DogProfile.class, 1);
-                    myDog.setDogName("Seobin");
-                    myDog.setDogAge(26);
-                    myDog.setDogSex("female");
-                    myDog.setDogPhoto("null");
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             });
 
+            //btn_daily_report
+            btnDailyReport = (Button) findViewById(R.id.btn_daily_report);
+            btnDailyReport.setOnClickListener(new View.OnClickListener() {
 
-            mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
-                    DogProfile myDog = realm.createObject(DogProfile.class, 2);
-                    myDog.setDogName("Tayeon");
-                    myDog.setDogAge(25);
-                    myDog.setDogSex("female");
-                    myDog.setDogPhoto("null");
+                public void onClick(View v) {
+
+                    try {
+                        Intent i = new Intent(MainActivity.this, PieChartActivity.class);
+                        startActivity(i);
+                        Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } catch (Exception e) {
+                        Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
                 }
             });
 
-
-            mRealm.executeTransaction(new Realm.Transaction() {
+            //btn_dog_info
+            btnDogInfo = (Button) findViewById(R.id.btn_dog_info);
+            btnDogInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void execute(Realm realm) {
-                    DogProfile myDog = realm.createObject(DogProfile.class, 3);
-                    myDog.setDogName("Jerry");
-                    myDog.setDogAge(1);
-                    myDog.setDogSex("female");
-                    myDog.setDogPhoto("null");
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, DogInfoActivity.class);
+                    startActivity(intent);
+
                 }
             });
 
+            //btn_setting
+            btnSetting = (Button) findViewById(R.id.btn_setting);
+            btnSetting.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, ManagerInfoActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-            /*
-            DogProfile myDog = puppies.first();
-            String dogName = myDog.getDogName();
-            int dogAge = myDog.getDogAge();
-            String dogSex = myDog.getDogSex();
+            tvdogName = (TextView) findViewById(R.id.tv_my_dog_name);
+            tvdogInfo = (TextView) findViewById(R.id.tv_my_dog_info);
 
-            tvdogName.setText(dogName);
-            tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
-            */
+            RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAll();
+
+            if (puppies.size() == 0) {
+                // 강아지 관련 DB없을 시 실행 > default 값 지정
+                Toast.makeText(this, "강아지 프로필이 없습니다.", Toast.LENGTH_SHORT).show();
+
+                tvdogName.setText("프로필 없음");
+                tvdogInfo.setText("null");
+            } else {
+                // 강아지 관련 DB 있을 경우
+                puppies = mRealm.where(DogProfile.class).findAll();
+                //첫번째로등록 된 놈 보이기
+                DogProfile myDog = puppies.first();
+                Toast.makeText(this, myDog.getDogId() + ":id", Toast.LENGTH_SHORT).show();
+
+                String dogName = myDog.getDogName();
+                int dogAge = myDog.getDogAge();
+                String dogSex = myDog.getDogSex();
+                String dir = myDog.getDogPhoto();
+
+                // 사진 설정
+                tvdogName.setText(dogName);
+                tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
+
+                File imgFile = null;
+                if (dir != null)
+                    imgFile = new File(dir);
+
+                if (imgFile.exists()) {
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    ivdogImage = (ImageView) findViewById(R.id.iv_my_dog_image);
+                    ivdogImage.setImageBitmap(myBitmap);
+                }
+            }
         }
-        // 다시 검색할거임
-        puppies = mRealm.where(DogProfile.class).findAll();
-        DogProfile myDog = puppies.first();
-        Toast.makeText(this, myDog.getDogId()+":id", Toast.LENGTH_SHORT).show();
-
-        // 강아지 관련 DB있을 시
-        String dogName = myDog.getDogName();
-        int dogAge = myDog.getDogAge();
-        String dogSex = myDog.getDogSex();
-        String dir = myDog.getDogPhoto();
-
-        // 사진 설정
-        tvdogName.setText(dogName);
-        tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
-
-        File imgFile = new  File(dir);
-
-        if(imgFile.exists()){
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            ivdogImage = (ImageView)findViewById(R.id.iv_my_dog_image);
-            ivdogImage.setImageBitmap(myBitmap);
-        }
-
-        //mRealm.close();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+    }
     /* 옵션 메뉴 관련 메소드 시작 */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -236,13 +216,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
 
-        } /*else {
-            //강아지 프로필 수정으로 이동
-            Intent intent = new Intent(MainActivity.this, DogInfoEditActivity.class);
-            startActivity(intent);
-            return true;
         }
-        */
+
         return true;
     }
 

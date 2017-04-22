@@ -1,4 +1,4 @@
-package org.olive.pets;
+package org.olive.pets.tutorial;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,16 +17,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.MainActivity;
+import org.olive.pets.R;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
 import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
 import static java.lang.Integer.parseInt;
 
-public class DogInfoEditActivity extends Activity implements View.OnClickListener{
+public class DogInfoEnterActivity extends Activity implements View.OnClickListener{
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
@@ -44,12 +48,12 @@ public class DogInfoEditActivity extends Activity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dog_edit_info);
+        setContentView(R.layout.activity_dog_enter_info);
 
         iv_DogPhoto = (ImageView) this.findViewById(R.id.dog_image_modify);
         Button btn_agreeSubmit = (Button) this.findViewById(R.id.btn_submit_profile);
 
-        btn_agreeSubmit.setOnClickListener(this);
+        //btn_agreeSubmit.setOnClickListener(this);
 
         // EditText를 한줄만 입력 가능하도록 설정
         et_DogName = (EditText) this.findViewById(R.id.dog_name);
@@ -152,18 +156,22 @@ public class DogInfoEditActivity extends Activity implements View.OnClickListene
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    DogProfile myDog = realm.where(DogProfile.class).equalTo("dog_id", 1).findFirst();
-                    myDog.setDogName(et_DogName.getText().toString());
-                    myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
-                    myDog.setDogSex(et_DogSex.getText().toString());
-                    myDog.setDogPhoto(absolutePath);
+                    DogProfile myDog = realm.createObject(DogProfile.class, 1);
+                    myDog.setDogName("서빈");
+                    myDog.setDogAge(23);
+                    myDog.setDogSex("ㅇㅇ");
+                    myDog.setDogPhoto("null");
+//                    myDog.setDogName(et_DogName.getText().toString());
+ //                   myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
+  //                  myDog.setDogSex(et_DogSex.getText().toString());
+  //                  myDog.setDogPhoto(absolutePath);
                 }
             });
             mRealm.close();
 
-            Intent mainIntent = new Intent(DogInfoEditActivity.this, MainActivity.class);
-            DogInfoEditActivity.this.startActivity(mainIntent);
-            DogInfoEditActivity.this.finish();
+            Intent intent=new Intent(this,Q1yes3Activity.class);
+            startActivity(intent);
+            this.finish();
 
             Toast.makeText(this, "강아지 프로필이 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }else if(v.getId() == R.id.btn_UploadDogPic) {
@@ -223,6 +231,4 @@ public class DogInfoEditActivity extends Activity implements View.OnClickListene
             e.printStackTrace();
         }
     }
-
-
 }

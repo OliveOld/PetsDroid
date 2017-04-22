@@ -1,5 +1,7 @@
-package org.olive.pets;
+package org.olive.pets.Profile;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -13,6 +15,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.Profile.DogInfoEditActivity;
+import org.olive.pets.R;
 
 import java.io.File;
 import java.util.HashSet;
@@ -35,15 +39,19 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
         Button btnDogEdit;
     }
 
+    // 상위 클래스의 컨텍스트 받아오기
+    Context m_Context;
+
     // 지우기 모드 : default = false
     private boolean inDeletionMode = false;
     private Set<Integer> countersToDelete = new HashSet<Integer>();
 
     // 수정 모드: default=false
-    private boolean inEditionMode = false;
+    private boolean inEditionMode = true;
 
-    MyListAdapter(OrderedRealmCollection<DogProfile> realmResults) {
+    MyListAdapter(OrderedRealmCollection<DogProfile> realmResults, Context ctx) {
         super(realmResults);
+        m_Context=ctx;
     }
 
     void enableDeletionMode(boolean enabled) {
@@ -103,6 +111,19 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
                 });
             } else {
                 viewHolder.cbDogDelete.setOnCheckedChangeListener(null);
+            }
+
+            // 수정모드일 시 -> 버튼 클릭 -> 수정 페이지로 이동
+            if (inEditionMode) {
+                viewHolder.btnDogEdit.setOnClickListener(new View.OnClickListener(){
+
+                   @Override
+                   public void onClick(View v) {
+                       Intent intent = new Intent(m_Context, DogInfoEditActivity.class);
+                       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                       m_Context.startActivity(intent);
+                   }
+                });
             }
 
             viewHolder.cbDogDelete.setChecked(countersToDelete.contains(item.getDogId()));

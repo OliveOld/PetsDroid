@@ -1,5 +1,6 @@
-package org.olive.pets;
+package org.olive.pets.Profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,12 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.R;
+import org.olive.pets.tutorial.DogInfoEnterActivity;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 /**
@@ -34,20 +35,14 @@ public class DogInfoActivity extends AppCompatActivity {
         //Realm 사용을 알림
         mRealm = Realm.getDefaultInstance();
 
-        // RealmResults are "live" views, that are automatically kept up to date, even when changes happen
-        // on a background thread. The RealmBaseAdapter will automatically keep track of changes and will
-        // automatically refresh when a change is detected.
-        //RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAllSorted(DogProfile.DOG_ID);
-
         RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAll();
 
-        adapter = new MyListAdapter(puppies);
+        adapter = new MyListAdapter(puppies, this);
 
         // 어댑터를 연결
         listView = (ListView) findViewById(R.id.lv_dog_info);
         listView.setAdapter(adapter);
         //adapter.getView(1, null, listView);
-
 
         // 아이템들 클릭 리스너 - 롱 클릭: 삭제
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -93,8 +88,9 @@ public class DogInfoActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_add:
-                // 강아지 프로필 추가
-                DataHelper.addItemAsync(mRealm);
+                Intent intent = new Intent(this, DogInfoEnterActivity.class);
+                startActivity(intent);
+                //DataHelper.addItemAsync(mRealm);
                 return true;
             case R.id.action_start_edit_mode:
                 adapter.enableEditionMode(true);
@@ -103,9 +99,7 @@ public class DogInfoActivity extends AppCompatActivity {
                 menu.setGroupVisible(R.id.group_delete_mode, false);
                 return true;
             case R.id.action_end_edit_mode:
-                // 강아지 프로필 수정
                 //DogInfoEditActivity로..
-
                 return true;
             case R.id.action_cancel_edit_mode:
                 adapter.enableEditionMode(false);
