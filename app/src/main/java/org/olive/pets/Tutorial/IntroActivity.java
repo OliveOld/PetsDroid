@@ -1,4 +1,4 @@
-package org.olive.pets.tutorial;
+package org.olive.pets.Tutorial;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -31,7 +31,7 @@
             android:text="dog_name"
             android:textColor="#e49e9e"
             android:textSize="20dp"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textStyle="bold" />
 
         <TextView
@@ -48,23 +48,22 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <CheckBox
         android:id="@+id/cb_dog_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_gravity="end"/>
 
     <Button
         android:id="@+id/btn_dog_edit"
-        android:text="E"
-        android:layout_width="50dp"
+        android:text="Edit"
+        android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_gravity="end"/>
 
     </LinearLayout>
 </LinearLayout>

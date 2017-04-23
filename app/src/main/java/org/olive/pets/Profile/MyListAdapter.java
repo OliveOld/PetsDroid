@@ -13,9 +13,9 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
-import org.olive.pets.Profile.DogInfoEditActivity;
 import org.olive.pets.R;
 
 import java.io.File;
@@ -51,6 +51,7 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
 
     MyListAdapter(OrderedRealmCollection<DogProfile> realmResults, Context ctx) {
         super(realmResults);
+        // 해당 어댑터 호출하는 activity의 context 얻어옴
         m_Context=ctx;
     }
 
@@ -119,8 +120,12 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
 
                    @Override
                    public void onClick(View v) {
-                       Intent intent = new Intent(m_Context, DogInfoEditActivity.class);
-                       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                       // activity 이동 시 해당 아이템의 id를 넘겨주어야 한다.\
+
+                       Intent intent = new Intent(m_Context, DogProfileEditActivity.class);
+                       //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                       intent.putExtra("DOG_ID", item.getDogId());
+                       Toast toast = Toast.makeText(m_Context, "넘겨줄 id:"+item.getDogId(), Toast.LENGTH_SHORT);
                        m_Context.startActivity(intent);
                    }
                 });

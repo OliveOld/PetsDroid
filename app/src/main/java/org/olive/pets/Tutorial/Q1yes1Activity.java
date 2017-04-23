@@ -1,4 +1,4 @@
-package org.olive.pets.tutorial;
+package org.olive.pets.Tutorial;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ public class Q1yes1Activity extends AppCompatActivity {
         next1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Q1yes1Activity.this,DogInfoEnterActivity.class);
+                Intent intent=new Intent(Q1yes1Activity.this,InitDogProfileActivity.class);
                 startActivity(intent);
             }
     });

@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="강아지 프로필 수정"
+            android:text="강아지 프로필 등록"
             android:layout_marginTop="20dp"
             android:textSize="30sp"
             android:textColor="@color/colorPrimary"
@@ -26,24 +26,23 @@
             android:layout_gravity="center"
             android:layout_marginTop="20sp">
             <ImageView
-                android:id="@+id/dog_image_modify_e"
+                android:id="@+id/dog_image_modify_i"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:maxHeight="200dp"
                 android:maxWidth="200dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/dog"
-                android:onClick="onClick"/>
+                android:src="@drawable/dog"/>
             <Button
-                android:id="@+id/btn_UploadDogPic_e"
+                android:id="@+id/btn_UploadDogPic_i"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:background="@color/colorPrimary"
                 android:text="사진 선택"
-                android:onClick="onClick"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:onClick="onClick"/>
         </LinearLayout>
 
         <LinearLayout
@@ -61,7 +60,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/dog_name_e"
+                android:id="@+id/dog_name_i"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,7 +69,7 @@
                 android:hint="강아지 이름"/>
 
             <EditText
-                android:id="@+id/dog_age_e"
+                android:id="@+id/dog_age_i"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
@@ -80,7 +79,7 @@
                 android:hint="강아지 나이"/>
 
             <EditText
-                android:id="@+id/dog_sex_e"
+                android:id="@+id/dog_sex_i"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -90,12 +89,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_submit_profile_e"
+            android:id="@+id/btn_submit_profile_i"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:text="강아지 프로필 수정"
+            android:text="강아지 프로필 등록"
             android:onClick="onClick"/>
     </LinearLayout>
 

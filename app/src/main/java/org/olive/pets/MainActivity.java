@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +16,9 @@ import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
-import org.olive.pets.Profile.DogInfoActivity;
-import org.olive.pets.Profile.DogInfoEditActivity;
-import org.olive.pets.chart.PieChartActivity;
-import org.olive.pets.tutorial.IntroActivity;
+import org.olive.pets.Profile.DogProfileListActivity;
+import org.olive.pets.PieChart.PieChartActivity;
+import org.olive.pets.Tutorial.IntroActivity;
 
 import java.io.File;
 
@@ -43,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences shPref = getSharedPreferences("MyPref", 0);
-        // 튜토리얼 완료를 체크
-        int tutorialFlag = shPref.getInt("Flag", 0);
-        int firstFlag = shPref.getInt("firstFlag", 0);
+
+        int tutorialFlag = shPref.getInt("Flag", 0);        // 튜토리얼 완료를 체크
+        int firstFlag = shPref.getInt("firstFlag", 0);      // 처음 실행을 체크
+        int dogIdFlag = shPref.getInt("dogId", 1);          // 현재 선택된 강아지를 체크
 
         if(tutorialFlag == 0) {
             // 튜토리얼 실행 전
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             mRealm = Realm.getInstance(myConfig);
 
             Intent intent=new Intent(MainActivity.this,IntroActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
 
         }else {
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 prefEditor.putInt("firstFlag", firstFlag);
                 prefEditor.commit();
             } else {
+                // 앱의 첫번째 실행이 아님
                 // Realm 설정
                 Realm.init(this);
                 RealmConfiguration myConfig = new RealmConfiguration
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             btnDogInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, DogInfoActivity.class);
+                    Intent intent = new Intent(MainActivity.this, DogProfileListActivity.class);
                     startActivity(intent);
 
                 }

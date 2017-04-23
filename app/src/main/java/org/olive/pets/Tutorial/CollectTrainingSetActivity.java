@@ -1,4 +1,4 @@
-package org.olive.pets.tutorial;
+package org.olive.pets.Tutorial;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +10,7 @@ import android.widget.Button;
 import org.olive.pets.MainActivity;
 import org.olive.pets.R;
 
-public class Q1yes3Activity  extends AppCompatActivity {
+public class CollectTrainingSetActivity extends AppCompatActivity {
     private Button btnSubmit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class Q1yes3Activity  extends AppCompatActivity {
                 //튜토리얼 끝내고
                 endTutorial();
                 // 액티비티 전환
-                Intent intent=new Intent(Q1yes3Activity.this, MainActivity.class);
+                Intent intent=new Intent(CollectTrainingSetActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

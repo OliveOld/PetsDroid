@@ -1,4 +1,4 @@
-package org.olive.pets.chart;
+package org.olive.pets.PieChart;
 
 import io.realm.RealmObject;
 

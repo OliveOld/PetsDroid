@@ -1,5 +1,5 @@
 
-package org.olive.pets.chart;
+package org.olive.pets.PieChart;
 
 import android.graphics.Typeface;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package org.olive.pets.tutorial;
+package org.olive.pets.Tutorial;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,13 +11,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
-import org.olive.pets.MainActivity;
 import org.olive.pets.R;
 
 import java.io.BufferedOutputStream;
@@ -25,12 +23,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmObject;
 
 import static java.lang.Integer.parseInt;
 
-public class DogInfoEnterActivity extends Activity implements View.OnClickListener{
+public class InitDogProfileActivity extends Activity implements View.OnClickListener{
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
@@ -48,17 +44,14 @@ public class DogInfoEnterActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dog_enter_info);
+        setContentView(R.layout.activity_dog_init_info);
 
-        iv_DogPhoto = (ImageView) this.findViewById(R.id.dog_image_modify);
-        Button btn_agreeSubmit = (Button) this.findViewById(R.id.btn_submit_profile);
-
-        //btn_agreeSubmit.setOnClickListener(this);
+        iv_DogPhoto = (ImageView) this.findViewById(R.id.dog_image_modify_i);
 
         // EditText를 한줄만 입력 가능하도록 설정
-        et_DogName = (EditText) this.findViewById(R.id.dog_name);
-        et_DogAge = (EditText) this.findViewById(R.id.dog_age);
-        et_DogSex = (EditText) this.findViewById(R.id.dog_sex);
+        et_DogName = (EditText) this.findViewById(R.id.dog_name_i);
+        et_DogAge = (EditText) this.findViewById(R.id.dog_age_i);
+        et_DogSex = (EditText) this.findViewById(R.id.dog_sex_i);
         et_DogName.setSingleLine(true);
         et_DogSex.setSingleLine(true);
 
@@ -151,30 +144,26 @@ public class DogInfoEnterActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         id_view = v.getId();
-        if(v.getId() == R.id.btn_submit_profile) {
+        if(v.getId() == R.id.btn_submit_profile_i) {
             // 프로필 저장
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     DogProfile myDog = realm.createObject(DogProfile.class, 1);
-                    myDog.setDogName("서빈");
-                    myDog.setDogAge(23);
-                    myDog.setDogSex("ㅇㅇ");
-                    myDog.setDogPhoto("null");
-//                    myDog.setDogName(et_DogName.getText().toString());
- //                   myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
-  //                  myDog.setDogSex(et_DogSex.getText().toString());
-  //                  myDog.setDogPhoto(absolutePath);
+                    myDog.setDogName(et_DogName.getText().toString());
+                    myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
+                    myDog.setDogSex(et_DogSex.getText().toString());
+                    myDog.setDogPhoto(absolutePath);
                 }
             });
             mRealm.close();
 
-            Intent intent=new Intent(this,Q1yes3Activity.class);
+            Intent intent=new Intent(this,CollectTrainingSetActivity.class);
             startActivity(intent);
             this.finish();
 
             Toast.makeText(this, "강아지 프로필이 저장되었습니다.", Toast.LENGTH_SHORT).show();
-        }else if(v.getId() == R.id.btn_UploadDogPic) {
+        }else if(v.getId() == R.id.btn_UploadDogPic_i) {
             DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

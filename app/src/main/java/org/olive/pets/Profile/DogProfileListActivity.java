@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.R;
-import org.olive.pets.tutorial.DogInfoEnterActivity;
+import org.olive.pets.Tutorial.InitDogProfileActivity;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -21,7 +21,7 @@ import io.realm.RealmResults;
  */
 
 // 등록된 강아지의 리스트 출력해줌
-public class DogInfoActivity extends AppCompatActivity {
+public class DogProfileListActivity extends AppCompatActivity {
     private Realm mRealm;
     private MyListAdapter adapter;
     private Menu menu;
@@ -88,7 +88,7 @@ public class DogInfoActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_add:
-                Intent intent = new Intent(this, DogInfoEnterActivity.class);
+                Intent intent = new Intent(this, DogProfileAddActivity.class);
                 startActivity(intent);
                 //DataHelper.addItemAsync(mRealm);
                 return true;

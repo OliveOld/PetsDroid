@@ -2,7 +2,7 @@
 
 // layout.list_item_piechart
 
-package org.olive.pets.chart;
+package org.olive.pets.PieChart;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -1,7 +1,5 @@
 package org.olive.pets.DB;
 
-import org.olive.pets.Profile.DogInfoEditActivity;
-
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
