@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.DB.Parent;
 import org.olive.pets.R;
 
 import java.io.BufferedOutputStream;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 import static java.lang.Integer.parseInt;
 
@@ -38,7 +40,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
     private EditText et_DogSex;
     private int id_view;
     private String absolutePath;
-
+    String dir;
     private Realm mRealm;
 
     @Override
@@ -55,7 +57,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
         et_DogName.setSingleLine(true);
         et_DogSex.setSingleLine(true);
 
-        // 만들어진 Realm 설정 사용..
+        //만들어진 Realm 설정 사용..
         mRealm = Realm.getDefaultInstance();
     }
 
@@ -120,7 +122,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
                 // 크롭된 이미지의 저장 경로
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/PetsAndroid/" + System.currentTimeMillis() + ".jpg";
-
+                absolutePath="null";
                 if (extras != null) {
                     // 크롭된 이미지를 비트맵 photo로 저장
                     Bitmap photo = extras.getParcelable("data");

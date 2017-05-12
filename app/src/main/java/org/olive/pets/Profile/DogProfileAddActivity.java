@@ -45,6 +45,7 @@ public class DogProfileAddActivity extends Activity implements View.OnClickListe
     private EditText et_DogSex;
     private int id_view;
     private String absolutePath;
+    String dir;
 
     private Realm mRealm;
 
@@ -128,6 +129,7 @@ public class DogProfileAddActivity extends Activity implements View.OnClickListe
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/PetsAndroid/" + System.currentTimeMillis() + ".jpg";
 
+                absolutePath="null";
                 if (extras != null) {
                     // 크롭된 이미지를 비트맵 photo로 저장
                     Bitmap photo = extras.getParcelable("data");

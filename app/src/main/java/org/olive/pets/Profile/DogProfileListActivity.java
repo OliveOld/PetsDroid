@@ -7,9 +7,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.DailyReportActivity;
+import org.olive.pets.MainActivity;
+import org.olive.pets.ManagerInfoActivity;
 import org.olive.pets.R;
 import org.olive.pets.Tutorial.InitDogProfileActivity;
 
@@ -22,6 +27,8 @@ import io.realm.RealmResults;
 
 // 등록된 강아지의 리스트 출력해줌
 public class DogProfileListActivity extends AppCompatActivity {
+    private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
+
     private Realm mRealm;
     private MyListAdapter adapter;
     private Menu menu;
@@ -63,6 +70,62 @@ public class DogProfileListActivity extends AppCompatActivity {
                     }
                 });
                 return true;
+            }
+        });
+
+        //btn_main
+        btnMain = (Button) findViewById(R.id.btn_main_di);
+        btnMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(DogProfileListActivity.this, MainActivity.class);
+                Toast toast = Toast.makeText(DogProfileListActivity.this, "액티비티 넘어간다", Toast.LENGTH_SHORT);
+                toast.show();
+               // startActivity(intent);
+                finish();
+            }
+        });
+
+        //btn_daily_report
+        btnDailyReport = (Button) findViewById(R.id.btn_daily_report_di);
+        btnDailyReport.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    Intent i = new Intent(DogProfileListActivity.this, DailyReportActivity.class);
+                    startActivity(i);
+                    finish();
+                    // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
+                    // toast.show();
+                } catch (Exception e) {
+                    Toast toast = Toast.makeText(DogProfileListActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+            }
+        });
+
+        //btn_dog_info
+        btnDogInfo = (Button) findViewById(R.id.btn_dog_info_di);
+        btnDogInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DogProfileListActivity.this, DogProfileListActivity.class);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+
+        //btn_setting
+        btnSetting = (Button) findViewById(R.id.btn_setting_di);
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DogProfileListActivity.this, ManagerInfoActivity.class);
+                startActivity(intent);
             }
         });
     }

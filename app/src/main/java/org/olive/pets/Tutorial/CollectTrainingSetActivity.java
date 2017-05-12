@@ -26,6 +26,7 @@ public class CollectTrainingSetActivity extends AppCompatActivity {
                 endTutorial();
                 // 액티비티 전환
                 Intent intent=new Intent(CollectTrainingSetActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });

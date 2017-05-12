@@ -155,6 +155,7 @@ public class DogProfileEditActivity extends Activity implements View.OnClickList
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/PetsAndroid/" + System.currentTimeMillis() + ".jpg";
 
+                absolutePath="null";
                 if (extras != null) {
                     // 크롭된 이미지를 비트맵 photo로 저장
                     Bitmap photo = extras.getParcelable("data");
@@ -188,6 +189,7 @@ public class DogProfileEditActivity extends Activity implements View.OnClickList
                     myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
                     myDog.setDogSex(et_DogSex.getText().toString());
                     if(absolutePath==null)
+                        //원래 있던 사진으로 설정
                         myDog.setDogPhoto(dir);
                     else
                         myDog.setDogPhoto(absolutePath);
@@ -195,8 +197,8 @@ public class DogProfileEditActivity extends Activity implements View.OnClickList
             });
             mRealm.close();
 
-            //Intent mainIntent = new Intent(DogProfileEditActivity.this, MainActivity.class);
-            //DogProfileEditActivity.this.startActivity(mainIntent);
+           // Intent mainIntent = new Intent(DogProfileEditActivity.this, MainActivity.class);
+           // DogProfileEditActivity.this.startActivity(mainIntent);
             DogProfileEditActivity.this.finish();
 
             Toast.makeText(this, "강아지 프로필이 저장되었습니다.", Toast.LENGTH_SHORT).show();
