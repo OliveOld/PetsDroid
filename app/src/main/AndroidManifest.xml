@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BluetoothActivity" />
+        <activity android:name=".BLE.BeanActivity" />
+        <activity android:name=".tmp.BluetoothActivity" />
         <activity android:name=".DailyReportActivity" />
         <activity android:name=".SettingActivity"/>
         <activity android:name=".Profile.DogProfileListActivity"/>
@@ -28,6 +29,12 @@
         <activity android:name=".Tutorial.IntroActivity"/>
         <activity android:name=".Tutorial.Q1Activity"/>
         <activity android:name=".Tutorial.CollectTrainingSetActivity"/>
+
+        <service
+            android:name=".BLE.TheService"
+            android:exported="false"
+            android:label="BtHandlerService" />
+
     </application>
 
 </manifest>

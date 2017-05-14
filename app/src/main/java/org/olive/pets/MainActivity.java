@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
 import org.olive.pets.Profile.DogProfileListActivity;
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.bluetooth) {
-            Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(MainActivity.this, BeanActivity.class);
             startActivity(intent);
             return true;
 

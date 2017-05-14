@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.Profile.DogProfileListActivity;
+import org.olive.pets.tmp.BluetoothActivity;
 
 // 환경 설정 액티비티
 public class SettingActivity extends AppCompatActivity {
@@ -79,7 +81,7 @@ public class SettingActivity extends AppCompatActivity {
         btnBTSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, BluetoothActivity.class);
+                Intent intent = new Intent(SettingActivity.this, BeanActivity.class);
                 finish();
                 startActivity(intent);
             }

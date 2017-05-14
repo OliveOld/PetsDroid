@@ -1,4 +1,4 @@
-package org.olive.pets;
+package org.olive.pets.tmp;
 
 /**
  * Created by KMJ on 2017-03-26.
@@ -23,6 +23,8 @@ import com.punchthrough.bean.sdk.message.BeanError;
 import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
+
+import org.olive.pets.R;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package org.olive.pets;
+package org.olive.pets.tmp;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +20,7 @@ import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.R;
 
 import java.io.File;
 import java.io.FileWriter;
