@@ -56,13 +56,14 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- pie chart 추가 부분 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chartshow"
+                android:id="@+id/main_chart"
                 android:layout_width="match_parent"
                 android:layout_height="252dp"
                 />

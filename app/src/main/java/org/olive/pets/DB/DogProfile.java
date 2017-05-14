@@ -22,6 +22,7 @@ public class DogProfile extends RealmObject {
     private int dog_age;
     private String dog_sex;
     private String dog_photo;
+    private String dog_size;
     private PostureData posture_data;
 
     public DogProfile(){}
@@ -52,6 +53,9 @@ public class DogProfile extends RealmObject {
 
     public String getDogSex(){ return dog_sex; }
     public void setDogSex(String dog_sex) { this.dog_sex = dog_sex; }
+
+    public String getDogSize(){ return dog_size; }
+    public void setDogSize(String dog_size) { this.dog_size = dog_size; }
 
     public String getDogPhoto() { return dog_photo; }
     public void setDogPhoto(String dog_photo) { this.dog_photo = dog_photo; }

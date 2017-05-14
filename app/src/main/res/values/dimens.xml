@@ -9,9 +9,8 @@
     <dimen name="button_elevation">8dp</dimen>
     <dimen name="button_press_elevation">2dp</dimen>
 
-    <dimen name="slidingmenu_offset">60dp</dimen>
-    <dimen name="list_padding">10dp</dimen>
-    <dimen name="shadow_width">15dp</dimen>
-
     <integer name="num_cols">1</integer>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

@@ -115,7 +115,8 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         // entry label styling
         mChart.setEntryLabelColor(Color.WHITE);
         mChart.setEntryLabelTypeface(mTfRegular);
-        mChart.setEntryLabelTextSize(12f);     }
+        mChart.setEntryLabelTextSize(12f);
+    }
 
 
 
@@ -213,7 +214,7 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
 
 
 
-    private void setData(int count, float range) {
+    public void setData(int count, float range) {
 
         float mult = range;
 
@@ -295,12 +296,8 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-
         if (e == null)
             return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
-                        + ", DataSet index: " + h.getDataSetIndex());
     }
 
     @Override

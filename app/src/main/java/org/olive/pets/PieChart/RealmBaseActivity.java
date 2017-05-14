@@ -14,7 +14,6 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-
 /**
  * Created by seobink on 2017-02-27.
  */

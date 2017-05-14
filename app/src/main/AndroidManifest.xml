@@ -20,17 +20,14 @@
         </activity>
         <activity android:name=".BluetoothActivity" />
         <activity android:name=".DailyReportActivity" />
-        <activity android:name=".ManagerInfoActivity"/>
+        <activity android:name=".SettingActivity"/>
         <activity android:name=".Profile.DogProfileListActivity"/>
         <activity android:name=".Profile.DogProfileEditActivity"/>
-        <activity android:name=".Profile.DogProfileAddActivity"/>
         <activity android:name=".PieChart.PieChartActivity"/>
         <activity android:name=".Tutorial.InitDogProfileActivity"/>
         <activity android:name=".Tutorial.IntroActivity"/>
         <activity android:name=".Tutorial.Q1Activity"/>
-        <activity android:name=".Tutorial.Q1yes1Activity"/>
         <activity android:name=".Tutorial.CollectTrainingSetActivity"/>
-        <activity android:name=".Tutorial.Q1no1Activity"/>
     </application>
 
 </manifest>

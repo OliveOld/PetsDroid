@@ -14,30 +14,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
 import org.olive.pets.Profile.DogProfileListActivity;
-import org.olive.pets.PieChart.PieChartActivity;
 import org.olive.pets.Tutorial.IntroActivity;
 
 import java.io.File;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
-    private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
-
+    private Button btnDailyReport, btnDogInfo, btnSetting;
     private ImageView ivdogImage;
-    private TextView tvdogName;
-    private TextView tvdogInfo;
-    int mainFlag = 0;       // 메인 액티비티의 처음 실행 체크
+    private TextView tvdogName, tvdogInfo;
     private Realm mRealm;
 
     @Override
@@ -69,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
             mRealm = Realm.getInstance(myConfig);
 
             Intent intent = new Intent(MainActivity.this, IntroActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            finish();
+            //finish();
             startActivity(intent);
         } else {    // 튜토리얼이 끝났을 경우
             Toast toast = Toast.makeText(MainActivity.this, "튜토리얼 끝", Toast.LENGTH_SHORT);
@@ -112,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         Intent i = new Intent(MainActivity.this, DailyReportActivity.class);
                         startActivity(i);
-                        //finish();
-                        // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
-                        // toast.show();
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                         toast.show();
@@ -129,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, DogProfileListActivity.class);
-                    //finish();
                     startActivity(intent);
 
                 }
@@ -140,9 +128,8 @@ public class MainActivity extends AppCompatActivity {
             btnSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, ManagerInfoActivity.class);
+                    Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                     startActivity(intent);
-                    // finish();
                 }
             });
             loadDB();
@@ -224,5 +211,4 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
 }

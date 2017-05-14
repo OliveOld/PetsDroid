@@ -12,6 +12,7 @@ import org.olive.pets.R;
 
 public class CollectTrainingSetActivity extends AppCompatActivity {
     private Button btnSubmit;
+    int tutorialFlag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,24 +24,24 @@ public class CollectTrainingSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //튜토리얼 끝내고
-                endTutorial();
-                // 액티비티 전환
-                Intent intent=new Intent(CollectTrainingSetActivity.this, MainActivity.class);
-                finish();
-                startActivity(intent);
+                SharedPreferences shPref = getSharedPreferences("MyPref", 0);
+                tutorialFlag = shPref.getInt("Flag", 0);
+
+                // 맨 처음 실행 일 경우 => 메인으로 돌아가기
+                if(tutorialFlag == 0) {
+                    SharedPreferences.Editor prefEditor = shPref.edit();
+                    prefEditor.putInt("Flag", ++tutorialFlag);
+                    prefEditor.commit();
+                    Intent intent = new Intent(CollectTrainingSetActivity.this, MainActivity.class);
+                    finish();
+                    startActivity(intent);
+                } else {
+                    // 프로필 추가에서 온 경우 => 리스트로 돌아가기
+                    finish();
+                }
             }
         });
     }
-
-    public void endTutorial()
-    {
-        SharedPreferences shPref = getSharedPreferences("MyPref", 0);
-        int tutorialFlag = 1;   // 튜토리얼 완료했음은 1로 표현
-        SharedPreferences.Editor prefEditor = shPref.edit();
-        prefEditor.putInt("Flag", tutorialFlag);
-        prefEditor.commit();
-    }
-
-
 }
+
 

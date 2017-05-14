@@ -13,8 +13,7 @@ import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DailyReportActivity;
-import org.olive.pets.MainActivity;
-import org.olive.pets.ManagerInfoActivity;
+import org.olive.pets.SettingActivity;
 import org.olive.pets.R;
 import org.olive.pets.Tutorial.InitDogProfileActivity;
 
@@ -49,7 +48,6 @@ public class DogProfileListActivity extends AppCompatActivity {
         // 어댑터를 연결
         listView = (ListView) findViewById(R.id.lv_dog_info);
         listView.setAdapter(adapter);
-        //adapter.getView(1, null, listView);
 
         // 아이템들 클릭 리스너 - 롱 클릭: 삭제
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -78,10 +76,6 @@ public class DogProfileListActivity extends AppCompatActivity {
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(DogProfileListActivity.this, MainActivity.class);
-                Toast toast = Toast.makeText(DogProfileListActivity.this, "액티비티 넘어간다", Toast.LENGTH_SHORT);
-                toast.show();
-               // startActivity(intent);
                 finish();
             }
         });
@@ -97,8 +91,6 @@ public class DogProfileListActivity extends AppCompatActivity {
                     Intent i = new Intent(DogProfileListActivity.this, DailyReportActivity.class);
                     startActivity(i);
                     finish();
-                    // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
-                    // toast.show();
                 } catch (Exception e) {
                     Toast toast = Toast.makeText(DogProfileListActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
@@ -124,7 +116,7 @@ public class DogProfileListActivity extends AppCompatActivity {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DogProfileListActivity.this, ManagerInfoActivity.class);
+                Intent intent = new Intent(DogProfileListActivity.this, SettingActivity.class);
                 startActivity(intent);
             }
         });
@@ -151,7 +143,8 @@ public class DogProfileListActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_add:
-                Intent intent = new Intent(this, DogProfileAddActivity.class);
+                // 강아지 추가 액티비티 이동 -> 튜토리얼 부분으로 이동하도록
+                Intent intent = new Intent(this, InitDogProfileActivity.class);
                 startActivity(intent);
                 //DataHelper.addItemAsync(mRealm);
                 return true;

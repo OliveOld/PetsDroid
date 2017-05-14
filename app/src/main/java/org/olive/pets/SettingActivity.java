@@ -9,23 +9,21 @@ import android.widget.Toast;
 
 import org.olive.pets.Profile.DogProfileListActivity;
 
-public class ManagerInfoActivity  extends AppCompatActivity {
+// 환경 설정 액티비티
+public class SettingActivity extends AppCompatActivity {
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
+    private Button btnBTSetting, btnManagerInfo, btnInit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager_info);
+        setContentView(R.layout.activity_setting);
 
         //btn_main
         btnMain = (Button) findViewById(R.id.btn_main_mi);
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intent = new Intent(ManagerInfoActivity.this, MainActivity.class);
-                Toast toast = Toast.makeText(ManagerInfoActivity.this, "액티비티 넘어간다", Toast.LENGTH_SHORT);
-                toast.show();
-               // startActivity(intent);
                 finish();
             }
         });
@@ -38,13 +36,11 @@ public class ManagerInfoActivity  extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    Intent i = new Intent(ManagerInfoActivity.this, DailyReportActivity.class);
+                    Intent i = new Intent(SettingActivity.this, DailyReportActivity.class);
                     startActivity(i);
                     finish();
-                    // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
-                    // toast.show();
                 } catch (Exception e) {
-                    Toast toast = Toast.makeText(ManagerInfoActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(SettingActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
@@ -56,21 +52,40 @@ public class ManagerInfoActivity  extends AppCompatActivity {
         btnDogInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagerInfoActivity.this, DogProfileListActivity.class);
+                Intent intent = new Intent(SettingActivity.this, DogProfileListActivity.class);
                 finish();
                 startActivity(intent);
 
             }
         });
 
+
         //btn_setting
         btnSetting = (Button) findViewById(R.id.btn_setting_mi);
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagerInfoActivity.this, ManagerInfoActivity.class);
+                Intent intent = new Intent(SettingActivity.this, SettingActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
+
+        // 버튼 세팅
+        btnManagerInfo = (Button) findViewById(R.id.btn_manager_info_setting);
+
+        // 블루투스 화면으로 넘어가기
+        btnBTSetting = (Button) findViewById(R.id.btn_bt_setting);
+        btnBTSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, BluetoothActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        btnInit = (Button) findViewById(R.id.btn_init_setting);
+
     }
 }
