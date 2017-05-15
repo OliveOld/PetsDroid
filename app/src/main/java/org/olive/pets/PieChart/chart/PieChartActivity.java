@@ -1,4 +1,4 @@
-package org.olive.pets.PieChart;
+package org.olive.pets.PieChart.chart;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -18,10 +18,8 @@ import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -46,19 +44,19 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_piechart);
+        setContentView(R.layout.activity_main);
 
 
         tvX = (TextView) findViewById(R.id.tvXMax);
         tvY = (TextView) findViewById(R.id.tvYMax);
 
        //seobin
-       // mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
-       // mSeekBarY = (SeekBar) findViewById(R.id.seekBar2);
+       // mSeekBarX = (SeekBar) findViewById(R.id.seekBar1); //갯수결정
+       // mSeekBarY = (SeekBar) findViewById(R.id.seekBar2); //  값 결정
        // mSeekBarX.setProgress(4);
        // mSeekBarY.setProgress(10);
 
-        mChart = (PieChart) findViewById(R.id.chart1);
+        mChart = (PieChart) findViewById(R.id.chartshow);
         mChart.setUsePercentValues(true);
         mChart.getDescription().setEnabled(false);
         mChart.setExtraOffsets(5, 10, 5, 5);
@@ -86,11 +84,9 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         mChart.setRotationEnabled(true);
         mChart.setHighlightPerTapEnabled(true);
 
-        // mChart.setUnit(" €");
-        // mChart.setDrawUnitsInChart(true);
 
         // add a selection listener
-        mChart.setOnChartValueSelectedListener(this);
+        mChart.setOnChartValueSelectedListener((OnChartValueSelectedListener) this);
 
 
 
@@ -199,7 +195,7 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
     }
 
 
-    // 바 연결되는 곳, 필요없을 것 같음
+    // 여기서 값 setting 됨
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
@@ -208,11 +204,11 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
 
 
         //         setData(mSeekBarX.getProgress(), mSeekBarY.getProgress());
-        setData(4,10);
+      //  setData(4,10);
     }
 
 
-
+  //
     private void setData(int count, float range) {
 
         float mult = range;
@@ -224,7 +220,9 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         for (int i = 0; i < count ; i++) {
             entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5),
                     mParties[i % mParties.length],
-                    getResources().getDrawable(R.drawable.star)));
+                    getResources().getDrawable(R.drawable.star))
+
+            );
         }
 
 
@@ -234,49 +232,48 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         // 여기서 에러발생 2
         // dataSet.setDrawIcons(false);
         // 여기서 에러발생 3
-        /*
-        dataSet.setSliceSpace(3f);
-        dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
-*/
+
+       // dataSet.setSliceSpace(3f);
+       // dataSet.setIconsOffset(new MPPointF(0, 40));
+       // dataSet.setSelectionShift(5f);
+
         // add a lot of colors
 
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+     //   ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
+    //    for (int c : ColorTemplate.VORDIPLOM_COLORS)
+     //       colors.add(c);
 
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
+    //    for (int c : ColorTemplate.JOYFUL_COLORS)
+    //        colors.add(c);
 
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
+    //    for (int c : ColorTemplate.COLORFUL_COLORS)
+    //        colors.add(c);
 
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
+     //   for (int c : ColorTemplate.LIBERTY_COLORS)
+     //       colors.add(c);
 
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
+   //     for (int c : ColorTemplate.PASTEL_COLORS)
+   //         colors.add(c);
 
-        colors.add(ColorTemplate.getHoloBlue());
+     //   colors.add(ColorTemplate.getHoloBlue());
 
-        dataSet.setColors(colors);
+      //  dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
 
 
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
-        data.setValueTypeface(mTfLight);
+      //  PieData data = new PieData(dataSet);
+      //  data.setValueFormatter(new PercentFormatter());
+      //  data.setValueTextSize(11f);
+      //  data.setValueTextColor(Color.WHITE);
+     //   data.setValueTypeface(mTfLight);
 
-
-        mChart.setData(data);
+      //  mChart.setData(data);
 
         // undo all highlights
-        mChart.highlightValues(null);
+     //   mChart.highlightValues(null);
 
-        mChart.invalidate();
+      //  mChart.invalidate();
     }
 
 

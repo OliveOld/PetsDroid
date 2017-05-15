@@ -1,4 +1,4 @@
-package org.olive.pets.PieChart;
+package org.olive.pets.PieChart.chart;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -31,7 +31,7 @@ public abstract class RealmDatabaseActivityPie extends RealmBaseActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_piechart_noseekbar);
+        setContentView(R.layout.activity_main);
 
         mChart = (PieChart) findViewById(R.id.chart1);
         setup(mChart);

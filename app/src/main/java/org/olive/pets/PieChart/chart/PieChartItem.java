@@ -2,7 +2,7 @@
 
 // layout.list_item_piechart
 
-package org.olive.pets.PieChart;
+package org.olive.pets.PieChart.chart;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -21,6 +21,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.olive.pets.R;
+
 
 /**
  * Created by seobink on 2017-02-27.

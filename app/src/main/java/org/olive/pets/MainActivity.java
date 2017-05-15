@@ -14,18 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
+import org.olive.pets.PieChart.chart.PieChartActivity;
 import org.olive.pets.Profile.DogProfileListActivity;
-import org.olive.pets.PieChart.PieChartActivity;
 import org.olive.pets.Tutorial.IntroActivity;
 
 import java.io.File;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
@@ -112,9 +109,12 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         Intent i = new Intent(MainActivity.this, DailyReportActivity.class);
                         startActivity(i);
+
+                        Intent j = new Intent(MainActivity.this, PieChartActivity.class);
+                        startActivity(j);
                         //finish();
-                        // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
-                        // toast.show();
+                        Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
+                        toast.show();
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                         toast.show();
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             btnSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, ManagerInfoActivity.class);
+                    Intent intent = new Intent(MainActivity.this, PieChartActivity.class);
                     startActivity(intent);
                     // finish();
                 }

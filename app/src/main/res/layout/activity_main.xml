@@ -2,8 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_iphone1"
-
-
     >
 
     <LinearLayout
@@ -63,13 +61,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chartshow"
                 android:layout_width="match_parent"
                 android:layout_height="252dp"
-                />
+                android:layout_weight="0.72" />
 
         </LinearLayout>
 

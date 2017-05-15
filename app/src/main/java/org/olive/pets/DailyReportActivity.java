@@ -42,6 +42,7 @@ public class DailyReportActivity extends AppCompatActivity{
                     Intent i = new Intent(DailyReportActivity.this, DailyReportActivity.class);
                     startActivity(i);
                     finish();
+
                     // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
                     // toast.show();
                 } catch (Exception e) {

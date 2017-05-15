@@ -1,4 +1,4 @@
-package org.olive.pets.PieChart;
+package org.olive.pets.PieChart.chart;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
