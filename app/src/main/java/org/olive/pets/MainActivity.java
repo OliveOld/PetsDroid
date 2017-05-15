@@ -17,6 +17,7 @@ import android.widget.Toast;
 import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
+import org.olive.pets.PieChart.PieChartActivity;
 import org.olive.pets.Profile.DogProfileListActivity;
 import org.olive.pets.Tutorial.IntroActivity;
 

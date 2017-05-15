@@ -24,7 +24,6 @@
         <activity android:name=".SettingActivity"/>
         <activity android:name=".Profile.DogProfileListActivity"/>
         <activity android:name=".Profile.DogProfileEditActivity"/>
-        <activity android:name=".PieChart.PieChartActivity"/>
         <activity android:name=".Tutorial.InitDogProfileActivity"/>
         <activity android:name=".Tutorial.IntroActivity"/>
         <activity android:name=".Tutorial.Q1Activity"/>

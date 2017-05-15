@@ -46,11 +46,11 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_piechart);
+        setContentView(R.layout.activity_daily_report);
 
 
-        tvX = (TextView) findViewById(R.id.tvXMax);
-        tvY = (TextView) findViewById(R.id.tvYMax);
+        //tvX = (TextView) findViewById(R.id.tvXMax);
+       // tvY = (TextView) findViewById(R.id.tvYMax);
 
        //seobin
        // mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
@@ -119,7 +119,7 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
     }
 
 
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pie, menu);
@@ -198,14 +198,14 @@ public class PieChartActivity  extends DemoBase implements SeekBar.OnSeekBarChan
         }
         return true;
     }
-
+*/
 
     // 바 연결되는 곳, 필요없을 것 같음
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        tvX.setText("" + (mSeekBarX.getProgress()));
-        tvY.setText("" + (mSeekBarY.getProgress()));
+       // tvX.setText("" + (mSeekBarX.getProgress()));
+        //tvY.setText("" + (mSeekBarY.getProgress()));
 
 
         //         setData(mSeekBarX.getProgress(), mSeekBarY.getProgress());
