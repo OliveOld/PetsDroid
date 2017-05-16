@@ -8,7 +8,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/dog"
+        android:icon="@drawable/happy_dog"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BLE.BeanActivity" />
-        <activity android:name=".tmp.BluetoothActivity" />
+        <activity android:name=".BluetoothActivity" />
         <activity android:name=".DailyReportActivity" />
         <activity android:name=".SettingActivity"/>
         <activity android:name=".Profile.DogProfileListActivity"/>

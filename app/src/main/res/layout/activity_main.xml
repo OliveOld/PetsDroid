@@ -1,6 +1,8 @@
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_img">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,55 +74,62 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#e49e9e"
-        android:orientation="vertical"
-        android:weightSum="100">
 
-        <Button
-            android:id="@+id/btn_main"
+        <!--
+        <android.support.design.widget.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start">
+        </android.support.design.widget.NavigationView>
+-->
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#e49e9e"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <Button
+                android:id="@+id/btn_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="#FFCCCC"
+                android:gravity="left|center_vertical"
+                android:padding="10dp"
+                android:text="메인 화면" />
+
+            <Button
+            android:id="@+id/btn_daily_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="#FFCCCC"
             android:gravity="left|center_vertical"
             android:padding="10dp"
-            android:text="메인 화면" />
+            android:text="날짜별 활동량" />
 
-        <Button
-        android:id="@+id/btn_daily_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="#FFCCCC"
-        android:gravity="left|center_vertical"
-        android:padding="10dp"
-        android:text="날짜별 활동량" />
+            <Button
+                android:id="@+id/btn_dog_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="#98DFFF"
+                android:gravity="left|center_vertical"
+                android:padding="10dp"
+                android:text="강아지 정보" />
 
-        <Button
-            android:id="@+id/btn_dog_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="#98DFFF"
-            android:gravity="left|center_vertical"
-            android:padding="10dp"
-            android:text="강아지 정보" />
-
-        <Button
-            android:id="@+id/btn_setting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="#99FF99"
-            android:gravity="left|center_vertical"
-            android:padding="10dp"
-            android:text="환경설정" />
-
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="#99FF99"
+                android:gravity="left|center_vertical"
+                android:padding="10dp"
+                android:text="환경설정" />
+        </LinearLayout>
 
 
 </android.support.v4.widget.DrawerLayout>

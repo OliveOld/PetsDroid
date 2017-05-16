@@ -16,7 +16,7 @@ public class CollectTrainingSetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_q1yes3);
+        setContentView(R.layout.activity_collect_training_set);
 
         //다음 페이지로 넘어가기 전에 완전히 튜토리얼 끝나면 endTutorial()로 마무리 해줘야함
         btnSubmit=(Button)findViewById(R.id.btn_submit_tutorial);
@@ -37,6 +37,7 @@ public class CollectTrainingSetActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     // 프로필 추가에서 온 경우 => 리스트로 돌아가기
+                    // 혹은 셋팅>데이터 더 받기에서 온 경우 => 돌아가기
                     finish();
                 }
             }

@@ -8,5 +8,5 @@
         android:orderInCategory="100"
         android:icon="@mipmap/ic_bt_scan4_48px"
         android:title="데이터 받아오기"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>

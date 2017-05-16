@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
 import org.olive.pets.PieChart.PieChartActivity;
@@ -28,6 +29,8 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity{
+    private DrawerLayout dlDrawer;
+    private ActionBarDrawerToggle dtToggle;
 
     static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
     private Button btnDailyReport, btnDogInfo, btnSetting;
@@ -96,6 +99,9 @@ public class MainActivity extends AppCompatActivity{
                 mRealm = Realm.getInstance(myConfig);
             }
 
+
+//            getActionBar().setDisplayHomeAsUpEnabled(true);
+
             //btn_daily_report
             btnDailyReport = (Button) findViewById(R.id.btn_daily_report);
             btnDailyReport.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +142,9 @@ public class MainActivity extends AppCompatActivity{
             });
             loadDB();
 
+
         }
+
     }
 
     public void loadDB(){
@@ -201,14 +209,11 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // 옵션 메뉴의 아이템 눌렸을 때
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.bluetooth) {
-            Intent intent = new Intent(MainActivity.this, BeanActivity.class);
-            startActivity(intent);
-            return true;
-
+        switch(item.getItemId()) {
+            case R.id.bluetooth:
+                Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
+                startActivity(intent);
+                break;
         }
 
         return true;

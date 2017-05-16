@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.Profile.DogProfileListActivity;
-import org.olive.pets.tmp.BluetoothActivity;
+import org.olive.pets.Tutorial.CollectTrainingSetActivity;
 
 // 환경 설정 액티비티
 public class SettingActivity extends AppCompatActivity {
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
-    private Button btnBTSetting, btnManagerInfo, btnInit;
+    private Button btnBTSetting, btnManagerInfo, btnInit, btnData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,7 @@ public class SettingActivity extends AppCompatActivity {
         btnBTSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, BeanActivity.class);
+                Intent intent = new Intent(SettingActivity.this, BluetoothActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -89,5 +88,16 @@ public class SettingActivity extends AppCompatActivity {
 
         btnInit = (Button) findViewById(R.id.btn_init_setting);
 
+        // 데이터 콜렉트 화면으로 넘어가기
+        btnData = (Button) findViewById(R.id.btn_collect_data);
+        btnData = (Button) findViewById(R.id.btn_collect_data);
+        btnData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, CollectTrainingSetActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
     }
 }

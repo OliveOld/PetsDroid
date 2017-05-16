@@ -1,7 +1,8 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_img" >
 
     <!-- 콘텐츠 부분 -->
     <LinearLayout
@@ -51,26 +52,6 @@
             android:src="@drawable/ic_calendar_24dp"/>
 -->
         </LinearLayout>
-
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragmentA"
-            android:name="org.olive.pets.PieChart.PieChartFrag"
-            android:layout_weight="1"/>
-
-
-        <!-- pie chart 추가 부분
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/daily_chart"
-                android:layout_width="match_parent"
-                android:layout_height="252dp" />
-        </LinearLayout>
-        -->
     </LinearLayout>
 
     <!-- Drawer 부분 -->

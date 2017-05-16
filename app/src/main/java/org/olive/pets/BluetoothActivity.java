@@ -1,12 +1,8 @@
-package org.olive.pets.tmp;
+package org.olive.pets;
 
-/**
- * Created by KMJ on 2017-03-26.
- * Light-Blue bean과 블루투스 연결하고 받아온 데이터를 파일로 저장하는 부분입니다.
- */
-
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -24,7 +20,7 @@ import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
-import org.olive.pets.R;
+import org.olive.pets.DB.DogProfile;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -32,7 +28,16 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BluetoothTestActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener {
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
+import static java.lang.Integer.parseInt;
+
+/**
+ * Created by KMJ on 2017-04-10.
+ */
+
+public class BluetoothActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener {
     private String state;
     final String TAG = "BlueBean";
     final List<Bean> beans = new ArrayList<>();
@@ -41,36 +46,28 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
     TextView tvData =null;
     String beanName;
     int saveFlag=0;
-    String dirPath;
-    String fileName;
+    String dirPath, fileName;
+    Realm mRealm;
+    CheckTypesTask task;
+    int discovery_flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pre_activity_bluetooth);
-
-        checkExternalStorage(); // 외부메모리 상태 확인 메서드
-
-        String str = Environment.getExternalStorageState();
-        if ( str.equals(Environment.MEDIA_MOUNTED)) {
-            dirPath = Environment.getExternalStorageDirectory()+"/PetTrackBean";
-            File file = new File(dirPath);
-            if (!file.exists())  // 원하는 경로에 폴더가 있는지 확인
-                file.mkdirs();
-        }
-
-        // 저장될 파일 이름 지정 (시간값 사용)
-
+        setContentView(R.layout.activity_bluetooth);
 
         tvData = (TextView)findViewById(R.id.bean_data);
         // 스크롤 텍스트뷰
         tvData.setMovementMethod(new ScrollingMovementMethod());
+
         tvConnect = (TextView)findViewById(R.id.bean_connect);
         tvConnect.setText("Start Bluebean discovery ...");
 
         // 실험 시작
         Log.d(TAG,"Start Bluebean discovery ...");
         BeanManager.getInstance().startDiscovery(this);
+
+        task = new CheckTypesTask();
     }
 
     @Override
@@ -82,9 +79,6 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //테스트 중단
@@ -93,8 +87,6 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
             saveFlag=0;
 
             // 텍스트 뷰의 내용을 텍스트로 내보낸다.
-            if (!checkExternalStorage()) return true;
-
             String data = tvData.getText().toString();
 
             try {
@@ -120,18 +112,6 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG,"MainActivity onResume");
-    }
-
-    @Override
-    protected void onStop() {
-        Log.d(TAG,"MainActivity.onStop");
-        super.onStop();
-    }
-
     // 새로운 bean 찾았을 때 이름, 주소 보여줌
     @Override
     public void onBeanDiscovered(Bean bean, int rssi) {
@@ -141,11 +121,15 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
         aBuf.append(""+bean.getDevice().getName()+" address: "+bean.getDevice().getAddress());
         tvConnect.setText(aBuf.toString());
         beans.add(bean);
+
+        // 프로그레스
+        task.execute();
     }
 
     // 탐색 완료되었을 때
     @Override
     public void onDiscoveryComplete() {
+        discovery_flag=1;
         StringBuffer aBuf= new StringBuffer(tvConnect.getText());
         aBuf.append("\n");
         aBuf.append("탐색이 끝났습니다.");
@@ -178,19 +162,6 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
                 Log.d(TAG,deviceInfo.softwareVersion());
             }
         });
-
-        //LedColor ledColor = LedColor.create(0,0,60);
-        //bean.setLed(ledColor);
-        /*
-        bean.readTemperature(new Callback<Integer>() {
-            @Override
-            public void onResult(Integer data){
-                Log.d(TAG, "Temperature: "+data);
-                LedColor ledColor = LedColor.create(0,0,0);
-                bean.setLed(ledColor);
-            }
-        });
-        */
     }
 
     @Override
@@ -210,14 +181,28 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
         Log.d(TAG,"data: "+byteToString);
         // byte to string
 
-
-        // 저장 버튼 누를 때만 텍스트뷰에 출력력
+        // 받아온 데이터 저장
         if(saveFlag==1) {
-
-
-            // 시리얼로 보내는 메시지 텍스트뷰에 출력
-            tvData.append(byteToString);
+            // 저장 일 경우에만
         }
+
+        // 여기서 DB 저장
+        saveDB();
+    }
+
+    public void saveDB(){
+        // DB 초기화
+        mRealm = Realm.getDefaultInstance();
+        // DB 데이터 넣기
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                DogProfile myDog = realm.where(DogProfile.class).equalTo("id", 1).findFirst();
+                // fake data 일단 넣음
+                myDog.setPostureData(1, "2017-04-17", 36000, 40000, 20000, 10000);
+            }
+        });
+        Toast.makeText(this, "강아지 자세가 저장되었습니다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -231,29 +216,43 @@ public class BluetoothTestActivity extends AppCompatActivity implements BeanDisc
         Log.d(TAG,"onError");
         Log.d(TAG,"error: "+error);
     }
-    /**
-     * 외부메모리 상태 확인 메서드
-     */
-    boolean checkExternalStorage() {
-        state = Environment.getExternalStorageState();
-        // 외부메모리 상태
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            // 읽기 쓰기 모두 가능
-            Log.d("test", "외부메모리 읽기 쓰기 모두 가능");
-            Toast.makeText(this, "외부메모리 읽기 쓰기 모두 가능", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)){
-            //읽기전용
-            Log.d("test", "외부메모리 읽기만 가능");
-            Toast.makeText(this, "외부메모리 읽기만 가능", Toast.LENGTH_SHORT).show();
-            return false;
-        } else {
-            // 읽기쓰기 모두 안됨
-            Log.d("test", "외부메모리 읽기쓰기 모두 안됨 : "+ state);
-            Toast.makeText(this, "외부메모리 읽기쓰기 모두 안됨 : "+ state, Toast.LENGTH_SHORT).show();
-            return false;
+
+
+    // Progress Spinner 구현 부분
+   private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog asyncDialog = new ProgressDialog(BluetoothActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("기기를 찾고 있습니다..");
+
+            // show dialog
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+
+        // 진행중, 진행 정도를 표시
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            try {
+                for (int i = 0; i < 5; i++) {
+                    //asyncDialog.setProgress(i * 30);
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        // 종료 기능
+        @Override
+        protected void onPostExecute(Void result) {
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
         }
     }
-
-
 }
+
