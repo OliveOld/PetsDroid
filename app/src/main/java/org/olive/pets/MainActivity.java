@@ -5,8 +5,13 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +34,7 @@ import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.Chart.PieChart_Activity;
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
+import org.olive.pets.DB.PostureData;
 import org.olive.pets.Profile.DogProfileListActivity;
 import org.olive.pets.Tutorial.IntroActivity;
 
@@ -161,17 +167,39 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_main); //  원소
         pieChart.setUsePercentValues(true);
 
+        //원안의 텍스트
+        pieChart.setCenterText(generateCenterSpannableText());
+
         // y값
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
 
         // 밑에 무슨 값인지 표시해 주는거
         PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
 
-        yvalues.add(new Entry(8f, 0));  //lie
-        yvalues.add(new Entry(15f, 1)); //sit/stand
-        yvalues.add(new Entry(12f, 2)); // walk
-        yvalues.add(new Entry(25f, 3)); //run
 
+        RealmResults<PostureData> posture = mRealm.where(PostureData.class).findAll();
+
+        float posture_lie = 25;
+        float posture_stand=25;
+        float posture_walk=25;
+        float posture_run=25;
+
+        if (posture.size() == 0)
+        {   }
+        else{
+
+                PostureData pos_data = posture.first();
+
+                posture_lie = (float) pos_data.getLieTime();
+                posture_stand = (float) pos_data.getStandTime();
+                posture_walk = (float) pos_data.getWalkTime();
+                posture_run = (float) pos_data.getRunTime();
+        }
+        // entry(값(%), 인덱스)
+        yvalues.add(new Entry(posture_lie, 0)); //lie
+        yvalues.add(new Entry(posture_stand, 1)); //sit/stand
+        yvalues.add(new Entry(posture_walk, 2)); // walk
+        yvalues.add(new Entry(posture_run, 3)); //run
 
 
         ArrayList<String> xVals = new ArrayList<String>();
@@ -186,16 +214,16 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         data.setValueFormatter(new PercentFormatter());
         pieChart.setData(data);
 
-        // pieChart.setDescription("차트에대한설명을넣는곳");
+        pieChart.setDescription("하루동안강아지는무엇을했을까요?");
 
         // 파이차트 생성부분
         pieChart.setDrawHoleEnabled(true);
-        pieChart.setTransparentCircleRadius(25f);
-        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleRadius(10f); // 원주율
+        pieChart.setHoleRadius(50f); // 원안에 크기
 
         dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        data.setValueTextSize(13f);
-        data.setValueTextColor(Color.DKGRAY);
+        data.setValueTextSize(20f);
+        data.setValueTextColor(Color.WHITE);
         pieChart.setOnChartValueSelectedListener(this);
 
         pieChart.animateXY(1400, 1400);
@@ -310,6 +338,18 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
     @Override
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
+    }
+
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("PetTrack\ndeveloped by Olive_old");
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);
+        s.setSpan(new RelativeSizeSpan(.8f), 9, s.length() - 13, 0);
+        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
+        return s;
     }
 
     /***************piechart_method_end****************/
