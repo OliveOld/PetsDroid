@@ -3,99 +3,174 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/background_iphone1"
+    >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="강아지 프로필 등록"
-            android:layout_marginTop="20dp"
-            android:textSize="30sp"
-            android:textColor="@color/colorPrimary"
-            android:gravity="center_horizontal" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginTop="20sp">
-            <ImageView
-                android:id="@+id/dog_image_modify_i"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:maxHeight="200dp"
-                android:maxWidth="200dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/dog"/>
-            <Button
-                android:id="@+id/btn_UploadDogPic_i"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:background="@color/colorPrimary"
-                android:text="사진 선택"
-                android:textSize="15sp"
-                android:onClick="onClick"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20sp">
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/dog_name_i"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:ems="10"
-                android:hint="강아지 이름"/>
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/dog_age_i"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:ems="10"
-                android:hint="강아지 나이"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:text="강아지 프로필 등록"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp" />
 
-            <EditText
-                android:id="@+id/dog_sex_i"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20sp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/dog_image_modify_i"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="200dp"
+                        android:maxWidth="200dp"
+                        android:src="@drawable/dog" />
+
+                    <Button
+                        android:id="@+id/btn_UploadDogPic_i"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorPrimary"
+                        android:onClick="onClick"
+                        android:text="사진 선택"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/dog_name_i"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ems="10"
+                        android:hint="강아지 이름"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/dog_age_i"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ems="10"
+                        android:hint="강아지 나이"
+                        android:inputType="numberDecimal"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/dog_sex_i"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ems="10"
+                        android:hint="강아지 성별"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_dog_s_i"
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:text="소형견" />
+
+                    <CheckBox
+                        android:id="@+id/cb_dog_m_i"
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:text="중형견" />
+
+                    <CheckBox
+                        android:id="@+id/cb_dog_l_i"
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:text="대형견" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/e_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="10Kg 미만" />
+
+                    <TextView
+                        android:id="@+id/e_midium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="45dp"
+                        android:gravity="center_horizontal"
+                        android:text="25Kg 미만" />
+
+                    <TextView
+                        android:id="@+id/e_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="40dp"
+                        android:text="25Kg 이상" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_submit_profile_i"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:onClick="onClick"
+                    android:text="강아지 프로필 등록" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:ems="10"
-                android:hint="강아지 성별"/>
+                android:orientation="vertical" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_submit_profile_i"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:text="강아지 프로필 등록"
-            android:onClick="onClick"/>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

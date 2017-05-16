@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,30 +16,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.olive.pets.BLE.BeanActivity;
+import org.olive.pets.Chart.PieChart_Activity;
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
 import org.olive.pets.Profile.DogProfileListActivity;
-import org.olive.pets.PieChart.PieChartActivity;
 import org.olive.pets.Tutorial.IntroActivity;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
-public class MainActivity extends AppCompatActivity {
+//import org.olive.pets.PieChart.chart.PieChartActivity;
+
+public class MainActivity extends AppCompatActivity implements OnChartValueSelectedListener {
 
     static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
-    private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
-
+    private Button btnDailyReport, btnDogInfo, btnSetting;
     private ImageView ivdogImage;
-    private TextView tvdogName;
-    private TextView tvdogInfo;
-    int mainFlag = 0;       // 메인 액티비티의 처음 실행 체크
+    private TextView tvdogName, tvdogInfo;
     private Realm mRealm;
 
     @Override
@@ -69,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
             mRealm = Realm.getInstance(myConfig);
 
             Intent intent = new Intent(MainActivity.this, IntroActivity.class);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            finish();
+            //finish();
             startActivity(intent);
         } else {    // 튜토리얼이 끝났을 경우
             Toast toast = Toast.makeText(MainActivity.this, "튜토리얼 끝", Toast.LENGTH_SHORT);
@@ -110,11 +118,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     try {
-                        Intent i = new Intent(MainActivity.this, DailyReportActivity.class);
-                        startActivity(i);
-                        //finish();
-                        // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
-                        // toast.show();
+
+                       Intent j = new Intent(MainActivity.this, DailyReportActivity.class);
+                        startActivity(j);
+
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                         toast.show();
@@ -129,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, DogProfileListActivity.class);
-                    //finish();
                     startActivity(intent);
 
                 }
@@ -140,14 +146,62 @@ public class MainActivity extends AppCompatActivity {
             btnSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, ManagerInfoActivity.class);
+
+                    Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                     startActivity(intent);
-                    // finish();
                 }
             });
             loadDB();
 
         }
+
+
+        //**********************piechart**************************//
+
+        PieChart pieChart = (PieChart) findViewById(R.id.piechart_main); //  원소
+        pieChart.setUsePercentValues(true);
+
+        // y값
+        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+
+        // 밑에 무슨 값인지 표시해 주는거
+        PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
+
+        yvalues.add(new Entry(8f, 0));  //lie
+        yvalues.add(new Entry(15f, 1)); //sit/stand
+        yvalues.add(new Entry(12f, 2)); // walk
+        yvalues.add(new Entry(25f, 3)); //run
+
+
+
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("lie");
+        xVals.add("sit/stand");
+        xVals.add("walk");
+        xVals.add("run");
+
+
+        // 밑에 value값 정의 생성됨
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        pieChart.setData(data);
+
+        // pieChart.setDescription("차트에대한설명을넣는곳");
+
+        // 파이차트 생성부분
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setTransparentCircleRadius(25f);
+        pieChart.setHoleRadius(25f);
+
+        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        data.setValueTextSize(13f);
+        data.setValueTextColor(Color.DKGRAY);
+        pieChart.setOnChartValueSelectedListener(this);
+
+        pieChart.animateXY(1400, 1400);
+
+        //*****************PieChart_end**********************//
+
     }
 
     public void loadDB(){
@@ -216,13 +270,48 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.bluetooth) {
-            Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
+           Intent intent = new Intent(MainActivity.this, BeanActivity.class);
             startActivity(intent);
             return true;
 
         }
 
+        //파이차트테스트 버튼
+        if(id==R.id.bluetooth_pietest)
+        {
+            try {
+                Intent intent = new Intent(MainActivity.this, PieChart_Activity.class);
+                startActivity(intent);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Toast toast = Toast.makeText(MainActivity.this, "pie.java 생성실패", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+
         return true;
     }
+
+
+
+    /***************piechart_method_end****************/
+
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+
+        if (e == null)
+            return;
+        Log.i("VAL SELECTED",
+                "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
+                        + ", DataSet index: " + dataSetIndex);
+    }
+
+    @Override
+    public void onNothingSelected() {
+        Log.i("PieChart", "nothing selected");
+    }
+
+    /***************piechart_method_end****************/
 
 }

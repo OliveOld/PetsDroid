@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,6 +27,8 @@ import java.io.FileOutputStream;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 import static java.lang.Integer.parseInt;
 
@@ -35,18 +39,20 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
 
     private Uri mImageCaptureUri;
     private ImageView iv_DogPhoto;
-    private EditText et_DogName;
-    private EditText et_DogAge;
-    private EditText et_DogSex;
-    private int id_view;
+    private EditText et_DogName, et_DogAge, et_DogSex;
     private String absolutePath;
-    String dir;
+    private CheckBox cb_size_s, cb_size_m, cb_size_l;
+    private int id_view;
+    String dir, dog_size;
     private Realm mRealm;
-
+    int tutorialFlag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_init_info);
+
+        SharedPreferences shPref = getSharedPreferences("MyPref", 0);
+        tutorialFlag = shPref.getInt("Flag", 0);
 
         iv_DogPhoto = (ImageView) this.findViewById(R.id.dog_image_modify_i);
 
@@ -56,6 +62,10 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
         et_DogSex = (EditText) this.findViewById(R.id.dog_sex_i);
         et_DogName.setSingleLine(true);
         et_DogSex.setSingleLine(true);
+
+        cb_size_s= (CheckBox) this.findViewById(R.id.cb_dog_s_i);
+        cb_size_m= (CheckBox) this.findViewById(R.id.cb_dog_m_i);
+        cb_size_l= (CheckBox) this.findViewById(R.id.cb_dog_l_i);
 
         //만들어진 Realm 설정 사용..
         mRealm = Realm.getDefaultInstance();
@@ -146,16 +156,35 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
     @Override
     public void onClick(View v) {
         id_view = v.getId();
+
         if(v.getId() == R.id.btn_submit_profile_i) {
-            // 프로필 저장
+            // 프로필 저장 버튼 눌렸을 때
+
+            // 사이즈 체크박스
+            if(cb_size_s.isChecked()==true) dog_size="S";
+            if(cb_size_m.isChecked()==true) dog_size="M";
+            if(cb_size_l.isChecked()==true) dog_size="L";
+
+            final int last_id;
+
+            if(tutorialFlag == 0)
+                last_id = 1;
+            else {
+                RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAllSorted("dog_id", Sort.DESCENDING);
+                last_id = puppies.first().getDogId()+1;
+            }
+
+
+            // 프로필 DB에 저장!
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    DogProfile myDog = realm.createObject(DogProfile.class, 1);
+                    DogProfile myDog = realm.createObject(DogProfile.class, last_id);
                     myDog.setDogName(et_DogName.getText().toString());
                     myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
                     myDog.setDogSex(et_DogSex.getText().toString());
                     myDog.setDogPhoto(absolutePath);
+                    myDog.setDogSize(dog_size);
                 }
             });
             mRealm.close();

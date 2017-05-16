@@ -22,20 +22,10 @@ public class Q1Activity extends AppCompatActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Q1Activity.this,Q1yes1Activity.class);
+                Intent intent = new Intent(Q1Activity.this, InitDogProfileActivity.class);
                 startActivity(intent);
             }
         });
-
-        no = (Button)findViewById(R.id.q1no1);
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Q1Activity.this,Q1no1Activity.class);
-                startActivity(intent);
-            }
-        });
-
 
     }
 }
