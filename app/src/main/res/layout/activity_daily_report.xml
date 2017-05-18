@@ -1,9 +1,11 @@
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_iphone1"
-    >
-<!--
+    android:background="@drawable/background_iphone1" >
+
+<!-- android:paddingTop="50dp" 주어야 합니다.-->
+    <!--
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -64,27 +66,42 @@
 
 -->
     <!-- Piechart 부분 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="80dp"
+        android:orientation="vertical">
+
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piechart_daily_report"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="320dp"/>
+    </LinearLayout>
 
     <!-- Drawer 부분 -->
     <LinearLayout
     android:layout_width="280dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="#e49e9e"
+    android:background="#44F6F6F6"
     android:orientation="vertical"
     android:weightSum="100">
-
+        <Button
+            android:id="@+id/explanation"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:background="#00ff0000"
+            android:gravity="left|center_vertical"
+            android:padding="10dp"
+            android:text="\n\n\n           petsDroid"  />
     <Button
         android:id="@+id/btn_main_dr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="#FFCCCC"
+        android:background="#77F6F6F6"
         android:gravity="left|center_vertical"
         android:padding="10dp"
         android:text="메인 화면" />
@@ -94,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="#FFCCCC"
+        android:background="#33F6F6F6"
         android:gravity="left|center_vertical"
         android:padding="10dp"
         android:text="날짜별 활동량" />
@@ -104,7 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="#98DFFF"
+        android:background="#77F6F6F6"
         android:gravity="left|center_vertical"
         android:padding="10dp"
         android:text="강아지 정보" />
@@ -114,7 +131,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="#99FF99"
+        android:background="#77F6F6F6"
         android:gravity="left|center_vertical"
         android:padding="10dp"
         android:text="환경설정" />

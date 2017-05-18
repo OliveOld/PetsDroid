@@ -1,11 +1,14 @@
 package org.olive.pets.Profile;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -13,8 +16,8 @@ import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DailyReportActivity;
-import org.olive.pets.SettingActivity;
 import org.olive.pets.R;
+import org.olive.pets.SettingActivity;
 import org.olive.pets.Tutorial.InitDogProfileActivity;
 
 import io.realm.Realm;
@@ -37,6 +40,14 @@ public class DogProfileListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_info);
+
+        // 액션바 투명하게 해주기
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 색상넣기(투명색상 들어감)
+         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
+        // 왼쪽 화살표 버튼
+         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //Realm 사용을 알림
         mRealm = Realm.getDefaultInstance();

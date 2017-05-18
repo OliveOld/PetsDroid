@@ -11,6 +11,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -38,6 +39,14 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_report);
+
+        // 액션바 투명하게 해주기
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 색상넣기(투명색상 들어감)
+    //    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
+        // 왼쪽 화살표 버튼
+     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //btn_main
         btnMain = (Button) findViewById(R.id.btn_main_dr);
@@ -188,7 +197,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         pieChart.setHoleRadius(50f); // 원안에 크기
 
         dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        data.setValueTextSize(20f);
+        data.setValueTextSize(15f);
         data.setValueTextColor(Color.WHITE);
         pieChart.setOnChartValueSelectedListener(this);
 

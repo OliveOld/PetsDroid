@@ -76,7 +76,7 @@ public class PieChart_Activity extends Activity implements OnChartValueSelectedL
         pieChart.setHoleRadius(50f); // 원안에 크기
 
         dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        data.setValueTextSize(20f);
+        data.setValueTextSize(15f);
         data.setValueTextColor(Color.WHITE);
         pieChart.setOnChartValueSelectedListener(this);
 
