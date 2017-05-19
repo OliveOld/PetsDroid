@@ -12,7 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,6 +31,7 @@
         <activity android:name=".Tutorial.IntroActivity"/>
         <activity android:name=".Tutorial.Q1Activity"/>
         <activity android:name=".Tutorial.CollectTrainingSetActivity"/>
+        <activity android:name=".Chart.PieChart_Activity"/>
 
         <service
             android:name=".BLE.TheService"
