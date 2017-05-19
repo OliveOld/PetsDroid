@@ -23,9 +23,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import org.olive.pets.BLE.BeanActivity;
-
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -35,9 +32,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-
+import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.Chart.PieChart_Activity;
-
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
 import org.olive.pets.DB.PostureData;
@@ -68,12 +64,19 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //**********************actionbar_start**************************//
+
+        // 액션바 title 지정
+        getSupportActionBar().setTitle("Pet'Droid");
         // 액션바 투명하게 해주기
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 색상넣기(투명색상 들어감)
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
        // 왼쪽 화살표 버튼
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //**********************actionbar_start**************************//
 
 
         SharedPreferences shPref = getSharedPreferences("MyPref", 0);
@@ -239,6 +242,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         pieChart.setDrawHoleEnabled(true);
         pieChart.setTransparentCircleRadius(10f); // 원주율
         pieChart.setHoleRadius(50f); // 원안에 크기
+
 
         dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
         data.setValueTextSize(15f); // 파이차트 숫자 텍스트 크기

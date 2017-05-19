@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import org.olive.pets.BLE.BeanActivity;
 import org.olive.pets.Profile.DogProfileListActivity;
-import org.olive.pets.tmp.BluetoothActivity;
 
 // 환경 설정 액티비티
 public class SettingActivity extends AppCompatActivity {
@@ -24,14 +23,17 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-
+        //**********************actionbar_start**************************//
         // 액션바 투명하게 해주기
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 색상넣기(투명색상 들어감)
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
         // 왼쪽 화살표 버튼
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // 액션바 title 지정
+        getSupportActionBar().setTitle("Pet'Droid");
 
+        //**********************actionbar_start**************************//
 
         //btn_main
         btnMain = (Button) findViewById(R.id.btn_main_mi);
