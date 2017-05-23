@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.olive.pets.BLE.BluetoothActivity;
 import org.olive.pets.Profile.DogProfileListActivity;
 import org.olive.pets.Tutorial.CollectTrainingSetActivity;
 

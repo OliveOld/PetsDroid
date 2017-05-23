@@ -174,17 +174,13 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
                 last_id = puppies.first().getDogId()+1;
             }
 
-
             // 프로필 DB에 저장!
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     DogProfile myDog = realm.createObject(DogProfile.class, last_id);
-                    myDog.setDogName(et_DogName.getText().toString());
-                    myDog.setDogAge(parseInt(et_DogAge.getText().toString()));
-                    myDog.setDogSex(et_DogSex.getText().toString());
-                    myDog.setDogPhoto(absolutePath);
-                    myDog.setDogSize(dog_size);
+                    myDog.setDog(et_DogName.getText().toString(), parseInt(et_DogAge.getText().toString()),
+                            et_DogSex.getText().toString(),dog_size, absolutePath);
                 }
             });
             mRealm.close();

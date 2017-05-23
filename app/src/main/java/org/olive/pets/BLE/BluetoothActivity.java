@@ -1,6 +1,7 @@
-package org.olive.pets;
+package org.olive.pets.BLE;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,11 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +27,9 @@ import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
 import org.olive.pets.DB.DogProfile;
+import org.olive.pets.MainActivity;
+import org.olive.pets.Profile.DogProfileListActivity;
+import org.olive.pets.R;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,15 +38,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
+import static android.view.View.VISIBLE;
 import static java.lang.Integer.parseInt;
 
 /**
  * Created by KMJ on 2017-04-10.
  */
 
-public class BluetoothActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener {
+public class BluetoothActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener{
     private String state;
     final String TAG = "BlueBean";
     final List<Bean> beans = new ArrayList<>();
@@ -48,26 +57,32 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     int saveFlag=0;
     String dirPath, fileName;
     Realm mRealm;
-    CheckTypesTask task;
     int discovery_flag = 0;
+    ProgressBar progress;
+    ImageButton btnConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
+        /*
         tvData = (TextView)findViewById(R.id.bean_data);
         // 스크롤 텍스트뷰
         tvData.setMovementMethod(new ScrollingMovementMethod());
-
+*/
         tvConnect = (TextView)findViewById(R.id.bean_connect);
-        tvConnect.setText("Start Bluebean discovery ...");
+        progress = (ProgressBar)findViewById(R.id.progress_bean_connect);
 
-        // 실험 시작
-        Log.d(TAG,"Start Bluebean discovery ...");
-        BeanManager.getInstance().startDiscovery(this);
-
-        task = new CheckTypesTask();
+        btnConnect = (ImageButton) findViewById(R.id.btn_bean_connect);
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvConnect.setText("가장 가까운 기기를 찾고 있습니다...");
+                BeanManager.getInstance().startDiscovery(BluetoothActivity.this);
+                progress.setVisibility(VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -118,17 +133,15 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
         Log.d(TAG,"A bean is found: "+bean);
         StringBuffer aBuf= new StringBuffer(tvConnect.getText());
         aBuf.append("\n");
-        aBuf.append(""+bean.getDevice().getName()+" address: "+bean.getDevice().getAddress());
+        //aBuf.append(""+bean.getDevice().getName()+" address: "+bean.getDevice().getAddress());
         tvConnect.setText(aBuf.toString());
         beans.add(bean);
-
-        // 프로그레스
-        task.execute();
     }
 
     // 탐색 완료되었을 때
     @Override
     public void onDiscoveryComplete() {
+        progress.setVisibility(View.INVISIBLE);
         discovery_flag=1;
         StringBuffer aBuf= new StringBuffer(tvConnect.getText());
         aBuf.append("\n");
@@ -151,7 +164,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     public void onConnected() {
         StringBuffer aBuf= new StringBuffer(tvConnect.getText());
         aBuf.append("\n");
-        aBuf.append(beanName+"의 연결이 완료되었습니다!\n약 10초 후 상단의 실험 시작 메뉴를 누르세요.");
+        aBuf.append(beanName+"기기로의 연결이 완료되었습니다!");
         tvConnect.setText(aBuf.toString());
         Log.d(TAG,"connected to Bean! ");
         bean.readDeviceInfo(new Callback<DeviceInfo>() {
@@ -217,42 +230,5 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
         Log.d(TAG,"error: "+error);
     }
 
-
-    // Progress Spinner 구현 부분
-   private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
-
-        ProgressDialog asyncDialog = new ProgressDialog(BluetoothActivity.this);
-
-        @Override
-        protected void onPreExecute() {
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("기기를 찾고 있습니다..");
-
-            // show dialog
-            asyncDialog.show();
-            super.onPreExecute();
-        }
-
-        // 진행중, 진행 정도를 표시
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            try {
-                for (int i = 0; i < 5; i++) {
-                    //asyncDialog.setProgress(i * 30);
-                    Thread.sleep(500);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        // 종료 기능
-        @Override
-        protected void onPostExecute(Void result) {
-            asyncDialog.dismiss();
-            super.onPostExecute(result);
-        }
-    }
 }
 

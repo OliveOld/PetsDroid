@@ -35,6 +35,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 
+import org.olive.pets.BLE.BluetoothActivity;
 import org.olive.pets.Chart.PieChart_Activity;
 
 import org.olive.pets.DB.DogProfile;
