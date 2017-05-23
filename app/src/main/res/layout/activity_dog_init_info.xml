@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:background="@drawable/bg_img">
-
+    android:background="@drawable/background_iphone1"
+    >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

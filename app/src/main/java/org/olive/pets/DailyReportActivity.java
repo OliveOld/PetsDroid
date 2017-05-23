@@ -1,31 +1,39 @@
 package org.olive.pets;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.olive.pets.PieChart.PieChartFrag;
 import org.olive.pets.Profile.DogProfileListActivity;
 
-import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
-import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 
-public class DailyReportActivity extends AppCompatActivity{
+public class DailyReportActivity extends Activity implements OnChartValueSelectedListener {
+
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
     private HorizontalCalendar horizontalCalendar;
 
@@ -33,6 +41,15 @@ public class DailyReportActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_report);
+
+        // 액션바 투명하게 해주기
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 색상넣기(투명색상 들어감)
+    //    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
+        // 왼쪽 화살표 버튼
+     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         //btn_main
         btnMain = (Button) findViewById(R.id.btn_main_dr);
@@ -54,6 +71,11 @@ public class DailyReportActivity extends AppCompatActivity{
                     Intent i = new Intent(DailyReportActivity.this, DailyReportActivity.class);
                     startActivity(i);
                     finish();
+
+                    // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
+                    // toast.show();
+
+
                 } catch (Exception e) {
                     Toast toast = Toast.makeText(DailyReportActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
@@ -102,6 +124,9 @@ public class DailyReportActivity extends AppCompatActivity{
         defaultDate.add(Calendar.MONTH, -1);
         defaultDate.add(Calendar.DAY_OF_WEEK, +5);
 
+
+        /*
+
         horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .startDate(startDate.getTime())
                 .endDate(endDate.getTime())
@@ -124,6 +149,8 @@ public class DailyReportActivity extends AppCompatActivity{
 
         });
 
+*/
+
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -133,5 +160,93 @@ public class DailyReportActivity extends AppCompatActivity{
             }
         });
         */
+
+
+
+        /*****************************piechart_start********************************/
+
+        PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
+        pieChart.setUsePercentValues(true);
+
+        //원안의 텍스트
+        pieChart.setCenterText(generateCenterSpannableText());
+
+
+        // y값
+        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+
+        // 밑에 무슨 값인지 표시해 주는거
+        PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
+
+        // entry(값(%), 인덱스)
+        yvalues.add(new Entry(10, 0)); //lie
+        yvalues.add(new Entry(10, 1)); //sit/stand
+        yvalues.add(new Entry(20, 2)); // walk
+        yvalues.add(new Entry(50, 3)); //run
+
+
+
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("lie");
+        xVals.add("sit/stand");
+        xVals.add("walk");
+        xVals.add("run");
+
+
+        // 밑에 value값 정의 생성됨
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        pieChart.setData(data);
+
+        pieChart.setDescription("하루동안강아지는무엇을했을까요?");
+
+        // 파이차트 생성부분
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setTransparentCircleRadius(10f); // 원주율
+        pieChart.setHoleRadius(50f); // 원안에 크기
+
+        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        data.setValueTextSize(15f);
+        data.setValueTextColor(Color.WHITE);
+        pieChart.setOnChartValueSelectedListener(this);
+
+        pieChart.animateXY(1400, 1400);
+
+        /*****************************piechart_end********************************/
+
+
+
     }
+
+
+    /*****************************piechart_method_start********************************/
+
+    @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+
+        if (e == null)
+            return;
+        Log.i("VAL SELECTED",
+                "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
+                        + ", DataSet index: " + dataSetIndex);
+    }
+
+    @Override
+    public void onNothingSelected() {
+        Log.i("PieChart", "nothing selected");
+    }
+
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("PetTrack\ndeveloped by Olive_old");
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);
+        s.setSpan(new RelativeSizeSpan(.8f), 9, s.length() - 13, 0);
+        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
+        return s;
+    }
+
+    /*****************************piechart_method_end********************************/
 }
