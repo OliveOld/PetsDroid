@@ -61,6 +61,8 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     ProgressBar progress;
     ImageButton btnConnect;
 
+    Bean mBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
                 progress.setVisibility(VISIBLE);
             }
         });
+
     }
 
     @Override
@@ -157,6 +160,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
             // 연결한 기기 이름 가져오기
             beanName=bean.getDevice().getName();
         }
+        mBean = bean;
     }
 
     // BeanListener Methods
@@ -187,22 +191,20 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
         Log.d(TAG,"onDisconnected");
     }
 
+
     @Override
     public void onSerialMessageReceived(byte[] data) {
         String byteToString = new String(data, 0, data.length);
         Log.d(TAG,"onSerialMessageReceived");
         Log.d(TAG,"data: "+byteToString);
         // byte to string
-
-        // 받아온 데이터 저장
-        if(saveFlag==1) {
-            // 저장 일 경우에만
-        }
-
-        // 여기서 DB 저장
-        saveDB();
     }
-
+/*
+    public void send() {
+        byte hi = 0;
+        mBean.sendSerialMessage(hi);
+    }
+*/
     public void saveDB(){
         // DB 초기화
         mRealm = Realm.getDefaultInstance();

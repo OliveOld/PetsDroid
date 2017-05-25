@@ -28,14 +28,14 @@ public class DogProfile extends RealmObject {
     public DogProfile(){}
     // 생성자
     public void setDog(String dog_name, int dog_age, String dog_sex, String dog_size, String dog_photo) {
-        this.dog_id=increment();
+        //this.dog_id=increment();
         this.dog_name=dog_name;
         this.dog_age=dog_age;
         this.dog_sex=dog_sex;
         this.dog_size=dog_size;
         this.dog_photo=dog_photo;
-        PostureData pos= new PostureData();
-        posture_data=pos;
+        //PostureData pos= new PostureData();
+        //posture_data=pos;
     }
     // auto increment 기능이 따로 없음에 주의
     public int getDogId() { return dog_id; }
