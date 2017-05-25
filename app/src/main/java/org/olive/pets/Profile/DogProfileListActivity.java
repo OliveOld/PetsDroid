@@ -42,12 +42,18 @@ public class DogProfileListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_info);
 
+        //**********************actionbar_start**************************//
+
         // 액션바 투명하게 해주기
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 색상넣기(투명색상 들어감)
-         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
         // 왼쪽 화살표 버튼
-         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // 액션바 title 지정
+        getSupportActionBar().setTitle("Pet'Droid");
+
+        //**********************actionbar_start**************************//
 
 
         //Realm 사용을 알림

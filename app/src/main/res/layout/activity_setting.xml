@@ -68,7 +68,7 @@
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#44F6F6F6"
+        android:background="#55000000"
         android:orientation="vertical"
         android:weightSum="100">
 
@@ -77,51 +77,67 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:background="#00ff0000"
+            android:background="#00000000"
             android:gravity="left|center_vertical"
             android:padding="10dp"
-            android:text="\n\n\n           petsDroid"  />
+            android:text="\n\n\n           petsDroid"
+            android:textColor="#ffffff"/>
 
         <Button
             android:id="@+id/btn_main_mi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="#77F6F6F6"
+            android:background="#00000000"
+            android:padding="15dp"
+            android:text="메인 화면"
+            android:paddingLeft="18dip"
+            android:drawablePadding="18dip"
             android:gravity="left|center_vertical"
-            android:padding="10dp"
-            android:text="메인 화면" />
+            android:drawableLeft="@drawable/home_icon"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btn_daily_report_mi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="#77F6F6F6"
+            android:background="#00000000"
             android:gravity="left|center_vertical"
-            android:padding="10dp"
-            android:text="날짜별 활동량" />
+            android:padding="15dp"
+            android:text="날짜별 활동량"
+            android:paddingLeft="18dip"
+            android:drawablePadding="18dip"
+            android:drawableLeft="@drawable/ic_calendar_24dp"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btn_dog_info_mi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="#77F6F6F6"
+            android:background="#00000000"
             android:gravity="left|center_vertical"
-            android:padding="10dp"
-            android:text="강아지 정보" />
+            android:padding="15dp"
+            android:text="강아지 정보"
+            android:paddingLeft="18dip"
+            android:drawablePadding="18dip"
+            android:textColor="#ffffff"
+            android:drawableLeft="@drawable/dog_bnt" />
 
         <Button
             android:id="@+id/btn_setting_mi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-
-            android:background="#33F6F6F6"
+            android:background="#50000000"
             android:gravity="left|center_vertical"
-            android:padding="10dp"
-            android:text="환경설정" />
+            android:padding="15dp"
+            android:text="환경설정"
+            android:paddingLeft="18dip"
+            android:drawablePadding="18dip"
+            android:textColor="#ffffff"
+            android:drawableLeft="@drawable/setting" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
