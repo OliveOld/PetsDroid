@@ -53,6 +53,8 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity implements OnChartValueSelectedListener {
 
 
+   // private DrawerLayout dlDrawer;
+
     static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
     private Button btnDailyReport, btnDogInfo, btnSetting;
     private ImageView ivdogImage;
@@ -65,16 +67,19 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         setContentView(R.layout.activity_main);
 
 
+
         //**********************actionbar_start**************************//
 
         // 액션바 title 지정
-        getSupportActionBar().setTitle("Pet'Droid");
+        getSupportActionBar().setTitle(" ");
         // 액션바 투명하게 해주기
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 색상넣기(투명색상 들어감)
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
        // 왼쪽 화살표 버튼
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         //**********************actionbar_start**************************//
 
@@ -230,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         xVals.add("walk");
         xVals.add("run");
 
+        int white = 0x00000000; // 투명
 
         // 밑에 value값 정의 생성됨
         PieData data = new PieData(xVals, dataSet);
@@ -242,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         pieChart.setDrawHoleEnabled(true);
         pieChart.setTransparentCircleRadius(10f); // 원주율
         pieChart.setHoleRadius(50f); // 원안에 크기
-
+        pieChart.setHoleColor(white);
 
         dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
         data.setValueTextSize(15f); // 파이차트 숫자 텍스트 크기
@@ -300,6 +306,9 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         // 여기서 디비를 다시 읽어온다.
         super.onResume();
         loadDB();
+
+      // if(dlDrawer.isDrawerOpen(R.id.sildmenu))
+      //     dlDrawer.closeDrawer(R.id.sildmenu);
 
 
     }

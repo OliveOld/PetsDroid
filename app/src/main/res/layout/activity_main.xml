@@ -80,6 +80,7 @@
 
     <!-- 슬라이딩메뉴 start -->
     <LinearLayout
+        android:id="@+id/sildmenu"
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
