@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
 
 
         //**********************actionbar_start**************************//
-
         // 액션바 title 지정
         getSupportActionBar().setTitle(" ");
         // 액션바 투명하게 해주기
@@ -82,9 +81,6 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
        // 왼쪽 화살표 버튼
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
         //**********************actionbar_start**************************//
 
 

@@ -3,15 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tutorial_bg_img" >
+    android:background="@drawable/introback1" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:text="나의 작은 친구를 위한 특별한 시작"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textColor="#8b4513"
-        android:textSize="75sp"
-        android:text="Pet\'s" />
+        android:layout_marginBottom="120dp"
+
+        android:id="@+id/textView" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이제 시작합니다"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="400dp"
+        android:layout_marginBottom="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

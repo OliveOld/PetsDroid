@@ -12,13 +12,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.olive.pets.DB.DogProfile;
-import org.olive.pets.DB.Parent;
 import org.olive.pets.R;
 
 import java.io.BufferedOutputStream;
@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -50,6 +49,10 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_init_info);
+
+        //**********************actionbar_start**************************//
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //**********************actionbar_start**************************//
 
         SharedPreferences shPref = getSharedPreferences("MyPref", 0);
         tutorialFlag = shPref.getInt("Flag", 0);

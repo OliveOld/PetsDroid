@@ -9,22 +9,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/tutorial_bg_img">
+    android:background="@drawable/introback3">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="173dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/question1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:text="처음이신가요?"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -36,17 +41,29 @@
             android:orientation="horizontal">
 
             <Button
+                android:background="@drawable/button"
                 android:id="@+id/q1yes1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="예" />
+                android:text="예"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
 
             <Button
+                android:background="@drawable/button"
                 android:id="@+id/q1no1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/q1yes1"
-                android:text="아니오" />
+                android:text="아니오"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginStart="21dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/q1yes1" />
 
         </RelativeLayout>
 
