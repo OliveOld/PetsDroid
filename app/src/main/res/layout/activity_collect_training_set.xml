@@ -31,20 +31,28 @@
             <ImageButton
                 android:id="@+id/imgbtn_walk"
                 android:padding="0dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:srcCompat="@drawable/dog_walking"
                 android:scaleType="fitCenter"
                 android:text="앉기"/>
 
             <ImageButton
-                android:id="@+id/imgbtn_run"
+            android:id="@+id/imgbtn_run"
+            android:padding="0dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/dog_running"
+            android:text="앉기"/>
+
+            <ImageButton
+                android:id="@+id/imgbtn_lieback"
                 android:padding="0dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/dog_running"
-                android:text="앉기"/>
+                android:text="옆으로 눕기"/>
         </LinearLayout>
 
         <LinearLayout
@@ -56,30 +64,44 @@
             <ImageButton
                 android:id="@+id/imgbtn_lie"
                 android:padding="0dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/dog_lying"
                 android:text="앉기"/>
 
             <ImageButton
-                android:id="@+id/lmgbtn_stand"
-                android:layout_width="120dp"
+                android:id="@+id/imgbtn_stand"
+                android:layout_width="100dp"
                 android:padding="0dp"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 app:srcCompat="@drawable/dog_stand"
                 android:scaleType="fitCenter"
                 android:text="앉기"/>
 
             <ImageButton
-                android:id="@+id/lmgbtn_seat"
+                android:id="@+id/imgbtn_seat"
                 android:padding="0dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:srcCompat="@drawable/dog_seating"
                 android:scaleType="fitCenter"
                 android:text="앉기"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/imgbtn_lieside"
+                android:padding="0dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitCenter"
+                android:text="옆으로눕기"/>
+            </LinearLayout>
+
     </LinearLayout>
 
     <Button

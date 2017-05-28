@@ -13,16 +13,16 @@ public class BeanPacket {
     byte param;
     int value;
 
-    class Oper {
+    public class Oper {
         public static final byte OP_Discon = -1;
         public static final byte OP_Report = 1;
         public static final byte OP_Train = 2;
         public static final byte OP_Sync = 3;
     }
 
-    final static int Postures = 8;
+    public final static int Postures = 8;
 
-    class Pos {
+    public class Pos {
         public static final byte P_Unknown = 0;
         public static final byte P_Lie = 1;
         public static final byte P_LieSide = 2;
@@ -33,32 +33,32 @@ public class BeanPacket {
         public static final byte P_Run = 7;
     }
 
-    class Attr {
+    public class Attr {
         public static final byte A_Mean = 1;
         public static final byte A_Stdev = 2;
         public static final byte A_Time = 3;
     }
 
-    byte param(byte pos, byte attr) { return (byte)((pos << 4) + attr); }
+    public byte param(byte pos, byte attr) { return (byte)((pos << 4) + attr); }
 
-    byte pos(byte param)
+    public byte pos(byte param)
     {
         return (byte)(param >> 4);
     }
 
-    byte attr(byte param)
+    public byte attr(byte param)
     {
         return (byte)(param & 0x0F);
     }
 
     // 자세의 report를 요청하는 바이트 배열을 생성한다
-    byte[] makeReportngBytes(byte pos, byte att) {
+    public byte[] makeReportngBytes(byte pos, byte att) {
         byte[] array_request = {0, 0};
         array_request[0] = OP_Report;
         array_request[1] = param(pos, att);
         return array_request;
     }
-    byte[] makeSynchronizeBytes(byte pos, byte att) {
+    public byte[] makeSynchronizeBytes(byte pos, byte att) {
         byte[] array_request = {0,};
         array_request[0] = OP_Sync;
         array_request[1] = param(pos, att);
@@ -69,13 +69,13 @@ public class BeanPacket {
         array_request[5] =0;
         return array_request;
     }
-    byte[] makeTrainingBytes(byte pos, byte att) {
+    public byte[] makeTrainingBytes(byte pos) {
         byte[] array_request = {0, };
         array_request[0] = OP_Report;
-        array_request[1] = param(pos, att);
+        array_request[1] = pos;
         return array_request;
     }
-    byte[] makeDisconnBytes() {
+    public byte[] makeDisconnBytes() {
         byte[] array_request={};
         array_request[0] = OP_Discon;
         return array_request;

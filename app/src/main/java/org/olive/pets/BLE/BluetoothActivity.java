@@ -195,7 +195,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
                 mBean.sendSerialMessage(packet.makeSynchronizeBytes(pos, att));
                 break;
             case BeanPacket.Oper.OP_Train:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(pos, att));
+                mBean.sendSerialMessage(packet.makeTrainingBytes(pos));
                 break;
         }
     }

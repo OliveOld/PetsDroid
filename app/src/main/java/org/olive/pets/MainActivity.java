@@ -247,8 +247,6 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
 
         if (puppies.size() == 0) {
             // 강아지 관련 DB없을 시 실행 > default 값 지정
-            Toast.makeText(this, "강아지 프로필이 없습니다.", Toast.LENGTH_SHORT).show();
-
             tvdogName.setText("프로필 없음");
             tvdogInfo.setText("null");
         } else {
