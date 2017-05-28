@@ -8,21 +8,20 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class PostureData extends RealmObject {
-    @PrimaryKey
+    //@PrimaryKey
     private int data_id;           // 각 데이터가 갖는 기본 id
     private String date;            // 데이터 측정 된 시간 저장
-    private double lie_time;
-    private double stand_time;
-    private double walk_time;
-    private double run_time;
+    private int Unknown;
+    private int Lie;
+    private int LieSide;
+    private int LieBack;
+    private int Sit;
+    private int Stand;
+    private int Walk;
+    private int Run;
 
     public int getDateId() { return data_id; }
     public void setDateId(int data_id) {
-        this.data_id = data_id;
-    }
-
-    public int getDataId() { return data_id; }
-    public void setDataId(int data_id) {
         this.data_id = data_id;
     }
 
@@ -31,15 +30,27 @@ public class PostureData extends RealmObject {
         this.date = date;
     }
 
-    public double getLieTime() { return lie_time; }
-    public void setLieTime(double lie_time) { this.stand_time = lie_time; }
+    public int getUnknown() { return Unknown; }
+    public void setUnknown(int Unknown) { this.Unknown = Unknown; }
 
-    public double getStandTime() { return stand_time; }
-    public void setStandTime(double stand_time) { this.stand_time = stand_time; }
+    public int getLie() { return Lie; }
+    public void setLie(int Lie) { this.Lie = Lie; }
 
-    public double getWalkTime() { return walk_time; }
-    public void setWalkTime(double walk_time) { this.walk_time = walk_time; }
+    public int getLieSide() { return LieSide; }
+    public void setLieSide(int LieSide) { this.LieSide = LieSide; }
 
-    public double getRunTime() { return run_time; }
-    public void setRunTime(double run_time) { this.run_time = run_time; }
+    public int getSit() { return Sit; }
+    public void setSit(int Sit) { this.Sit = Sit; }
+
+    public int getLieBacke() { return LieBack; }
+    public void setLieBack(int LieBack) { this.LieBack = LieBack; }
+
+    public int getStand() { return Stand; }
+    public void setStand(int Stand) { this.Stand = Stand; }
+
+    public int getWalk() { return Walk; }
+    public void setWalk(int Walk) { this.Walk = Walk; }
+
+    public int getRun() { return Run; }
+    public void setRun(int Run) { this.Run = Run; }
 }

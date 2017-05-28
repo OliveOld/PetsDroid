@@ -51,11 +51,7 @@ import io.realm.RealmResults;
 
 
 public class MainActivity extends AppCompatActivity implements OnChartValueSelectedListener {
-
-
-
    // private DrawerLayout dlDrawer;
-
     static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
     private Button btnDailyReport, btnDogInfo, btnSetting;
     private ImageView ivdogImage;
@@ -69,9 +65,6 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
         //**********************actionbar_start**************************//
         // 액션바 title 지정
         getSupportActionBar().setTitle(" ");
@@ -81,8 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
        // 왼쪽 화살표 버튼
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //**********************actionbar_start**************************//
-
+        //**********************actionbar_end**************************//
 
         SharedPreferences shPref = getSharedPreferences("MyPref", 0);
 
@@ -111,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             //finish();
             startActivity(intent);
         } else {    // 튜토리얼이 끝났을 경우
-            Toast toast = Toast.makeText(MainActivity.this, "튜토리얼 끝", Toast.LENGTH_SHORT);
-            toast.show();
+            //Toast toast = Toast.makeText(MainActivity.this, "튜토리얼 끝", Toast.LENGTH_SHORT);
+            //toast.show();
             // 튜토리얼 끝났을 경우 && 앱을 깔고  첫번째 실행일 경우
             if (firstFlag == 0) {
                 firstFlag = 1;   // 첫번째 실행이 아니도록 플래그 변환
@@ -148,19 +140,13 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
 
                 @Override
                 public void onClick(View v) {
-
                     try {
-
-
                        Intent j = new Intent(MainActivity.this, DailyReportActivity.class);
                         startActivity(j);
-
-
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                         toast.show();
                     }
-
                 }
             });
 
@@ -171,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, DogProfileListActivity.class);
                     startActivity(intent);
-
                 }
             });
 
@@ -180,15 +165,14 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             btnSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                     startActivity(intent);
                 }
             });
             loadDB();
         }
-        //**********************piechart**************************//
 
+        //**********************piechart**************************//
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_main); //  원소
         pieChart.setUsePercentValues(true);
 
@@ -201,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         // 밑에 무슨 값인지 표시해 주는거
         PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
 
-
         RealmResults<PostureData> posture = mRealm.where(PostureData.class).findAll();
 
         float posture_lie = 25;
@@ -212,13 +195,11 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         if (posture.size() == 0)
         {   }
         else{
-
-                PostureData pos_data = posture.first();
-
-                posture_lie = (float) pos_data.getLieTime();
-                posture_stand = (float) pos_data.getStandTime();
-                posture_walk = (float) pos_data.getWalkTime();
-                posture_run = (float) pos_data.getRunTime();
+                PostureData pos_data = posture.last();
+                posture_lie = (float) pos_data.getUnknown();
+                posture_stand = (float) pos_data.getLie();
+                posture_walk = (float) pos_data.getLieSide();
+                posture_run = (float) pos_data.getSit();
         }
         // entry(값(%), 인덱스)
         yvalues.add(new Entry(posture_lie, 0)); //lie
@@ -302,12 +283,10 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         // 여기서 디비를 다시 읽어온다.
         super.onResume();
         loadDB();
-
       // if(dlDrawer.isDrawerOpen(R.id.sildmenu))
       //     dlDrawer.closeDrawer(R.id.sildmenu);
-
-
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

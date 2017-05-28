@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -27,10 +29,13 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.olive.pets.Profile.DogProfileListActivity;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 
 public class DailyReportActivity extends Activity implements OnChartValueSelectedListener {
 
@@ -49,8 +54,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         // 왼쪽 화살표 버튼
      //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         //btn_main
         btnMain = (Button) findViewById(R.id.btn_main_dr);
         btnMain.setOnClickListener(new View.OnClickListener() {
@@ -66,21 +69,14 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
 
             @Override
             public void onClick(View v) {
-
                 try {
                     Intent i = new Intent(DailyReportActivity.this, DailyReportActivity.class);
                     startActivity(i);
                     finish();
-
-                    // Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결성공", Toast.LENGTH_SHORT);
-                    // toast.show();
-
-
                 } catch (Exception e) {
                     Toast toast = Toast.makeText(DailyReportActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
             }
         });
 
@@ -92,7 +88,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 Intent intent = new Intent(DailyReportActivity.this, DogProfileListActivity.class);
                 finish();
                 startActivity(intent);
-
             }
         });
 
@@ -108,10 +103,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         });
 
         // 여기부터 캘린더 설정
-/*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-*/
+
         /** end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 1);
@@ -123,9 +115,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         final Calendar defaultDate = Calendar.getInstance();
         defaultDate.add(Calendar.MONTH, -1);
         defaultDate.add(Calendar.DAY_OF_WEEK, +5);
-
-
-        /*
 
         horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .startDate(startDate.getTime())
@@ -146,12 +135,8 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             public void onDateSelected(Date date, int position) {
                 Toast.makeText(DailyReportActivity.this, DateFormat.getDateInstance().format(date) + " is selected!", Toast.LENGTH_SHORT).show();
             }
-
         });
 
-*/
-
-        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,9 +144,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 horizontalCalendar.goToday(false);
             }
         });
-        */
-
-
 
         /*****************************piechart_start********************************/
 
@@ -170,7 +152,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
 
         //원안의 텍스트
         pieChart.setCenterText(generateCenterSpannableText());
-
 
         // y값
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
@@ -184,14 +165,11 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         yvalues.add(new Entry(20, 2)); // walk
         yvalues.add(new Entry(50, 3)); //run
 
-
-
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("lie");
         xVals.add("sit/stand");
         xVals.add("walk");
         xVals.add("run");
-
 
         // 밑에 value값 정의 생성됨
         PieData data = new PieData(xVals, dataSet);
@@ -213,14 +191,9 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         pieChart.animateXY(1400, 1400);
 
         /*****************************piechart_end********************************/
-
-
-
     }
 
-
     /*****************************piechart_method_start********************************/
-
     @Override
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
 
@@ -247,6 +220,5 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
         return s;
     }
-
     /*****************************piechart_method_end********************************/
 }

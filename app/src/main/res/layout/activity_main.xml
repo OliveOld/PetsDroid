@@ -38,7 +38,6 @@
                     android:id="@+id/tv_my_dog_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:text="dog_name"
@@ -61,9 +60,7 @@
             </LinearLayout>
         </LinearLayout>
 
-
         <!-- pie chart 추가 부분 -->
-
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/piechart_main"
             android:layout_gravity="center_horizontal"
@@ -83,7 +80,6 @@
         android:background="#55000000"
         android:orientation="vertical"
         android:weightSum="100" >
-
 
         <!--투명도/빨/파/초-->
 

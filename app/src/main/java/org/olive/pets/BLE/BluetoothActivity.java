@@ -1,21 +1,13 @@
 package org.olive.pets.BLE;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.punchthrough.bean.sdk.Bean;
 import com.punchthrough.bean.sdk.BeanDiscoveryListener;
@@ -26,19 +18,18 @@ import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
-import org.olive.pets.DB.DogProfile;
-import org.olive.pets.MainActivity;
-import org.olive.pets.Profile.DogProfileListActivity;
+import org.olive.pets.DB.PostureData;
 import org.olive.pets.R;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
+import static android.os.SystemClock.sleep;
 import static android.view.View.VISIBLE;
 import static java.lang.Integer.parseInt;
 
@@ -60,19 +51,24 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     int discovery_flag = 0;
     ProgressBar progress;
     ImageButton btnConnect;
-
+    int byteCnt = 1;
+    byte tmp1byte = 0;
+    byte[] tmp2byte = new byte[2];
+    byte[] tmp6byte = new byte[6];
     Bean mBean;
+    BeanPacket packet = new BeanPacket();
+    PostureData dogPosture;
+    int testCnt=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
-        /*
         tvData = (TextView)findViewById(R.id.bean_data);
         // 스크롤 텍스트뷰
         tvData.setMovementMethod(new ScrollingMovementMethod());
-*/
+
         tvConnect = (TextView)findViewById(R.id.bean_connect);
         progress = (ProgressBar)findViewById(R.id.progress_bean_connect);
 
@@ -86,48 +82,13 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
             }
         });
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bt, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //테스트 중단
-        if (id == R.id.test_cancel) {
-            // 저장 플래그를 0으로 만들어 더이상 텍스트 뷰에 시리얼 값이 출력되지 않도록 한다.
-            saveFlag=0;
-
-            // 텍스트 뷰의 내용을 텍스트로 내보낸다.
-            String data = tvData.getText().toString();
-
-            try {
-                fileName = "Test"+System.currentTimeMillis()+".txt";
-                File f = new File(dirPath, fileName); // 경로, 파일명(계속 새로운 이름 만드려고 시간씀)
-                FileWriter write = new FileWriter(f, false);
-                PrintWriter out = new PrintWriter(write);
-                out.println(data);
-                out.close();
-                // 저장 완료되었습니다 토스트
-                Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-                tvData.setText("");
-            } catch (Exception e) {
-                e.printStackTrace();
+        mRealm = Realm.getDefaultInstance();
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                dogPosture = realm.createObject(PostureData.class);
             }
-            return true;
-        }else {
-            // 저장 플래그를 1로 만들어 텍스트뷰에 시리얼값이 출력되도록 한다.
-            saveFlag=1;
-            Toast.makeText(this, "측정 시작 및 값 저장 시작", Toast.LENGTH_SHORT).show();
-        }
-
-        return super.onOptionsItemSelected(item);
+        });
     }
 
     // 새로운 bean 찾았을 때 이름, 주소 보여줌
@@ -179,6 +140,9 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
                 Log.d(TAG,deviceInfo.softwareVersion());
             }
         });
+        sleep(10000);
+
+        sendRequest(BeanPacket.Oper.OP_Report, (byte)0, BeanPacket.Attr.A_Time);
     }
 
     @Override
@@ -189,35 +153,162 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     @Override
     public void onDisconnected() {
         Log.d(TAG,"onDisconnected");
+        // text박스에 결과 출력
+        RealmResults<PostureData> postures = mRealm.where(PostureData.class).findAll();
+        postures = mRealm.where(PostureData.class).findAll();
+        // 일단은 마지막 저장 된 값 된 놈 보이기
+        PostureData posture = postures.last();
+        tvData.append("unknown: " + posture.getUnknown() + "\n"
+                + "Lie: " + posture.getLie() + "\n"
+                + "LieBack: " + posture.getLieBacke()  + "\n"
+                + "LieSide: " + posture.getLieSide()  + "\n"
+                + "Run: " + posture.getRun()   + "\n"
+                + "Sit: " + posture.getSit() + "\n"
+                + "Stand: " + posture.getStand() + "\n"
+                + "Walk: " + posture.getWalk()
+        );
     }
-
 
     @Override
     public void onSerialMessageReceived(byte[] data) {
-        String byteToString = new String(data, 0, data.length);
-        Log.d(TAG,"onSerialMessageReceived");
-        Log.d(TAG,"data: "+byteToString);
-        // byte to string
+        receiveResponse(data);
+        //String byteToString = new String(data, 0, data.length);
+        for(int i = 0; i<data.length;i++) {
+            Log.d(TAG,"onSerialMessageReceived");
+            Log.d(TAG,"data: " + data[i]);
+            Log.d(TAG,"bytecnt: " + byteCnt);
+            Log.d(TAG,"cnt: " + testCnt++);
+        }
     }
-/*
-    public void send() {
-        byte hi = 0;
-        mBean.sendSerialMessage(hi);
+
+    public void sendRequest(byte op, byte pos, byte att) {
+        switch(op) {
+            case BeanPacket.Oper.OP_Discon:
+                mBean.sendSerialMessage(packet.makeDisconnBytes());
+                break;
+            case BeanPacket.Oper.OP_Report:
+                // Report 요청 : 총 8개의 자세 요청함 : 총 16바이트 보냄
+                for (int i = 0; i < BeanPacket.Postures; i++)
+                    mBean.sendSerialMessage(packet.makeReportngBytes((byte) i, att));
+                break;
+            case BeanPacket.Oper.OP_Sync:
+                mBean.sendSerialMessage(packet.makeSynchronizeBytes(pos, att));
+                break;
+            case BeanPacket.Oper.OP_Train:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(pos, att));
+                break;
+        }
     }
-*/
+
+    // 기기의 reposnse 받아 처리하는 함수
+    public void receiveResponse(byte[] data) {
+        switch(byteCnt) {
+            // 첫번째 바이트 처리
+            case 1: {
+                switch (data[0]) {
+                    case BeanPacket.Oper.OP_Discon:
+                        //상관 없음 어짜피 연결 끝내니까
+                        // 1바이트임
+                        tmp1byte = -1;
+                        byteCnt = 1;
+                        break;
+                    case BeanPacket.Oper.OP_Report:
+                        tmp6byte[0] = data[0];
+                        byteCnt++;
+                        // byte cnt = 2가 됨
+                        break;
+                    case BeanPacket.Oper.OP_Train:
+                        tmp2byte[0] = data[0];
+                        byteCnt++;
+                        // byte cnt = 2가 됨
+                        break;
+                    case BeanPacket.Oper.OP_Sync:
+                        tmp2byte[0] = data[0];
+                        byteCnt++;
+                        // byte cnt = 2가 됨
+                        break;
+                }
+                break;
+            }
+            // 두번째 바이트 처리 여기서부턴 Oper로 나눔
+            case 2:
+            {
+                if(tmp2byte[0]==BeanPacket.Oper.OP_Train) {
+                    tmp2byte[1]=data[0];
+                    byteCnt = 1;
+                } else if(tmp2byte[0]== BeanPacket.Oper.OP_Sync) {
+                    tmp2byte[1]=data[0];
+                    byteCnt = 1;
+                }
+                if(tmp6byte[0]==BeanPacket.Oper.OP_Report) {
+                    tmp6byte[1] = data[0];
+                    byteCnt++;
+                }
+            }
+                break;
+            // 세번째 바이트 처리
+            case 3:
+                tmp6byte[5] = data[0];
+                byteCnt++;
+                break;
+            case 4:
+                tmp6byte[4] = data[0];
+                byteCnt++;
+                break;
+            case 5:
+                tmp6byte[3] = data[0];
+                byteCnt++;
+                break;
+            case 6:
+                tmp6byte[2] = data[0];
+                for(int i=0; i<6; i++)
+                    tvData.append(tmp6byte[i]+" ");
+                // 다 받았을 경우에 해당하는 자세에 디비 저장 후 배열 초기화(는 안해도되겠지)
+                saveDB();
+                byteCnt=1;
+                break;
+        }
+    }
+
+    // 받아온 데이터 저장하는 함수
     public void saveDB(){
-        // DB 초기화
-        mRealm = Realm.getDefaultInstance();
-        // DB 데이터 넣기
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                DogProfile myDog = realm.where(DogProfile.class).equalTo("id", 1).findFirst();
-                // fake data 일단 넣음
-                myDog.setPostureData(1, "2017-04-17", 36000, 40000, 20000, 10000);
+            int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
+                System.out.println("현재 시간 구하기 :: by Calendar..!!");
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd-hh:mm:ss");
+                String dataTime = sdf1.format(cal.getTime());
+                dogPosture.setDate(dataTime);
+            switch (packet.pos(tmp6byte[1])) {
+                case BeanPacket.Pos.P_Unknown:
+                    dogPosture.setUnknown(value);
+                    break;
+                case BeanPacket.Pos.P_Lie:
+                    dogPosture.setLie(value);
+                    break;
+                case BeanPacket.Pos.P_LieSide:
+                    dogPosture.setLieSide(value);
+                    break;
+                case BeanPacket.Pos.P_LieBack:
+                    dogPosture.setLieBack(value);
+                    break;
+                case BeanPacket.Pos.P_Sit:
+                    dogPosture.setSit(value);
+                    break;
+                case BeanPacket.Pos.P_Stand:
+                    dogPosture.setStand(value);
+                    break;
+                case BeanPacket.Pos.P_Walk:
+                    dogPosture.setWalk(value);
+                    break;
+                case BeanPacket.Pos.P_Run:
+                    dogPosture.setRun(value);
+                    break;
+            }
             }
         });
-        Toast.makeText(this, "강아지 자세가 저장되었습니다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

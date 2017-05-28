@@ -6,51 +6,46 @@
     android:background="@drawable/background_iphone1" >
 
 <!-- android:paddingTop="50dp" 주어야 합니다.-->
+    <!-- Calendar -->
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        android:layout_height="match_parent"
+        android:paddingTop="25dp"
+        android:orientation="vertical">
 
-            <devs.mulham.horizontalcalendar.HorizontalCalendarView
+        <devs.mulham.horizontalcalendar.HorizontalCalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 app:textColorSelected="#FFFF"
                 app:textSizeDayName="14sp"
-                app:textSizeDayNumber="20sp" />
-    </LinearLayout>
+                app:textSizeDayNumber="20sp"/>
 
-    <!--
+        <!-- Piechart 부분 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/piechart_daily_report"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="320dp"
+                android:layout_height="320dp"/>
+        </LinearLayout>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_calendar_24dp"/>
-     -->
-
-    <!-- Piechart 부분 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="80dp"
-        android:orientation="vertical">
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/piechart_daily_report"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="320dp"
-        android:layout_height="320dp"/>
     </LinearLayout>
+
 
     <!-- Drawer 부분 -->
     <LinearLayout

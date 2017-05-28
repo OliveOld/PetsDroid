@@ -62,17 +62,6 @@ public class DogProfile extends RealmObject {
     public String getDogPhoto() { return dog_photo; }
     public void setDogPhoto(String dog_photo) { this.dog_photo = dog_photo; }
 
-    public PostureData getPostureData() {return posture_data;}
-    public void setPostureData(int data_id, String date, double lie_time,double stand_time,double walk_time, double run_time) {
-
-        this.posture_data.setDataId(data_id);
-        this.posture_data.setDate(date);
-        this.posture_data.setLieTime(lie_time);
-        this.posture_data.setStandTime(stand_time);
-        this.posture_data.setWalkTime(walk_time);
-        this.posture_data.setRunTime(run_time);
-    }
-
     //  create() & delete() needs to be called inside a transaction.
     public static void create(Realm realm) {
         create(realm, false);
