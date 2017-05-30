@@ -35,7 +35,7 @@ import io.realm.RealmResults;
 
 import static android.os.SystemClock.sleep;
 
-public class CollectTrainingSetActivity extends BluetoothActivity implements BeanDiscoveryListener, BeanListener {
+public class CollectTrainingSetActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener, View.OnClickListener {
     private Button btnSubmit;
     int tutorialFlag;
     private String state;
@@ -53,9 +53,10 @@ public class CollectTrainingSetActivity extends BluetoothActivity implements Bea
     Bean mBean;
     BeanPacket packet = new BeanPacket();
     PostureData dogPosture;
-    int testCnt=1;
+    int testCnt = 1;
     ImageButton imgbtnWalk, imgbtnRun, imgbtnLie, imgbtnStand, imgbtnSeat, imgbtnLieBack, imgbtnLieSide;
-    boolean flagConnect=false;
+    boolean flagConnect = false;
+    Button btnTraining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +67,42 @@ public class CollectTrainingSetActivity extends BluetoothActivity implements Bea
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //**********************actionbar_start**************************//
 
-        //다음 페이지로 넘어가기 전에 완전히 튜토리얼 끝나면 endTutorial()로 마무리 해줘야함
+
         btnSubmit = (Button) findViewById(R.id.btn_submit_tutorial);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        btnSubmit.setOnClickListener(this);
+
+        btnTraining = (Button) findViewById(R.id.btn_start_training);
+        btnTraining.setOnClickListener(this);
+
+        imgbtnWalk = (ImageButton) findViewById(R.id.imgbtn_walk);
+        imgbtnRun = (ImageButton) findViewById(R.id.imgbtn_run);
+        imgbtnLie = (ImageButton) findViewById(R.id.imgbtn_lie);
+        imgbtnStand = (ImageButton) findViewById(R.id.imgbtn_stand);
+        imgbtnSeat = (ImageButton) findViewById(R.id.imgbtn_seat);
+        imgbtnLieBack = (ImageButton) findViewById(R.id.imgbtn_lieback);
+        imgbtnLieSide = (ImageButton) findViewById(R.id.imgbtn_lieside);
+        imgbtnWalk.setOnClickListener(this);
+        imgbtnRun.setOnClickListener(this);
+        imgbtnLie.setOnClickListener(this);
+        imgbtnStand.setOnClickListener(this);
+        imgbtnSeat.setOnClickListener(this);
+        imgbtnLieBack.setOnClickListener(this);
+        imgbtnLieSide.setOnClickListener(this);
+
+        mRealm = Realm.getDefaultInstance();
+        mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void onClick(View v) {
-                //튜토리얼 끝내고
+            public void execute(Realm realm) {
+                dogPosture = realm.createObject(PostureData.class);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_submit_tutorial:
+                //다음 페이지로 넘어가기 전에 완전히 튜토리얼 끝나면 endTutorial()로 마무리 해줘야함
                 SharedPreferences shPref = getSharedPreferences("MyPref", 0);
                 tutorialFlag = shPref.getInt("Flag", 0);
 
@@ -88,70 +119,40 @@ public class CollectTrainingSetActivity extends BluetoothActivity implements Bea
                     // 혹은 셋팅>데이터 더 받기에서 온 경우 => 돌아가기
                     finish();
                 }
-            }
-        });
-
-        mRealm = Realm.getDefaultInstance();
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                dogPosture = realm.createObject(PostureData.class);
-            }
-        });
-
-        ImageButton.OnClickListener onClickListener = new ImageButton.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.imgbtn_walk :
-                        sendRequest(BeanPacket.Oper.OP_Train, BeanPacket.Pos.P_Walk, (byte)0);
-                        break ;
-                    case R.id.imgbtn_run :
-                        sendRequest(BeanPacket.Oper.OP_Train, BeanPacket.Pos.P_Run, (byte)0);
-                        break ;
-                    case R.id.imgbtn_lie :
-                        sendRequest(BeanPacket.Oper.OP_Train, BeanPacket.Pos.P_Lie, (byte)0);
-                        break ;
-                    case R.id.imgbtn_lieback :
-                        sendRequest(BeanPacket.Oper.OP_Train, BeanPacket.Pos.P_LieBack, (byte)0);
-                        break ;
-                    case R.id.imgbtn_stand :
-                        sendRequest(BeanPacket.Oper.OP_Train, BeanPacket.Pos.P_Stand, (byte)0);
-                        break ;
-                    case R.id.imgbtn_seat :
-                        sendRequest(BeanPacket.Oper.OP_Train, BeanPacket.Pos.P_Sit, (byte)0);
-                        break ;
-                    case R.id.imgbtn_lieside :
-                        sendRequest(BeanPacket.Oper.OP_Train, BeanPacket.Pos.P_LieSide, (byte)0);
-                        break ;
-                }
-            }
-        } ;
-
-        if(flagConnect) {
-            imgbtnWalk = (ImageButton) findViewById(R.id.imgbtn_walk);
-            imgbtnRun = (ImageButton) findViewById(R.id.imgbtn_run);
-            imgbtnLie = (ImageButton) findViewById(R.id.imgbtn_lie);
-            imgbtnStand = (ImageButton) findViewById(R.id.imgbtn_stand);
-            imgbtnSeat = (ImageButton) findViewById(R.id.imgbtn_seat);
-            imgbtnLieBack = (ImageButton) findViewById(R.id.imgbtn_lieback);
-            imgbtnLieSide = (ImageButton) findViewById(R.id.imgbtn_lieside);
-            imgbtnWalk.setOnClickListener(onClickListener);
-            imgbtnRun.setOnClickListener(onClickListener);
-            imgbtnLie.setOnClickListener(onClickListener);
-            imgbtnStand.setOnClickListener(onClickListener);
-            imgbtnSeat.setOnClickListener(onClickListener);
-            imgbtnLieBack.setOnClickListener(onClickListener);
-            imgbtnLieSide.setOnClickListener(onClickListener);
+                break;
+            case R.id.btn_start_training:
+                BeanManager.getInstance().startDiscovery(CollectTrainingSetActivity.this);
+                break;
+            case R.id.imgbtn_walk:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                Log.d(TAG, "walkwalkwalk");
+                break;
+            case R.id.imgbtn_run:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                break;
+            case R.id.imgbtn_lie:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                break;
+            case R.id.imgbtn_lieback:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                break;
+            case R.id.imgbtn_stand:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                break;
+            case R.id.imgbtn_seat:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Sit));
+                break;
+            case R.id.imgbtn_lieside:
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_LieSide));
+                break;
         }
-
-        BeanManager.getInstance().startDiscovery(CollectTrainingSetActivity.this);
     }
+
 
     // 새로운 bean 찾았을 때 이름, 주소 보여줌
     @Override
     public void onBeanDiscovered(Bean bean, int rssi) {
-        Log.d(TAG,"A bean is found: "+bean);
+        Log.d(TAG, "A bean is found: " + bean);
         beans.add(bean);
     }
 
@@ -159,16 +160,16 @@ public class CollectTrainingSetActivity extends BluetoothActivity implements Bea
     @Override
     public void onDiscoveryComplete() {
 //        progress.setVisibility(View.INVISIBLE);
-        discovery_flag=1;
+        discovery_flag = 1;
         for (Bean bean : beans) {
-            Log.d(TAG, "Bean name: "+bean.getDevice().getName());
-            Log.d(TAG, "Bean address: "+bean.getDevice().getAddress());
+            Log.d(TAG, "Bean name: " + bean.getDevice().getName());
+            Log.d(TAG, "Bean address: " + bean.getDevice().getAddress());
         }
-        if(beans.size()>0){
-            bean=beans.get(0);
-            bean.connect(this,this);
+        if (beans.size() > 0) {
+            bean = beans.get(0);
+            bean.connect(this, this);
             // 연결한 기기 이름 가져오기
-            beanName=bean.getDevice().getName();
+            beanName = bean.getDevice().getName();
         }
         mBean = bean;
     }
@@ -176,30 +177,32 @@ public class CollectTrainingSetActivity extends BluetoothActivity implements Bea
     // BeanListener Methods
     @Override
     public void onConnected() {
-        Log.d(TAG,"connected to Bean! ");
+        Log.d(TAG, "connected to Bean! ");
         bean.readDeviceInfo(new Callback<DeviceInfo>() {
             @Override
             public void onResult(DeviceInfo deviceInfo) {
-                Log.d(TAG,deviceInfo.hardwareVersion());
-                Log.d(TAG,deviceInfo.firmwareVersion());
-                Log.d(TAG,deviceInfo.softwareVersion());
+                Log.d(TAG, deviceInfo.hardwareVersion());
+                Log.d(TAG, deviceInfo.firmwareVersion());
+                Log.d(TAG, deviceInfo.softwareVersion());
             }
         });
         sleep(10000);
 
         Toast toast = Toast.makeText(CollectTrainingSetActivity.this, "버튼을 누르세요.", Toast.LENGTH_SHORT);
         toast.show();
-        flagConnect=true;
+        flagConnect = true;
+
+        mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
     }
 
     @Override
     public void onConnectionFailed() {
-        Log.d(TAG,"onConnectionFailed");
+        Log.d(TAG, "onConnectionFailed");
     }
 
     @Override
     public void onDisconnected() {
-        Log.d(TAG,"onDisconnected");
+        Log.d(TAG, "onDisconnected");
         // text박스에 결과 출력
         RealmResults<PostureData> postures = mRealm.where(PostureData.class).findAll();
         postures = mRealm.where(PostureData.class).findAll();
@@ -209,27 +212,62 @@ public class CollectTrainingSetActivity extends BluetoothActivity implements Bea
 
     @Override
     public void onSerialMessageReceived(byte[] data) {
+        Log.d(TAG,"onSerialMessageReceived");
+        Log.d(TAG,"bytecnt: " + byteCnt);
         receiveResponse(data);
-        //String byteToString = new String(data, 0, data.length);
-        for(int i = 0; i<data.length;i++) {
-            Log.d(TAG,"onSerialMessageReceived");
-            Log.d(TAG,"data: " + data[i]);
-            Log.d(TAG,"bytecnt: " + byteCnt);
-            Log.d(TAG,"cnt: " + testCnt++);
-        }
+        Log.d(TAG,"data: " + data[0]);
+        Log.d(TAG,"cnt: " + testCnt++);
     }
 
     @Override
     public void onScratchValueChanged(ScratchBank bank, byte[] value) {
-        Log.d(TAG,"onScratchValueChanged");
-        Log.d(TAG,"bank: "+bank+"\tvalue: "+value);
+        Log.d(TAG, "onScratchValueChanged");
+        Log.d(TAG, "bank: " + bank + "\tvalue: " + value);
     }
 
     @Override
     public void onError(BeanError error) {
         Log.d(TAG, "onError");
         Log.d(TAG, "error: " + error);
+    }
+
+    // 기기의 reposnse 받아 처리하는 함수
+    public void receiveResponse(byte[] data) {
+        switch(byteCnt) {
+            // 첫번째 바이트 처리
+            case 1: {
+                switch (data[0]) {
+                    case BeanPacket.Oper.OP_Train:
+                        tmp2byte[0] = data[0];
+                        byteCnt++;
+                        // byte cnt = 2가 됨
+                        break;
+                    case BeanPacket.Oper.OP_Sync:
+                        tmp2byte[0] = data[0];
+                        byteCnt++;
+                        // byte cnt = 2가 됨
+                        break;
+                }
+                break;
+            }
+            // 두번째 바이트 처리 여기서부턴 Oper로 나눔
+            case 2:
+            {
+                if(tmp2byte[0]==BeanPacket.Oper.OP_Train) {
+                    tmp2byte[1]=data[0];
+                    byteCnt = 1;
+                } else if(tmp2byte[0]== BeanPacket.Oper.OP_Sync) {
+                    tmp2byte[1]=data[0];
+                    byteCnt = 1;
+                }
+                if(tmp6byte[0]==BeanPacket.Oper.OP_Report) {
+                    tmp6byte[1] = data[0];
+                    byteCnt++;
+                }
+            }
+            break;
         }
+    }
 }
 
 

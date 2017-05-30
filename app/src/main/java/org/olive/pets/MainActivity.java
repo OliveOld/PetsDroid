@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
                     startActivity(intent);
                 }
             });
+
             loadDB();
         }
 

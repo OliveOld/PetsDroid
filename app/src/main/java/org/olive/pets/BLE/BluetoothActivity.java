@@ -59,6 +59,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     BeanPacket packet = new BeanPacket();
     PostureData dogPosture;
     int testCnt=1;
+    String dataTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,10 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
                 tvConnect.setText("가장 가까운 기기를 찾고 있습니다...");
                 BeanManager.getInstance().startDiscovery(BluetoothActivity.this);
                 progress.setVisibility(VISIBLE);
+                System.out.println("현재 시간 구하기 :: by Calendar..!!");
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd-hh:mm:ss");
+                dataTime = sdf1.format(cal.getTime());
             }
         });
 
@@ -171,14 +176,11 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
 
     @Override
     public void onSerialMessageReceived(byte[] data) {
+        Log.d(TAG,"onSerialMessageReceived");
+        Log.d(TAG,"bytecnt: " + byteCnt);
         receiveResponse(data);
-        //String byteToString = new String(data, 0, data.length);
-        for(int i = 0; i<data.length;i++) {
-            Log.d(TAG,"onSerialMessageReceived");
-            Log.d(TAG,"data: " + data[i]);
-            Log.d(TAG,"bytecnt: " + byteCnt);
-            Log.d(TAG,"cnt: " + testCnt++);
-        }
+        Log.d(TAG,"data: " + data[0]);
+        Log.d(TAG,"cnt: " + testCnt++);
     }
 
     public void sendRequest(byte op, byte pos, byte att) {
@@ -276,10 +278,6 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
             @Override
             public void execute(Realm realm) {
             int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
-                System.out.println("현재 시간 구하기 :: by Calendar..!!");
-                Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd-hh:mm:ss");
-                String dataTime = sdf1.format(cal.getTime());
                 dogPosture.setDate(dataTime);
             switch (packet.pos(tmp6byte[1])) {
                 case BeanPacket.Pos.P_Unknown:

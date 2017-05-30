@@ -70,11 +70,12 @@ public class BeanPacket {
         return array_request;
     }
     public byte[] makeTrainingBytes(byte pos) {
-        byte[] array_request = {0, };
+        byte[] array_request = {0, 0};
         array_request[0] = OP_Report;
         array_request[1] = pos;
         return array_request;
     }
+
     public byte[] makeDisconnBytes() {
         byte[] array_request={};
         array_request[0] = OP_Discon;
