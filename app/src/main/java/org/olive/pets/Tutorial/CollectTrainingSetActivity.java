@@ -101,14 +101,6 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         imgbtnLieBack.setOnClickListener(this);
         imgbtnLieSide.setOnClickListener(this);
 
-        //**********************데이터베이스 설정**************************//
-        mRealm = Realm.getDefaultInstance();
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                dogPosture = realm.createObject(PostureData.class);
-            }
-        });
     }
 
     @Override

@@ -27,20 +27,27 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.olive.pets.DB.DogProfile;
+import org.olive.pets.DB.PostureData;
 import org.olive.pets.Profile.DogProfileListActivity;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class DailyReportActivity extends Activity implements OnChartValueSelectedListener {
-
+    Realm mRealm;
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
     private HorizontalCalendar horizontalCalendar;
+    String selectedDate;
+    float posture_lie, posture_stand, posture_walk, posture_run=25;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +109,8 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             }
         });
 
-        // 여기부터 캘린더 설정
 
+        // 여기부터 캘린더 설정
         /** end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 1);
@@ -134,6 +141,78 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             @Override
             public void onDateSelected(Date date, int position) {
                 Toast.makeText(DailyReportActivity.this, DateFormat.getDateInstance().format(date) + " is selected!", Toast.LENGTH_SHORT).show();
+                // 해당 날짜의 날짜 가져오기...
+                // 데이터베이스 불러오기...
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd");
+                selectedDate = sdf1.format(date);
+
+                /*****************************piechart_start********************************/
+
+
+                RealmResults<PostureData> posture = mRealm.where(PostureData.class).equalTo("date", selectedDate).findAll();
+
+
+
+
+                if (posture.size() == 0)
+                {
+                    // 데이터가 없다고 표시하기
+                }
+                else{
+
+                    PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
+                    pieChart.setUsePercentValues(true);
+
+                    //원안의 텍스트
+                    pieChart.setCenterText(generateCenterSpannableText());
+
+                    // y값
+                    ArrayList<Entry> yvalues = new ArrayList<Entry>();
+
+                    // 밑에 무슨 값인지 표시해 주는거
+                    PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
+
+                    PostureData pos_data = posture.first();
+                    posture_lie = (float) pos_data.getLie();
+                    posture_stand = (float) pos_data.getStand();
+                    posture_walk = (float) pos_data.getWalk();
+                    posture_run = (float) pos_data.getSit();
+
+                    // entry(값(%), 인덱스)
+                    yvalues.add(new Entry(posture_lie, 0)); //lie
+                    yvalues.add(new Entry(posture_stand, 1)); //sit/stand
+                    yvalues.add(new Entry(posture_walk, 2)); // walk
+                    yvalues.add(new Entry(posture_run, 3)); //run
+
+                    ArrayList<String> xVals = new ArrayList<String>();
+                    xVals.add("lie");
+                    xVals.add("sit/stand");
+                    xVals.add("walk");
+                    xVals.add("run");
+
+                    // 밑에 value값 정의 생성됨
+                    PieData data = new PieData(xVals, dataSet);
+                    data.setValueFormatter(new PercentFormatter());
+                    pieChart.setData(data);
+
+                    pieChart.setDescription("하루동안강아지는무엇을했을까요?");
+
+                    // 파이차트 생성부분
+                    pieChart.setDrawHoleEnabled(true);
+                    pieChart.setTransparentCircleRadius(10f); // 원주율
+                    pieChart.setHoleRadius(50f); // 원안에 크기
+
+                    dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                    data.setValueTextSize(15f);
+                    data.setValueTextColor(Color.WHITE);
+                    pieChart.setOnChartValueSelectedListener(DailyReportActivity.this);
+
+                    pieChart.animateXY(1400, 1400);
+
+                }
+
+                /*****************************piechart_end********************************/
             }
         });
 
@@ -145,52 +224,13 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             }
         });
 
-        /*****************************piechart_start********************************/
 
-        PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
-        pieChart.setUsePercentValues(true);
+        /*****************************DB_start      ********************************/
+        mRealm = Realm.getDefaultInstance();
 
-        //원안의 텍스트
-        pieChart.setCenterText(generateCenterSpannableText());
+        /*****************************DB_end       *********************************/
 
-        // y값
-        ArrayList<Entry> yvalues = new ArrayList<Entry>();
 
-        // 밑에 무슨 값인지 표시해 주는거
-        PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
-
-        // entry(값(%), 인덱스)
-        yvalues.add(new Entry(10, 0)); //lie
-        yvalues.add(new Entry(10, 1)); //sit/stand
-        yvalues.add(new Entry(20, 2)); // walk
-        yvalues.add(new Entry(50, 3)); //run
-
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("lie");
-        xVals.add("sit/stand");
-        xVals.add("walk");
-        xVals.add("run");
-
-        // 밑에 value값 정의 생성됨
-        PieData data = new PieData(xVals, dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        pieChart.setData(data);
-
-        pieChart.setDescription("하루동안강아지는무엇을했을까요?");
-
-        // 파이차트 생성부분
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setTransparentCircleRadius(10f); // 원주율
-        pieChart.setHoleRadius(50f); // 원안에 크기
-
-        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        data.setValueTextSize(15f);
-        data.setValueTextColor(Color.WHITE);
-        pieChart.setOnChartValueSelectedListener(this);
-
-        pieChart.animateXY(1400, 1400);
-
-        /*****************************piechart_end********************************/
     }
 
     /*****************************piechart_method_start********************************/

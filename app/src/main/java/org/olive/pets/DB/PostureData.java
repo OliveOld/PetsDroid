@@ -8,8 +8,7 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class PostureData extends RealmObject {
-    //@PrimaryKey
-    private int data_id;           // 각 데이터가 갖는 기본 id
+    @PrimaryKey
     private String date;            // 데이터 측정 된 시간 저장
     private int Unknown;
     private int Lie;
@@ -20,11 +19,12 @@ public class PostureData extends RealmObject {
     private int Walk;
     private int Run;
 
+    /*
     public int getDateId() { return data_id; }
     public void setDateId(int data_id) {
         this.data_id = data_id;
     }
-
+*/
     public String getDate() { return date; }
     public void setDate(String date) {
         this.date = date;

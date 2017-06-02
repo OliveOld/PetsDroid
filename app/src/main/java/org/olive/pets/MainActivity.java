@@ -103,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             //finish();
             startActivity(intent);
         } else {    // 튜토리얼이 끝났을 경우
-            //Toast toast = Toast.makeText(MainActivity.this, "튜토리얼 끝", Toast.LENGTH_SHORT);
-            //toast.show();
             // 튜토리얼 끝났을 경우 && 앱을 깔고  첫번째 실행일 경우
             if (firstFlag == 0) {
                 firstFlag = 1;   // 첫번째 실행이 아니도록 플래그 변환

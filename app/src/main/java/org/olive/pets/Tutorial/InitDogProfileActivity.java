@@ -135,7 +135,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
                 // 크롭된 이미지의 저장 경로
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/PetsAndroid/" + System.currentTimeMillis() + ".jpg";
-                absolutePath="null";
+
                 if (extras != null) {
                     // 크롭된 이미지를 비트맵 photo로 저장
                     Bitmap photo = extras.getParcelable("data");
@@ -144,7 +144,8 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
                     storeCropImage(photo, filePath);    // 크롭된 이미지를 외부저장소, 앨범에 저장
 
                     absolutePath = filePath;
-                    break;
+                } else {
+                    absolutePath="null";
                 }
 
                 // 임시 파일 삭제
@@ -152,6 +153,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
                 if (f.exists()) {
                     f.delete();
                 }
+                break;
             }
         }
     }

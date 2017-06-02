@@ -1,6 +1,10 @@
 package org.olive.pets.BLE;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -60,11 +64,24 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     PostureData dogPosture;
     int testCnt=1;
     String dataTime;
+    private final static int REQUEST_ENABLE_BT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
+
+        BluetoothAdapter bt = BluetoothAdapter.getDefaultAdapter();
+        if (bt == null){
+            //Does not support Bluetooth
+            //status.setText("Your device does not support Bluetooth");
+        }else{
+            //Magic starts. Let's check if it's enabled
+            if (!bt.isEnabled()){
+                Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            }
+        }
 
         tvData = (TextView)findViewById(R.id.bean_data);
         // 스크롤 텍스트뷰
@@ -82,18 +99,13 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
                 progress.setVisibility(VISIBLE);
                 System.out.println("현재 시간 구하기 :: by Calendar..!!");
                 Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd-hh:mm:ss");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd");
                 dataTime = sdf1.format(cal.getTime());
             }
         });
 
         mRealm = Realm.getDefaultInstance();
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                dogPosture = realm.createObject(PostureData.class);
-            }
-        });
+
     }
 
     // 새로운 bean 찾았을 때 이름, 주소 보여줌
@@ -274,39 +286,94 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
 
     // 받아온 데이터 저장하는 함수
     public void saveDB(){
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-            int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
-                dogPosture.setDate(dataTime);
-            switch (packet.pos(tmp6byte[1])) {
-                case BeanPacket.Pos.P_Unknown:
-                    dogPosture.setUnknown(value);
-                    break;
-                case BeanPacket.Pos.P_Lie:
-                    dogPosture.setLie(value);
-                    break;
-                case BeanPacket.Pos.P_LieSide:
-                    dogPosture.setLieSide(value);
-                    break;
-                case BeanPacket.Pos.P_LieBack:
-                    dogPosture.setLieBack(value);
-                    break;
-                case BeanPacket.Pos.P_Sit:
-                    dogPosture.setSit(value);
-                    break;
-                case BeanPacket.Pos.P_Stand:
-                    dogPosture.setStand(value);
-                    break;
-                case BeanPacket.Pos.P_Walk:
-                    dogPosture.setWalk(value);
-                    break;
-                case BeanPacket.Pos.P_Run:
-                    dogPosture.setRun(value);
-                    break;
-            }
-            }
-        });
+
+        RealmResults<PostureData> posture = mRealm.where(PostureData.class).equalTo("date", dataTime).findAll();
+
+        // 이미 오늘 받아왔으면 => 이전 것에 덧씌우기
+        if(posture.size() != 0) {
+            final PostureData pos = posture.first();
+            final int prev_unknown = pos.getUnknown();
+            final int prev_lie = pos.getLie();
+            final int prev_lieside = pos.getLieSide();
+            final int prev_lieback = pos.getLieBacke();
+            final int prev_sit = pos.getSit();
+            final int prev_stand = pos.getStand();
+            final int prev_walk = pos.getWalk();
+            final int prev_run = pos.getRun();
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    dogPosture = realm.where(PostureData.class).equalTo("date", dataTime).findFirst();
+                    int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
+                    //dogPosture.setDate(dataTime);
+                    switch (packet.pos(tmp6byte[1])) {
+                        case BeanPacket.Pos.P_Unknown:
+                            dogPosture.setUnknown(prev_unknown + value);
+                            break;
+                        case BeanPacket.Pos.P_Lie:
+                            dogPosture.setLie(prev_lie + value);
+                            break;
+                        case BeanPacket.Pos.P_LieSide:
+                            dogPosture.setLie(prev_lieside + value);
+                            break;
+                        case BeanPacket.Pos.P_LieBack:
+                            dogPosture.setLie(prev_lieback + value);
+                            break;
+                        case BeanPacket.Pos.P_Sit:
+                            dogPosture.setLie(prev_sit + value);
+                            break;
+                        case BeanPacket.Pos.P_Stand:
+                            dogPosture.setLie(prev_stand + value);
+                            break;
+                        case BeanPacket.Pos.P_Walk:
+                            dogPosture.setLie(prev_walk + value);
+                            break;
+                        case BeanPacket.Pos.P_Run:
+                            dogPosture.setLie(prev_run + value);
+                            break;
+                    }
+                }
+            });
+        } else {
+            // 아니면 그냥 새로 저장
+            mRealm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    dogPosture = realm.createObject(PostureData.class, dataTime);
+                    int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
+                    //dogPosture.setDate(dataTime);
+                    switch (packet.pos(tmp6byte[1])) {
+                        case BeanPacket.Pos.P_Unknown:
+                            dogPosture.setUnknown(value);
+                            break;
+                        case BeanPacket.Pos.P_Lie:
+                            dogPosture.setLie(value);
+                            break;
+                        case BeanPacket.Pos.P_LieSide:
+                            dogPosture.setLieSide(value);
+                            break;
+                        case BeanPacket.Pos.P_LieBack:
+                            dogPosture.setLieBack(value);
+                            break;
+                        case BeanPacket.Pos.P_Sit:
+                            dogPosture.setSit(value);
+                            break;
+                        case BeanPacket.Pos.P_Stand:
+                            dogPosture.setStand(value);
+                            break;
+                        case BeanPacket.Pos.P_Walk:
+                            dogPosture.setWalk(value);
+                            break;
+                        case BeanPacket.Pos.P_Run:
+                            dogPosture.setRun(value);
+                            break;
+                    }
+                }
+            });
+        }
+
+
+
     }
 
     @Override

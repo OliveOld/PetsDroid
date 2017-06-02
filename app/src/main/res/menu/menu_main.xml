@@ -9,10 +9,4 @@
         android:icon="@mipmap/ic_bt_scan4_48px"
         android:title="데이터 받아오기"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/bluetooth_pietest"
-        android:orderInCategory="100"
-        android:icon="@mipmap/ic_bt_scan4_48px"
-        android:title="파이차트테스트"
-        app:showAsAction="never" />
 </menu>
