@@ -3,6 +3,7 @@ package org.olive.pets.BLE;
 import static org.olive.pets.BLE.BeanPacket.Oper.OP_Discon;
 import static org.olive.pets.BLE.BeanPacket.Oper.OP_Report;
 import static org.olive.pets.BLE.BeanPacket.Oper.OP_Sync;
+import static org.olive.pets.BLE.BeanPacket.Oper.OP_Train;
 
 /**
  * Created by KMJ on 2017-05-24.
@@ -71,7 +72,7 @@ public class BeanPacket {
     }
     public byte[] makeTrainingBytes(byte pos) {
         byte[] array_request = {0, 0};
-        array_request[0] = OP_Report;
+        array_request[0] = OP_Train;
         array_request[1] = pos;
         return array_request;
     }
