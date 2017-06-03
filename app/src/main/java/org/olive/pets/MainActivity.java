@@ -192,21 +192,24 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         float posture_stand=25;
         float posture_walk=25;
         float posture_run=25;
+        float posture_etc=25;
 
         if (posture.size() == 0)
         {   }
         else{
                 PostureData pos_data = posture.last();
-                posture_lie = (float) pos_data.getUnknown();
-                posture_stand = (float) pos_data.getLie();
-                posture_walk = (float) pos_data.getLieSide();
-                posture_run = (float) pos_data.getSit();
+                posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
+                posture_stand = (float) pos_data.getStand()+pos_data.getSit();
+                posture_walk = (float) pos_data.getWalk();
+                posture_run = (float) pos_data.getRun();
+                posture_etc=(float)pos_data.getUnknown();
         }
         // entry(값(%), 인덱스)
         yvalues.add(new Entry(posture_lie, 0)); //lie
         yvalues.add(new Entry(posture_stand, 1)); //sit/stand
         yvalues.add(new Entry(posture_walk, 2)); // walk
         yvalues.add(new Entry(posture_run, 3)); //run
+        yvalues.add(new Entry(posture_etc, 4)); //etc
 
 
         ArrayList<String> xVals = new ArrayList<String>();
@@ -214,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         xVals.add("sit/stand");
         xVals.add("walk");
         xVals.add("run");
+        xVals.add("ETC");
 
         int white = 0x00000000; // 투명
 
@@ -222,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         data.setValueFormatter(new PercentFormatter());
         pieChart.setData(data);
 
-        pieChart.setDescription("하루동안강아지는무엇을했을까요?");
+       // pieChart.setDescription("하루동안강아지는무엇을했을까요?");
 
         // 파이차트 생성부분
         pieChart.setDrawHoleEnabled(true);

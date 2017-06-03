@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -27,6 +26,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.olive.pets.DB.PostureData;
 import org.olive.pets.Profile.DogProfileListActivity;
 
 import java.text.DateFormat;
@@ -36,12 +36,14 @@ import java.util.Date;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class DailyReportActivity extends Activity implements OnChartValueSelectedListener {
 
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
     private HorizontalCalendar horizontalCalendar;
-
+    private Realm mRealm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,17 +161,39 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         // 밑에 무슨 값인지 표시해 주는거
         PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
 
+
+        RealmResults<PostureData> posture = mRealm.where(PostureData.class).findAll();
+
+        float posture_lie = 25;
+        float posture_stand=25;
+        float posture_walk=25;
+        float posture_run=25;
+        float posture_etc=25;
+
+        if (posture.size() == 0)
+        {   }
+        else{
+            PostureData pos_data = posture.last();
+            posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
+            posture_stand = (float) pos_data.getStand()+pos_data.getSit();
+            posture_walk = (float) pos_data.getWalk();
+            posture_run = (float) pos_data.getRun();
+            posture_etc=(float)pos_data.getUnknown();
+        }
         // entry(값(%), 인덱스)
-        yvalues.add(new Entry(10, 0)); //lie
-        yvalues.add(new Entry(10, 1)); //sit/stand
-        yvalues.add(new Entry(20, 2)); // walk
-        yvalues.add(new Entry(50, 3)); //run
+        yvalues.add(new Entry(posture_lie, 0)); //lie
+        yvalues.add(new Entry(posture_stand, 1)); //sit/stand
+        yvalues.add(new Entry(posture_walk, 2)); // walk
+        yvalues.add(new Entry(posture_run, 3)); //run
+        yvalues.add(new Entry(posture_etc, 4)); //etc
+
 
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("lie");
         xVals.add("sit/stand");
         xVals.add("walk");
         xVals.add("run");
+        xVals.add("ETC");
 
         // 밑에 value값 정의 생성됨
         PieData data = new PieData(xVals, dataSet);
