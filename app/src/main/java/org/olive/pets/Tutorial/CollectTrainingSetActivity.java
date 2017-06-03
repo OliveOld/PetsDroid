@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,16 +23,15 @@ import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
 import org.olive.pets.BLE.BeanPacket;
-import org.olive.pets.BLE.BluetoothActivity;
 import org.olive.pets.DB.PostureData;
 import org.olive.pets.MainActivity;
 import org.olive.pets.R;
+import org.olive.pets.SettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 import static android.os.SystemClock.sleep;
 
@@ -55,8 +55,8 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
     PostureData dogPosture;
     int testCnt = 1;
     ImageButton imgbtnWalk, imgbtnRun, imgbtnLie, imgbtnStand, imgbtnSeat, imgbtnLieBack, imgbtnLieSide;
-    boolean flagConnect = false;
-    Button btnTraining;
+    LinearLayout layoutButton, layoutConnect, layoutProgress;
+    Button btnTraining, btnConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +67,22 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //**********************actionbar_start**************************//
 
+        //**********************컨트롤들 선언부**************************//
+
+        layoutConnect = (LinearLayout)findViewById(R.id.layout_connect);
+
+        layoutButton = (LinearLayout)findViewById(R.id.layout_button);
+        layoutButton.setVisibility(View.INVISIBLE);
+
+        layoutProgress = (LinearLayout)findViewById(R.id.layout_progress);
+        layoutProgress.setVisibility(View.INVISIBLE);
+
+        // 기기 연결
+        btnConnect = (Button) findViewById(R.id.btn_bt_training);
+        btnConnect.setOnClickListener(this);
 
         btnSubmit = (Button) findViewById(R.id.btn_submit_tutorial);
         btnSubmit.setOnClickListener(this);
-
-        btnTraining = (Button) findViewById(R.id.btn_start_training);
-        btnTraining.setOnClickListener(this);
 
         imgbtnWalk = (ImageButton) findViewById(R.id.imgbtn_walk);
         imgbtnRun = (ImageButton) findViewById(R.id.imgbtn_run);
@@ -89,13 +99,6 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         imgbtnLieBack.setOnClickListener(this);
         imgbtnLieSide.setOnClickListener(this);
 
-        mRealm = Realm.getDefaultInstance();
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                dogPosture = realm.createObject(PostureData.class);
-            }
-        });
     }
 
     @Override
@@ -103,6 +106,7 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         switch (view.getId()) {
             case R.id.btn_submit_tutorial:
                 //다음 페이지로 넘어가기 전에 완전히 튜토리얼 끝나면 endTutorial()로 마무리 해줘야함
+                mBean.disconnect();
                 SharedPreferences shPref = getSharedPreferences("MyPref", 0);
                 tutorialFlag = shPref.getInt("Flag", 0);
 
@@ -117,27 +121,30 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
                 } else {
                     // 프로필 추가에서 온 경우 => 리스트로 돌아가기
                     // 혹은 셋팅>데이터 더 받기에서 온 경우 => 돌아가기
+                    Intent intent = new Intent(CollectTrainingSetActivity.this, SettingActivity.class);
                     finish();
+                    startActivity(intent);
                 }
                 break;
-            case R.id.btn_start_training:
+            case R.id.btn_bt_training:
+                // 기기 연결 시도
                 BeanManager.getInstance().startDiscovery(CollectTrainingSetActivity.this);
+                layoutProgress.setVisibility(View.VISIBLE);
                 break;
             case R.id.imgbtn_walk:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
-                Log.d(TAG, "walkwalkwalk");
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Walk));
                 break;
             case R.id.imgbtn_run:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Run));
                 break;
             case R.id.imgbtn_lie:
                 mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
                 break;
             case R.id.imgbtn_lieback:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_LieBack));
                 break;
             case R.id.imgbtn_stand:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Stand));
                 break;
             case R.id.imgbtn_seat:
                 mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Sit));
@@ -147,7 +154,6 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
                 break;
         }
     }
-
 
     // 새로운 bean 찾았을 때 이름, 주소 보여줌
     @Override
@@ -188,11 +194,10 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         });
         sleep(10000);
 
-        Toast toast = Toast.makeText(CollectTrainingSetActivity.this, "버튼을 누르세요.", Toast.LENGTH_SHORT);
-        toast.show();
-        flagConnect = true;
-
-        mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+        layoutProgress.setVisibility(View.INVISIBLE);
+        layoutConnect.setVisibility(View.INVISIBLE);
+        layoutButton.setVisibility(View.VISIBLE);
+        layoutButton.bringToFront();
     }
 
     @Override
@@ -203,11 +208,8 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
     @Override
     public void onDisconnected() {
         Log.d(TAG, "onDisconnected");
-        // text박스에 결과 출력
-        RealmResults<PostureData> postures = mRealm.where(PostureData.class).findAll();
-        postures = mRealm.where(PostureData.class).findAll();
-        // 일단은 마지막 저장 된 값 된 놈 보이기
-        PostureData posture = postures.last();
+        Toast toast = Toast.makeText(CollectTrainingSetActivity.this, "연결이 끊겼습니다.", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override

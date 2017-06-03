@@ -96,7 +96,7 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
             viewHolder.tvDogInfo.setText(item.getDogSex() + "의 " +item.getDogAge() + "살 강아지");
 
             File imgFile = new  File(item.getDogPhoto());
-
+            if(imgFile == null){viewHolder.ivDogImage.setImageBitmap(null); }
             if(imgFile.exists()){
                 Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                 viewHolder.ivDogImage.setImageBitmap(myBitmap);
