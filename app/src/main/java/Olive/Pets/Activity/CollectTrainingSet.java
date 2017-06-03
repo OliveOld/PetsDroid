@@ -1,4 +1,8 @@
-package Olive.Pets.Activity;
+package olive.Pets.Activity;
+import olive.Pets.BLE.Packet;
+import olive.Pets.DB.PostureData;
+import olive.Pets.MainActivity;
+import olive.Pets.R;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,10 +26,6 @@ import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
-import Olive.Pets.BLE.Packet;
-import Olive.Pets.DB.PostureData;
-import Olive.Pets.MainActivity;
-import Olive.Pets.R;
 
 import java.util.ArrayList;
 import java.util.List;

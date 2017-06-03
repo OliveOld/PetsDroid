@@ -1,4 +1,4 @@
-package Olive.Pets.Activity;
+package olive.Pets.Activity;
 
 
 import android.app.Activity;
@@ -8,8 +8,8 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
-import Olive.Pets.Activity.Tutorial.AskFirst;
-import Olive.Pets.R;
+import olive.Pets.Activity.Tutorial.AskFirst;
+import olive.Pets.R;
 
 public class Intro
         extends Activity

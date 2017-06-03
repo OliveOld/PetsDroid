@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_wall_1"
-    tools:context="Olive.Pets.Activity.PieChartActivity">
+    tools:context="olive.Pets.Activity.PieChartActivity">
 
     <LinearLayout
         android:id="@+id/bellow_actionbar"

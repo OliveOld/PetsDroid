@@ -1,9 +1,9 @@
-package Olive.Pets;
+package olive.Pets;
 
-import Olive.Pets.DB.DogProfile;
-import Olive.Pets.DB.Parent;
-import Olive.Pets.DB.PostureData;
-import Olive.Pets.Activity.*;
+import olive.Pets.DB.DogProfile;
+import olive.Pets.DB.Parent;
+import olive.Pets.DB.PostureData;
+import olive.Pets.Activity.*;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +34,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -109,7 +110,7 @@ public class MainActivity
      * @return
      */
     private SpannableString generateCenterSpannableText() {
-        SpannableString s = new SpannableString("PetTrack\ndeveloped by Olive_old");
+        SpannableString s = new SpannableString("PetTrack\ndeveloped by olive_old");
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);
@@ -122,16 +123,13 @@ public class MainActivity
     /**
      *
      * @param e
-     * @param dataSetIndex
      * @param h
      */
-    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+    public void onValueSelected(Entry e, Highlight h) {
 
         if (e == null)
             return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
-                        + ", DataSet index: " + dataSetIndex);
+        Log.i("VAL SELECTED","Value: " + e.getX());
     }
 
     @Override
@@ -185,7 +183,7 @@ public class MainActivity
                 firstFlag = 1;   // 첫번째 실행이 아니도록 플래그 변환
                 SharedPreferences.Editor prefEditor = shPref.edit();
                 prefEditor.putInt("firstFlag", firstFlag);
-                prefEditor.commit();
+                prefEditor.apply();
 
                 mRealm = Realm.getDefaultInstance();
             } else {
@@ -214,7 +212,7 @@ public class MainActivity
                 @Override
                 public void onClick(View v) {
                     try {
-                       Intent j = new Intent(MainActivity.this, Olive.Pets.Activity.DailyReport.class);
+                       Intent j = new Intent(MainActivity.this, olive.Pets.Activity.DailyReport.class);
                         startActivity(j);
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
@@ -228,7 +226,7 @@ public class MainActivity
             btnDogInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, Olive.Pets.Activity.ProfileList.class);
+                    Intent intent = new Intent(MainActivity.this, olive.Pets.Activity.ProfileList.class);
                     startActivity(intent);
                 }
             });
@@ -238,7 +236,7 @@ public class MainActivity
             btnSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, Olive.Pets.Activity.Setting.class);
+                    Intent intent = new Intent(MainActivity.this, olive.Pets.Activity.Setting.class);
                     startActivity(intent);
                 }
             });
@@ -254,7 +252,7 @@ public class MainActivity
         pieChart.setCenterText(generateCenterSpannableText());
 
         // y값
-        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+        ArrayList<PieEntry> yvalues = new ArrayList<PieEntry>();
 
         // 밑에 무슨 값인지 표시해 주는거
         PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
@@ -276,11 +274,11 @@ public class MainActivity
                 posture_etc=(float)pos_data.getUnknown();
         }
         // entry(값(%), 인덱스)
-        yvalues.add(new Entry(posture_lie, 0)); //lie
-        yvalues.add(new Entry(posture_stand, 1)); //sit/stand
-        yvalues.add(new Entry(posture_walk, 2)); // walk
-        yvalues.add(new Entry(posture_run, 3)); //run
-        yvalues.add(new Entry(posture_etc, 4)); //etc
+        yvalues.add(new PieEntry(posture_lie, 0)); //lie
+        yvalues.add(new PieEntry(posture_stand, 1)); //sit/stand
+        yvalues.add(new PieEntry(posture_walk, 2)); // walk
+        yvalues.add(new PieEntry(posture_run, 3)); //run
+        yvalues.add(new PieEntry(posture_etc, 4)); //etc
 
 
         ArrayList<String> xVals = new ArrayList<String>();
@@ -293,7 +291,7 @@ public class MainActivity
         int white = 0x00000000; // 투명
 
         // 밑에 value값 정의 생성됨
-        PieData data = new PieData(xVals, dataSet);
+        PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         pieChart.setData(data);
 
@@ -344,12 +342,12 @@ public class MainActivity
         // 옵션 메뉴의 아이템 눌렸을 때
         Intent intent;
         if (item.getItemId() == R.id.bluetooth) {
-            intent = new Intent(MainActivity.this, Olive.Pets.Activity.Bluetooth.class);
+            intent = new Intent(MainActivity.this, olive.Pets.Activity.Bluetooth.class);
             startActivity(intent);
         } else {
             //파이차트테스트 버튼(bluetooth_pietest)
                 try {
-                    intent = new Intent(MainActivity.this, Olive.Pets.Activity.PieChartActivity.class);
+                    intent = new Intent(MainActivity.this, olive.Pets.Activity.PieChartActivity.class);
                     startActivity(intent);
                     return true;
                 } catch (Exception e) {

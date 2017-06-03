@@ -1,10 +1,10 @@
-package Olive.Pets.Activity;
+package olive.Pets.Activity;
 
-import Olive.Pets.R;
-import Olive.Pets.DB.DogProfile;
-import Olive.Pets.Profile.*;
-import Olive.Pets.Activity.*;
-import Olive.Pets.Activity.Tutorial.*;
+import olive.Pets.R;
+import olive.Pets.DB.DogProfile;
+import olive.Pets.Profile.*;
+import olive.Pets.Activity.*;
+import olive.Pets.Activity.Tutorial.*;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -34,7 +34,7 @@ public class ProfileList
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
 
     private Realm mRealm;
-    private Olive.Pets.Profile.ProfileListAdapter adapter;
+    private olive.Pets.Profile.ProfileListAdapter adapter;
     private Menu menu;
     ListView listView = null;
 

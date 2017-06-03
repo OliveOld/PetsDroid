@@ -1,4 +1,4 @@
-package Olive.Pets.BLE;
+package olive.Pets.BLE;
 
 /**
  *  PetTrack과 통신하기 위한 Packet 구조

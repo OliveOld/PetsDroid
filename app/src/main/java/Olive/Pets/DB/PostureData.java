@@ -1,4 +1,4 @@
-package Olive.Pets.DB;
+package olive.Pets.DB;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

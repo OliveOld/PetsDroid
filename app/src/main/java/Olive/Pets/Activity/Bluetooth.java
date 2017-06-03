@@ -1,8 +1,8 @@
-package Olive.Pets.Activity;
+package olive.Pets.Activity;
 
-import Olive.Pets.R;
-import Olive.Pets.BLE.*;
-import Olive.Pets.DB.*;
+import olive.Pets.R;
+import olive.Pets.BLE.*;
+import olive.Pets.DB.*;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;

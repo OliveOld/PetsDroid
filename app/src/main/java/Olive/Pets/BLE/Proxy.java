@@ -1,4 +1,4 @@
-package Olive.Pets.BLE;
+package olive.Pets.BLE;
 
 /**
  * bytes to packet && packet to bytes
@@ -6,10 +6,10 @@ package Olive.Pets.BLE;
  */
 public interface Proxy
 {
-    public Packet recv();
-    public boolean send(Packet pkt);
+    Packet recv();
+    boolean send(Packet pkt);
 
-    public boolean isConnected();
-    public void close();
+    boolean isConnected();
+    void close();
 
 }

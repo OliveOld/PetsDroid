@@ -1,8 +1,8 @@
-package Olive.Pets.Profile;
+package olive.Pets.Profile;
 
-import Olive.Pets.Activity.*;
-import Olive.Pets.DB.DogProfile;
-import Olive.Pets.R;
+import olive.Pets.Activity.*;
+import olive.Pets.DB.DogProfile;
+import olive.Pets.R;
 
 import android.content.Context;
 import android.content.Intent;
@@ -125,7 +125,7 @@ public class ProfileListAdapter
                    public void onClick(View v) {
                        // activity 이동 시 해당 아이템의 id를 넘겨주어야 한다.\
 
-                       Intent intent = new Intent(m_Context, Olive.Pets.Activity.ProfileEdit.class);
+                       Intent intent = new Intent(m_Context, olive.Pets.Activity.ProfileEdit.class);
                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                        intent.putExtra("DOG_ID", item.getDogId());
                        Toast toast = Toast.makeText(m_Context, "넘겨줄 id:"+item.getDogId(), Toast.LENGTH_SHORT);

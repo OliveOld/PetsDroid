@@ -1,4 +1,4 @@
-package Olive.Pets.Activity;
+package olive.Pets.Activity;
 
 
 import android.app.Activity;
@@ -18,9 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import Olive.Pets.DB.DogProfile;
-import Olive.Pets.MainActivity;
-import Olive.Pets.R;
+import olive.Pets.DB.DogProfile;
+import olive.Pets.MainActivity;
+import olive.Pets.R;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

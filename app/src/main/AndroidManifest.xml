@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="Olive.Pets">
+    package="olive.Pets">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -19,16 +19,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Activity.Intro"/>
         <activity android:name=".Activity.Bluetooth" />
         <activity android:name=".Activity.DailyReport" />
         <activity android:name=".Activity.Setting"/>
         <activity android:name=".Activity.ProfileList"/>
         <activity android:name=".Activity.ProfileEdit"/>
-        <activity android:name=".Activity.Tutorial.InitDogProfile"/>
-        <activity android:name=".Activity.Intro"/>
-        <activity android:name=".Activity.Tutorial.AskFirst"/>
         <activity android:name=".Activity.CollectTrainingSet"/>
         <activity android:name=".Activity.PieChartActivity"/>
+
+        <activity android:name=".Activity.Tutorial.AskFirst"/>
+        <activity android:name=".Activity.Tutorial.InitDogProfile"/>
+
     </application>
 
 </manifest>

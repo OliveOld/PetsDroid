@@ -1,8 +1,8 @@
-package Olive.Pets.Activity;
+package olive.Pets.Activity;
 
-import Olive.Pets.DB.*;
-import Olive.Pets.Profile.*;
-import Olive.Pets.R;
+import olive.Pets.DB.*;
+import olive.Pets.Profile.*;
+import olive.Pets.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,9 +21,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -171,7 +173,7 @@ public class DailyReport
                     pieChart.setCenterText(generateCenterSpannableText());
 
                     // y값
-                    ArrayList<Entry> yvalues = new ArrayList<Entry>();
+                    ArrayList<PieEntry> yvalues = new ArrayList<PieEntry>();
 
                     // 밑에 무슨 값인지 표시해 주는거
                     PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
@@ -183,10 +185,10 @@ public class DailyReport
                     posture_run = (float) pos_data.getSit();
 
                     // entry(값(%), 인덱스)
-                    yvalues.add(new Entry(posture_lie, 0)); //lie
-                    yvalues.add(new Entry(posture_stand, 1)); //sit/stand
-                    yvalues.add(new Entry(posture_walk, 2)); // walk
-                    yvalues.add(new Entry(posture_run, 3)); //run
+                    yvalues.add(new PieEntry(posture_lie, 0)); //lie
+                    yvalues.add(new PieEntry(posture_stand, 1)); //sit/stand
+                    yvalues.add(new PieEntry(posture_walk, 2)); // walk
+                    yvalues.add(new PieEntry(posture_run, 3)); //run
 
                     ArrayList<String> xVals = new ArrayList<String>();
                     xVals.add("lie");
@@ -195,11 +197,15 @@ public class DailyReport
                     xVals.add("run");
 
                     // 밑에 value값 정의 생성됨
-                    PieData data = new PieData(xVals, dataSet);
+//                    PieData data = new PieData(xVals, dataSet);
+                    PieData data = new PieData(dataSet);
                     data.setValueFormatter(new PercentFormatter());
                     pieChart.setData(data);
 
-                    pieChart.setDescription("하루동안강아지는무엇을했을까요?");
+//                    pieChart.setDescription("하루동안강아지는무엇을했을까요?");
+                    Description desc = new Description();
+                    desc.setText("하루동안강아지는무엇을했을까요?");
+                    pieChart.setDescription(desc);
 
                     // 파이차트 생성부분
                     pieChart.setDrawHoleEnabled(true);
@@ -228,15 +234,13 @@ public class DailyReport
         });
     }
 
-    /*****************************piechart_method_start********************************/
     @Override
-    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+    public void onValueSelected(Entry e, Highlight h) {
 
         if (e == null)
             return;
         Log.i("VAL SELECTED",
-                "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
-                        + ", DataSet index: " + dataSetIndex);
+                "Value: " + e.getData() + ", xIndex: " + e.getX());
     }
 
     @Override
@@ -246,7 +250,7 @@ public class DailyReport
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString("PetTrack\ndeveloped by Olive_old");
+        SpannableString s = new SpannableString("PetTrack\ndeveloped by olive_old");
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);

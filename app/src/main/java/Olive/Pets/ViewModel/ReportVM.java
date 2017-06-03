@@ -1,4 +1,4 @@
-package Olive.Pets.ViewModel;
+package olive.Pets.ViewModel;
 
 /**
  * Created by luncl on 6/3/2017.

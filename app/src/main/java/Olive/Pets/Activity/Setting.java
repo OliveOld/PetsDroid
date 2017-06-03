@@ -1,6 +1,6 @@
-package Olive.Pets.Activity;
+package olive.Pets.Activity;
 
-import Olive.Pets.R;
+import olive.Pets.R;
 
 import android.content.Intent;
 import android.graphics.Color;

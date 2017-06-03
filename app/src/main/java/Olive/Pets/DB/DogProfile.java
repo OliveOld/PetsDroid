@@ -1,4 +1,4 @@
-package Olive.Pets.DB;
+package olive.Pets.DB;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;

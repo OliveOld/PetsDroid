@@ -1,4 +1,4 @@
-package Olive.Pets.BLE;
+package olive.Pets.BLE;
 
 /**
  * Pets Device scanner
@@ -6,7 +6,7 @@ package Olive.Pets.BLE;
  */
 public interface Detector
 {
-    public void begin();
-    public void end();
-    public Proxy next();
+    void begin();
+    void end();
+    Proxy next();
 }

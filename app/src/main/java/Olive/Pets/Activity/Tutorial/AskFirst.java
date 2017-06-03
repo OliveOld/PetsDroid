@@ -1,4 +1,4 @@
-package Olive.Pets.Activity.Tutorial;
+package olive.Pets.Activity.Tutorial;
 
 
 import android.content.Intent;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import Olive.Pets.MainActivity;
-import Olive.Pets.R;
+import olive.Pets.MainActivity;
+import olive.Pets.R;
 
 /**
  * 사용자에게 앱 사용이 처음인지 확인한다.

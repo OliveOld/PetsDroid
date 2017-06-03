@@ -1,5 +1,7 @@
-package Olive.Pets.Devices;
+package olive.Pets.Devices;
 
+import olive.Pets.BLE.Detector;
+import olive.Pets.BLE.Proxy;
 import android.util.Log;
 import android.view.View;
 
@@ -9,8 +11,6 @@ import com.punchthrough.bean.sdk.BeanDiscoveryListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import Olive.Pets.BLE.Detector;
-import Olive.Pets.BLE.Proxy;
 
 /**
  * Light Blue Bean들을 탐색하기 위한 Detector

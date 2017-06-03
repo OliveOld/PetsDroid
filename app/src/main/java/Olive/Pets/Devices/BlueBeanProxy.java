@@ -1,4 +1,10 @@
-package Olive.Pets.Devices;
+package olive.Pets.Devices;
+
+import olive.Pets.Activity.Bluetooth;
+import olive.Pets.BLE.Packet;
+import olive.Pets.BLE.Proxy;
+import olive.Pets.DB.PostureData;
+import olive.Pets.R;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -23,11 +29,7 @@ import java.text.SimpleDateFormat;
 import java.text.StringCharacterIterator;
 import java.util.Calendar;
 
-import Olive.Pets.Activity.Bluetooth;
-import Olive.Pets.BLE.Packet;
-import Olive.Pets.BLE.Proxy;
-import Olive.Pets.DB.PostureData;
-import Olive.Pets.R;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -74,17 +76,11 @@ public class BlueBeanProxy
     }
 
     boolean readable(){
-        if(bean != null && bean.isConnected()){
-            return true;
-        }
-        return false;
+        return bean != null && bean.isConnected();
     }
 
     boolean writable(){
-        if(bean != null && bean.isConnected()){
-            return true;
-        }
-        return false;
+        return bean != null && bean.isConnected();
     }
 
     public Packet recv()
@@ -111,10 +107,7 @@ public class BlueBeanProxy
     @Override
     public boolean isConnected()
     {
-        if(bean != null && bean.isConnected())
-            return true;
-        else
-            return false;
+        return bean != null && bean.isConnected();
     }
 
     @Override
