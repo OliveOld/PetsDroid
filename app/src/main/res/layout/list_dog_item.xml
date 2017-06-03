@@ -12,7 +12,7 @@
         android:paddingLeft="30dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/dog"/>
+        android:src="@drawable/btn_dog"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

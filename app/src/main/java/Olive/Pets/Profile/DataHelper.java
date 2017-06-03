@@ -1,6 +1,6 @@
-package org.olive.pets.Profile;
+package Olive.Pets.Profile;
 
-import org.olive.pets.DB.DogProfile;
+import Olive.Pets.DB.DogProfile;
 
 import java.util.Collection;
 

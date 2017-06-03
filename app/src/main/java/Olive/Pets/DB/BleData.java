@@ -1,4 +1,4 @@
-package org.olive.pets.DB;
+package Olive.Pets.DB;
 
 import com.punchthrough.bean.sdk.Bean;
 

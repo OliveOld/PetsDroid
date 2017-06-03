@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_iphone1">
+    android:background="@drawable/background_wall_1">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -94,7 +94,7 @@
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
             android:gravity="left|center_vertical"
-            android:drawableLeft="@drawable/home_icon"
+            android:drawableLeft="@drawable/icon_home"
             android:textColor="#ffffff" />
 
         <Button
@@ -108,7 +108,7 @@
             android:text="날짜별 활동량"
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
-            android:drawableLeft="@drawable/ic_calendar_24dp"
+            android:drawableLeft="@drawable/img_calendar"
             android:textColor="#ffffff" />
 
         <Button
@@ -123,7 +123,7 @@
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
             android:textColor="#ffffff"
-            android:drawableLeft="@drawable/dog_bnt" />
+            android:drawableLeft="@drawable/btn_dog" />
 
         <Button
             android:id="@+id/btn_setting_mi"
@@ -137,7 +137,7 @@
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
             android:textColor="#ffffff"
-            android:drawableLeft="@drawable/setting" />
+            android:drawableLeft="@drawable/icon_setting" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

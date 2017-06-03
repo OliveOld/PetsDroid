@@ -1,4 +1,8 @@
-package org.olive.pets;
+package Olive.Pets.Activity;
+
+import Olive.Pets.Activity.Tutorial.*;
+import Olive.Pets.BLE.BeanPacket;
+import Olive.Pets.Profile.*;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,13 +14,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.olive.pets.BLE.BluetoothActivity;
-import org.olive.pets.Profile.DogProfileListActivity;
-import org.olive.pets.Tutorial.CollectTrainingSetActivity;
 
 
 // 환경 설정 액티비티
-public class SettingActivity extends AppCompatActivity {
+public class Setting
+        extends AppCompatActivity
+{
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
     private Button btnBTSetting, btnManagerInfo, btnInit, btnData;
 
@@ -54,11 +57,11 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    Intent i = new Intent(SettingActivity.this, DailyReportActivity.class);
+                    Intent i = new Intent(Setting.this, DailyReport.class);
                     startActivity(i);
                     finish();
                 } catch (Exception e) {
-                    Toast toast = Toast.makeText(SettingActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(Setting.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
@@ -71,7 +74,7 @@ public class SettingActivity extends AppCompatActivity {
         btnDogInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, DogProfileListActivity.class);
+                Intent intent = new Intent(Setting.this, ProfileList.class);
                 finish();
                 startActivity(intent);
 
@@ -84,7 +87,7 @@ public class SettingActivity extends AppCompatActivity {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, SettingActivity.class);
+                Intent intent = new Intent(Setting.this, Setting.class);
                 finish();
                 startActivity(intent);
             }
@@ -101,7 +104,7 @@ public class SettingActivity extends AppCompatActivity {
         btnBTSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, BluetoothActivity.class);
+                Intent intent = new Intent(Setting.this, Bluetooth.class);
                 finish();
                 startActivity(intent);
             }
@@ -115,7 +118,8 @@ public class SettingActivity extends AppCompatActivity {
         btnData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, CollectTrainingSetActivity.class);
+                Intent intent = new Intent(Setting.this,
+                        Olive.Pets.Activity.Tutorial.CollectTrainingSet.class);
                 finish();
                 startActivity(intent);
             }

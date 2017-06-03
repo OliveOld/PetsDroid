@@ -1,4 +1,5 @@
-package org.olive.pets.Profile;
+package Olive.Pets.Activity;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,9 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.olive.pets.DB.DogProfile;
-import org.olive.pets.MainActivity;
-import org.olive.pets.R;
+import Olive.Pets.DB.DogProfile;
+import Olive.Pets.MainActivity;
+import Olive.Pets.R;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -30,7 +31,10 @@ import io.realm.RealmResults;
 
 import static java.lang.Integer.parseInt;
 
-public class DogProfileEditActivity extends Activity implements View.OnClickListener{
+public class ProfileEdit
+        extends Activity
+        implements View.OnClickListener
+{
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
@@ -56,7 +60,7 @@ public class DogProfileEditActivity extends Activity implements View.OnClickList
         Intent intent = getIntent();
         DOG_ID = intent.getIntExtra("DOG_ID", 0);
         if(DOG_ID==0)
-            toast = Toast.makeText(DogProfileEditActivity.this, "넘어온 정보가 없습니다.", Toast.LENGTH_SHORT);
+            toast = Toast.makeText(ProfileEdit.this, "넘어온 정보가 없습니다.", Toast.LENGTH_SHORT);
 
         iv_DogPhoto = (ImageView) this.findViewById(R.id.dog_image_modify_e);
 
@@ -199,7 +203,7 @@ public class DogProfileEditActivity extends Activity implements View.OnClickList
 
            // Intent mainIntent = new Intent(DogProfileEditActivity.this, MainActivity.class);
            // DogProfileEditActivity.this.startActivity(mainIntent);
-            DogProfileEditActivity.this.finish();
+            ProfileEdit.this.finish();
 
             Toast.makeText(this, "강아지 프로필이 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }else if(v.getId() == R.id.btn_UploadDogPic_e) {

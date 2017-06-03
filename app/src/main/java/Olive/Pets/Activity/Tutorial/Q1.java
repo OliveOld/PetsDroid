@@ -1,4 +1,5 @@
-package org.olive.pets.Tutorial;
+package Olive.Pets.Activity.Tutorial;
+
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,11 +10,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import org.olive.pets.MainActivity;
-import org.olive.pets.R;
+import Olive.Pets.MainActivity;
+import Olive.Pets.R;
 
 
-public class Q1Activity extends AppCompatActivity {
+public class Q1 extends AppCompatActivity {
     private Button yes;
     private Button no;
 
@@ -33,7 +34,7 @@ public class Q1Activity extends AppCompatActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Q1Activity.this, InitDogProfileActivity.class);
+                Intent intent = new Intent(Q1.this, InitDogProfile.class);
                 startActivity(intent);
             }
         });
@@ -43,7 +44,7 @@ public class Q1Activity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Q1Activity.this, MainActivity.class);
+                Intent intent = new Intent(Q1.this, MainActivity.class);
                 startActivity(intent);
 
                 finish();

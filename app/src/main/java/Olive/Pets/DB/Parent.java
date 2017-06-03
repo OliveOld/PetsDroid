@@ -1,4 +1,4 @@
-package org.olive.pets.DB;
+package Olive.Pets.DB;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;

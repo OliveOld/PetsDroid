@@ -1,4 +1,8 @@
-package org.olive.pets.BLE;
+package Olive.Pets.Activity;
+
+import Olive.Pets.BLE.*;
+import Olive.Pets.DB.*;
+import Olive.Pets.R;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -20,9 +24,6 @@ import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
-import org.olive.pets.DB.PostureData;
-import org.olive.pets.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,7 +39,7 @@ import static android.view.View.VISIBLE;
  * Created by KMJ on 2017-04-10.
  */
 
-public class BluetoothActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener{
+public class Bluetooth extends AppCompatActivity implements BeanDiscoveryListener, BeanListener{
     private String state;
     final String TAG = "BlueBean";
     final List<Bean> beans = new ArrayList<>();
@@ -92,7 +93,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
             @Override
             public void onClick(View v) {
                 tvConnect.setText("가장 가까운 기기를 찾고 있습니다...");
-                BeanManager.getInstance().startDiscovery(BluetoothActivity.this);
+                BeanManager.getInstance().startDiscovery(Bluetooth.this);
                 progress.setVisibility(VISIBLE);
                 System.out.println("현재 시간 구하기 :: by Calendar..!!");
                 Calendar cal = Calendar.getInstance();

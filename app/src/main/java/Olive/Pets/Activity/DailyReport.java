@@ -1,5 +1,7 @@
-package org.olive.pets;
+package Olive.Pets.Activity;
 
+import Olive.Pets.DB.*;
+import Olive.Pets.Profile.*;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,9 +28,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.olive.pets.DB.PostureData;
-import org.olive.pets.Profile.DogProfileListActivity;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +39,10 @@ import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class DailyReportActivity extends Activity implements OnChartValueSelectedListener {
+public class DailyReport
+        extends Activity
+        implements OnChartValueSelectedListener
+{
     Realm mRealm;
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
     private HorizontalCalendar horizontalCalendar;
@@ -76,11 +78,11 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             @Override
             public void onClick(View v) {
                 try {
-                    Intent i = new Intent(DailyReportActivity.this, DailyReportActivity.class);
+                    Intent i = new Intent(DailyReport.this, DailyReport.class);
                     startActivity(i);
                     finish();
                 } catch (Exception e) {
-                    Toast toast = Toast.makeText(DailyReportActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(DailyReport.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
@@ -91,7 +93,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         btnDogInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DailyReportActivity.this, DogProfileListActivity.class);
+                Intent intent = new Intent(DailyReport.this, ProfileList.class);
                 finish();
                 startActivity(intent);
             }
@@ -102,7 +104,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DailyReportActivity.this, SettingActivity.class);
+                Intent intent = new Intent(DailyReport.this, Setting.class);
                 startActivity(intent);
                 finish();
             }
@@ -139,7 +141,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Date date, int position) {
-                Toast.makeText(DailyReportActivity.this, DateFormat.getDateInstance().format(date) + " is selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DailyReport.this, DateFormat.getDateInstance().format(date) + " is selected!", Toast.LENGTH_SHORT).show();
                 // 해당 날짜의 날짜 가져오기...
                 // 데이터베이스 불러오기...
                 Calendar cal = Calendar.getInstance();
@@ -205,7 +207,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                     dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
                     data.setValueTextSize(15f);
                     data.setValueTextColor(Color.WHITE);
-                    pieChart.setOnChartValueSelectedListener(DailyReportActivity.this);
+                    pieChart.setOnChartValueSelectedListener(DailyReport.this);
 
                     pieChart.animateXY(1400, 1400);
 

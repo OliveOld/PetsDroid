@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:background="@drawable/background_iphone1"
+    android:background="@drawable/background_wall_1"
     >
     <ScrollView
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                         android:adjustViewBounds="true"
                         android:maxHeight="200dp"
                         android:maxWidth="200dp"
-                        android:src="@drawable/dog" />
+                        android:src="@drawable/img_dog" />
 
                     <Button
                         android:id="@+id/btn_UploadDogPic_i"

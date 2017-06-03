@@ -1,4 +1,9 @@
-package org.olive.pets.Profile;
+package Olive.Pets.Activity;
+
+import Olive.Pets.DB.DogProfile;
+import Olive.Pets.Profile.*;
+import Olive.Pets.Activity.*;
+import Olive.Pets.Activity.Tutorial.*;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,13 +19,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.olive.pets.DB.DogProfile;
-import org.olive.pets.DailyReportActivity;
-
-import org.olive.pets.R;
-import org.olive.pets.SettingActivity;
-import org.olive.pets.Tutorial.InitDogProfileActivity;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -29,11 +27,13 @@ import io.realm.RealmResults;
  */
 
 // 등록된 강아지의 리스트 출력해줌
-public class DogProfileListActivity extends AppCompatActivity {
+public class ProfileList
+        extends AppCompatActivity
+{
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
 
     private Realm mRealm;
-    private MyListAdapter adapter;
+    private ProfileListAdapter adapter;
     private Menu menu;
     ListView listView = null;
 
@@ -61,7 +61,7 @@ public class DogProfileListActivity extends AppCompatActivity {
 
         RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAll();
 
-        adapter = new MyListAdapter(puppies, this);
+        adapter = new ProfileListAdapter(puppies, this);
 
         // 어댑터를 연결
         listView = (ListView) findViewById(R.id.lv_dog_info);
@@ -106,11 +106,11 @@ public class DogProfileListActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    Intent i = new Intent(DogProfileListActivity.this, DailyReportActivity.class);
+                    Intent i = new Intent(ProfileList.this, DailyReport.class);
                     startActivity(i);
                     finish();
                 } catch (Exception e) {
-                    Toast toast = Toast.makeText(DogProfileListActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(ProfileList.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
@@ -122,7 +122,7 @@ public class DogProfileListActivity extends AppCompatActivity {
         btnDogInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DogProfileListActivity.this, DogProfileListActivity.class);
+                Intent intent = new Intent(ProfileList.this, ProfileList.class);
                 finish();
                 startActivity(intent);
 
@@ -134,7 +134,7 @@ public class DogProfileListActivity extends AppCompatActivity {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DogProfileListActivity.this, SettingActivity.class);
+                Intent intent = new Intent(ProfileList.this, Setting.class);
                 startActivity(intent);
             }
         });

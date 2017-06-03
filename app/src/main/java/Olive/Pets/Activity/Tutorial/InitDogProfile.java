@@ -1,4 +1,5 @@
-package org.olive.pets.Tutorial;
+package Olive.Pets.Activity.Tutorial;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,8 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.olive.pets.DB.DogProfile;
-import org.olive.pets.R;
+import Olive.Pets.DB.DogProfile;
+import Olive.Pets.R;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -31,7 +32,7 @@ import io.realm.Sort;
 
 import static java.lang.Integer.parseInt;
 
-public class InitDogProfileActivity extends Activity implements View.OnClickListener{
+public class InitDogProfile extends Activity implements View.OnClickListener{
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
@@ -190,7 +191,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
             });
             mRealm.close();
 
-            Intent intent=new Intent(this,CollectTrainingSetActivity.class);
+            Intent intent=new Intent(this,CollectTrainingSet.class);
             startActivity(intent);
             this.finish();
 

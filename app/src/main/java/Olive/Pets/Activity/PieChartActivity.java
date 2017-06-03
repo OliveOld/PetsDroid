@@ -1,4 +1,5 @@
-package org.olive.pets.Chart;
+package Olive.Pets.Activity;
+
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -19,7 +20,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.olive.pets.R;
+import Olive.Pets.R;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ import java.util.ArrayList;
  * Created by seobink on 2017-05-16.
  */
 
-public class PieChart_Activity extends Activity implements OnChartValueSelectedListener {
+public class PieChartActivity extends Activity implements OnChartValueSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

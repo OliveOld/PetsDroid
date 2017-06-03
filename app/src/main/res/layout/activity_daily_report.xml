@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_iphone1" >
+    android:background="@drawable/background_intro_3" >
 
 <!-- android:paddingTop="50dp" 주어야 합니다.-->
     <!-- Calendar -->
@@ -43,7 +43,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_calendar_24dp"/>
+            android:src="@drawable/img_calendar"/>
     </LinearLayout>
 
 
@@ -79,7 +79,7 @@
         android:paddingLeft="18dip"
         android:drawablePadding="18dip"
         android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/home_icon"
+        android:drawableLeft="@drawable/icon_home"
         android:textColor="#ffffff"/>
 
     <Button
@@ -93,7 +93,7 @@
         android:text="날짜별 활동량"
         android:paddingLeft="18dip"
         android:drawablePadding="18dip"
-        android:drawableLeft="@drawable/ic_calendar_24dp"
+        android:drawableLeft="@drawable/img_calendar"
         android:textColor="#ffffff" />
 
     <Button
@@ -108,7 +108,7 @@
         android:paddingLeft="18dip"
         android:drawablePadding="18dip"
         android:textColor="#ffffff"
-        android:drawableLeft="@drawable/dog_bnt" />
+        android:drawableLeft="@drawable/img_dog" />
 
     <Button
         android:id="@+id/btn_setting_dr"
@@ -122,7 +122,7 @@
         android:paddingLeft="18dip"
         android:drawablePadding="18dip"
         android:textColor="#ffffff"
-        android:drawableLeft="@drawable/setting" />
+        android:drawableLeft="@drawable/icon_setting" />
 
 
     </LinearLayout>

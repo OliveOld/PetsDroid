@@ -1,4 +1,4 @@
-package org.olive.pets.Tutorial;
+package Olive.Pets.Activity.Tutorial;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,11 +22,12 @@ import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
-import org.olive.pets.BLE.BeanPacket;
-import org.olive.pets.DB.PostureData;
-import org.olive.pets.MainActivity;
-import org.olive.pets.R;
-import org.olive.pets.SettingActivity;
+import Olive.Pets.Activity.Setting;
+import Olive.Pets.BLE.BeanPacket;
+import Olive.Pets.DB.PostureData;
+import Olive.Pets.MainActivity;
+import Olive.Pets.R;
+import Olive.Pets.SettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,10 @@ import io.realm.Realm;
 
 import static android.os.SystemClock.sleep;
 
-public class CollectTrainingSetActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener, View.OnClickListener {
+public class CollectTrainingSet
+        extends AppCompatActivity
+        implements BeanDiscoveryListener, BeanListener, View.OnClickListener
+{
     private Button btnSubmit;
     int tutorialFlag;
     private String state;
@@ -115,20 +119,20 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
                     SharedPreferences.Editor prefEditor = shPref.edit();
                     prefEditor.putInt("Flag", ++tutorialFlag);
                     prefEditor.commit();
-                    Intent intent = new Intent(CollectTrainingSetActivity.this, MainActivity.class);
+                    Intent intent = new Intent(CollectTrainingSet.this, MainActivity.class);
                     finish();
                     startActivity(intent);
                 } else {
                     // 프로필 추가에서 온 경우 => 리스트로 돌아가기
                     // 혹은 셋팅>데이터 더 받기에서 온 경우 => 돌아가기
-                    Intent intent = new Intent(CollectTrainingSetActivity.this, SettingActivity.class);
+                    Intent intent = new Intent(CollectTrainingSet.this, Setting.class);
                     finish();
                     startActivity(intent);
                 }
                 break;
             case R.id.btn_bt_training:
                 // 기기 연결 시도
-                BeanManager.getInstance().startDiscovery(CollectTrainingSetActivity.this);
+                BeanManager.getInstance().startDiscovery(CollectTrainingSet.this);
                 layoutProgress.setVisibility(View.VISIBLE);
                 break;
             case R.id.imgbtn_walk:
@@ -208,7 +212,7 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
     @Override
     public void onDisconnected() {
         Log.d(TAG, "onDisconnected");
-        Toast toast = Toast.makeText(CollectTrainingSetActivity.this, "연결이 끊겼습니다.", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(CollectTrainingSet.this, "연결이 끊겼습니다.", Toast.LENGTH_SHORT);
         toast.show();
     }
 

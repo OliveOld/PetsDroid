@@ -1,4 +1,4 @@
-package org.olive.pets;
+package Olive.Pets;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,13 +34,13 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.olive.pets.BLE.BluetoothActivity;
-import org.olive.pets.Chart.PieChart_Activity;
-import org.olive.pets.DB.DogProfile;
-import org.olive.pets.DB.Parent;
-import org.olive.pets.DB.PostureData;
-import org.olive.pets.Profile.DogProfileListActivity;
-import org.olive.pets.Tutorial.IntroActivity;
+import Olive.Pets.BLE.BluetoothActivity;
+import Olive.Pets.Chart.PieChart_Activity;
+import Olive.Pets.DB.DogProfile;
+import Olive.Pets.DB.Parent;
+import Olive.Pets.DB.PostureData;
+import Olive.Pets.Profile.DogProfileListActivity;
+import Olive.Pets.Tutorial.IntroActivity;
 
 import java.io.File;
 import java.util.ArrayList;

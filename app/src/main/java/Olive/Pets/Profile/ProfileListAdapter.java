@@ -1,4 +1,8 @@
-package org.olive.pets.Profile;
+package Olive.Pets.Profile;
+
+import Olive.Pets.Activity.*;
+import Olive.Pets.DB.DogProfile;
+import Olive.Pets.R;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +19,6 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.olive.pets.DB.DogProfile;
-import org.olive.pets.R;
-
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +30,9 @@ import io.realm.RealmBaseAdapter;
  * Created by KMJ on 2017-04-17.
  */
 
-public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListAdapter {
+public class ProfileListAdapter
+        extends RealmBaseAdapter<DogProfile>
+        implements ListAdapter {
 
     // 리스트 뷰에 들어갈 아이템들
     private static class ViewHolder {
@@ -49,13 +52,13 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
     // 수정 모드: default=false
     private boolean inEditionMode = true;
 
-    MyListAdapter(OrderedRealmCollection<DogProfile> realmResults, Context ctx) {
+    public ProfileListAdapter(OrderedRealmCollection<DogProfile> realmResults, Context ctx) {
         super(realmResults);
         // 해당 어댑터 호출하는 activity의 context 얻어옴
         m_Context=ctx;
     }
 
-    void enableDeletionMode(boolean enabled) {
+    public void enableDeletionMode(boolean enabled) {
         inDeletionMode = enabled;
         if (!enabled) {
             countersToDelete.clear();
@@ -63,11 +66,11 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
         notifyDataSetChanged();
     }
 
-    void enableEditionMode(boolean enabled) {
+    public void enableEditionMode(boolean enabled) {
         inEditionMode = enabled;
     }
 
-    Set<Integer> getCountersToDelete() {
+    public Set<Integer> getCountersToDelete() {
         return countersToDelete;
     }
 
@@ -122,7 +125,7 @@ public class MyListAdapter extends RealmBaseAdapter<DogProfile> implements ListA
                    public void onClick(View v) {
                        // activity 이동 시 해당 아이템의 id를 넘겨주어야 한다.\
 
-                       Intent intent = new Intent(m_Context, DogProfileEditActivity.class);
+                       Intent intent = new Intent(m_Context, Olive.Pets.Activity.ProfileEdit.class);
                        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                        intent.putExtra("DOG_ID", item.getDogId());
                        Toast toast = Toast.makeText(m_Context, "넘겨줄 id:"+item.getDogId(), Toast.LENGTH_SHORT);

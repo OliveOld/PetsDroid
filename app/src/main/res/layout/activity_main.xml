@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background_iphone1"
-    tools:context="org.olive.pets.Chart.PieChart_Activity">
+    android:background="@drawable/background_wall_1"
+    tools:context="Olive.Pets.Activity.PieChartActivity">
 
     <LinearLayout
         android:id="@+id/bellow_actionbar"
@@ -26,7 +26,7 @@
                 android:paddingLeft="30dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/dog"/>
+                android:src="@drawable/btn_dog"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,7 +106,7 @@
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
             android:gravity="left|center_vertical"
-            android:drawableLeft="@drawable/home_icon"
+            android:drawableLeft="@drawable/icon_home"
             android:textColor="#ffffff"
             />
 
@@ -121,7 +121,7 @@
         android:text="날짜별 활동량"
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
-            android:drawableLeft="@drawable/ic_calendar_24dp"
+            android:drawableLeft="@drawable/img_calendar"
             android:textColor="#ffffff"
             />
 
@@ -137,7 +137,7 @@
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
             android:textColor="#ffffff"
-            android:drawableLeft="@drawable/dog_bnt"
+            android:drawableLeft="@drawable/btn_dog"
             />
 
         <Button
@@ -152,7 +152,7 @@
             android:paddingLeft="18dip"
             android:drawablePadding="18dip"
             android:textColor="#ffffff"
-            android:drawableLeft="@drawable/setting"
+            android:drawableLeft="@drawable/icon_setting"
             />
 
     </LinearLayout>

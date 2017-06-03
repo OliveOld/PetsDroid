@@ -1,9 +1,4 @@
-package org.olive.pets.BLE;
-
-import static org.olive.pets.BLE.BeanPacket.Oper.OP_Discon;
-import static org.olive.pets.BLE.BeanPacket.Oper.OP_Report;
-import static org.olive.pets.BLE.BeanPacket.Oper.OP_Sync;
-import static org.olive.pets.BLE.BeanPacket.Oper.OP_Train;
+package Olive.Pets.BLE;
 
 /**
  * Created by KMJ on 2017-05-24.
@@ -55,13 +50,13 @@ public class BeanPacket {
     // 자세의 report를 요청하는 바이트 배열을 생성한다
     public byte[] makeReportngBytes(byte pos, byte att) {
         byte[] array_request = {0, 0};
-        array_request[0] = OP_Report;
+        array_request[0] = Oper.OP_Report;
         array_request[1] = param(pos, att);
         return array_request;
     }
     public byte[] makeSynchronizeBytes(byte pos, byte att) {
         byte[] array_request = {0,};
-        array_request[0] = OP_Sync;
+        array_request[0] = Oper.OP_Sync;
         array_request[1] = param(pos, att);
         // 무슨 value인지 몰라서 일단 0으로 놔둠
         array_request[2] =0;
@@ -72,14 +67,14 @@ public class BeanPacket {
     }
     public byte[] makeTrainingBytes(byte pos) {
         byte[] array_request = {0, 0};
-        array_request[0] = OP_Train;
+        array_request[0] = Oper.OP_Train;
         array_request[1] = pos;
         return array_request;
     }
 
     public byte[] makeDisconnBytes() {
         byte[] array_request={};
-        array_request[0] = OP_Discon;
+        array_request[0] = Oper.OP_Discon;
         return array_request;
     }
 }
