@@ -28,7 +28,10 @@ import java.util.ArrayList;
  * Created by seobink on 2017-05-16.
  */
 
-public class PieChartActivity extends Activity implements OnChartValueSelectedListener {
+public class PieChartActivity
+        extends Activity
+        implements OnChartValueSelectedListener
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -39,30 +39,38 @@ import static android.view.View.VISIBLE;
  * Created by KMJ on 2017-04-10.
  */
 
-public class Bluetooth extends AppCompatActivity implements BeanDiscoveryListener, BeanListener{
-    private String state;
-    final String TAG = "BlueBean";
+public class Bluetooth
+        extends AppCompatActivity
+        implements BeanDiscoveryListener, BeanListener
+{
+    private final static int REQUEST_ENABLE_BT = 1;
+    final static String TAG = "BlueBean";
     final List<Bean> beans = new ArrayList<>();
-    Bean bean = null;
-    TextView tvConnect =null;
-    TextView tvData =null;
+
+    String state;
     String beanName;
-    int saveFlag=0;
     String dirPath, fileName;
-    Realm mRealm;
+    String dataTime;
+
+    int saveFlag=0;
     int discovery_flag = 0;
-    ProgressBar progress;
-    ImageButton btnConnect;
     int byteCnt = 1;
+    int testCnt=1;
+
     byte tmp1byte = 0;
     byte[] tmp2byte = new byte[2];
     byte[] tmp6byte = new byte[6];
-    Bean mBean;
-    BeanPacket packet = new BeanPacket();
+
     PostureData dogPosture;
-    int testCnt=1;
-    String dataTime;
-    private final static int REQUEST_ENABLE_BT = 1;
+    Bean bean = null;
+    Bean mBean;
+    BeanPacket packet;
+    Realm mRealm;
+
+    TextView tvConnect =null;
+    TextView tvData =null;
+    ProgressBar progress;
+    ImageButton btnConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,18 +204,18 @@ public class Bluetooth extends AppCompatActivity implements BeanDiscoveryListene
     public void sendRequest(byte op, byte pos, byte att) {
         switch(op) {
             case BeanPacket.Oper.OP_Discon:
-                mBean.sendSerialMessage(packet.makeDisconnBytes());
+                mBean.sendSerialMessage(BeanPacket.Disconnect().toBytes());
                 break;
             case BeanPacket.Oper.OP_Report:
                 // Report 요청 : 총 8개의 자세 요청함 : 총 16바이트 보냄
                 for (int i = 0; i < BeanPacket.Postures; i++)
-                    mBean.sendSerialMessage(packet.makeReportngBytes((byte) i, att));
+                    mBean.sendSerialMessage(BeanPacket.Report((byte)i, att).toBytes());
                 break;
             case BeanPacket.Oper.OP_Sync:
-                mBean.sendSerialMessage(packet.makeSynchronizeBytes(pos, att));
+                mBean.sendSerialMessage(BeanPacket.Sync(pos, att, 0).toBytes());
                 break;
             case BeanPacket.Oper.OP_Train:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(pos));
+                mBean.sendSerialMessage(BeanPacket.Train(pos).toBytes());
                 break;
         }
     }
@@ -282,7 +290,9 @@ public class Bluetooth extends AppCompatActivity implements BeanDiscoveryListene
         }
     }
 
-    // 받아온 데이터 저장하는 함수
+    /**
+     * 받아온 데이터 저장하는 함수
+     */
     public void saveDB(){
 
         RealmResults<PostureData> posture = mRealm.where(PostureData.class).equalTo("date", dataTime).findAll();
@@ -304,7 +314,7 @@ public class Bluetooth extends AppCompatActivity implements BeanDiscoveryListene
                     dogPosture = realm.where(PostureData.class).equalTo("date", dataTime).findFirst();
                     int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
                     //dogPosture.setDate(dataTime);
-                    switch (packet.pos(tmp6byte[1])) {
+                    switch (BeanPacket.Posture(tmp6byte[1])) {
                         case BeanPacket.Pos.P_Unknown:
                             dogPosture.setUnknown(prev_unknown + value);
                             break;
@@ -340,7 +350,7 @@ public class Bluetooth extends AppCompatActivity implements BeanDiscoveryListene
                     dogPosture = realm.createObject(PostureData.class, dataTime);
                     int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
                     //dogPosture.setDate(dataTime);
-                    switch (packet.pos(tmp6byte[1])) {
+                    switch (BeanPacket.Posture(tmp6byte[1])) {
                         case BeanPacket.Pos.P_Unknown:
                             dogPosture.setUnknown(value);break;
                         case BeanPacket.Pos.P_Lie:

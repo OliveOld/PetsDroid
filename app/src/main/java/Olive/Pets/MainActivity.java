@@ -3,7 +3,7 @@ package Olive.Pets;
 import Olive.Pets.DB.DogProfile;
 import Olive.Pets.DB.Parent;
 import Olive.Pets.DB.PostureData;
-import Olive.Pets.Activity.Tutorial.*;
+import Olive.Pets.Activity.*;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,8 +52,9 @@ public class MainActivity
         extends AppCompatActivity
         implements OnChartValueSelectedListener
 {
-   // private DrawerLayout dlDrawer;
-    static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
+    // 해당 activity 실행 시 저장할 키 값
+    static final String MAIN_FLAG = "PetsApp";
+
     private Button btnDailyReport, btnDogInfo, btnSetting;
     private ImageView ivdogImage;
     private TextView tvdogName, tvdogInfo;
@@ -61,20 +62,94 @@ public class MainActivity
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
 
+    /**
+     *
+     */
+    public void loadDB(){
+        tvdogName = (TextView) findViewById(R.id.tv_my_dog_name);
+        tvdogInfo = (TextView) findViewById(R.id.tv_my_dog_info);
+
+        RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAll();
+
+        if (puppies.size() == 0) {
+            // 강아지 관련 DB없을 시 실행 > default 값 지정
+            tvdogName.setText("프로필 없음");
+            tvdogInfo.setText("null");
+        } else {
+            // 강아지 관련 DB 있을 경우
+            puppies = mRealm.where(DogProfile.class).findAll();
+            //첫번째로등록 된 놈 보이기
+            DogProfile myDog = puppies.first();
+            //Toast.makeText(this, myDog.getDogId() + ":id", Toast.LENGTH_SHORT).show();
+
+            String dogName = myDog.getDogName();
+            int dogAge = myDog.getDogAge();
+            String dogSex = myDog.getDogSex();
+            String dir = myDog.getDogPhoto();
+
+            // 사진 설정
+            tvdogName.setText(dogName);
+            tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
+
+            File imgFile = null;
+            if (dir != null)
+                imgFile = new File(dir);
+            if(imgFile == null){return;}
+            if (imgFile.exists()) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                ivdogImage = (ImageView) findViewById(R.id.iv_my_dog_image);
+                ivdogImage.setImageBitmap(myBitmap);
+            }
+        }
+        return;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private SpannableString generateCenterSpannableText() {
+        SpannableString s = new SpannableString("PetTrack\ndeveloped by Olive_old");
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);
+        s.setSpan(new RelativeSizeSpan(.8f), 9, s.length() - 13, 0);
+        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
+        return s;
+    }
+
+    /**
+     *
+     * @param e
+     * @param dataSetIndex
+     * @param h
+     */
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+
+        if (e == null)
+            return;
+        Log.i("VAL SELECTED",
+                "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
+                        + ", DataSet index: " + dataSetIndex);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //**********************actionbar_start**************************//
+
         // 액션바 title 지정
         getSupportActionBar().setTitle(" ");
         // 액션바 투명하게 해주기
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // 색상넣기(투명색상 들어감)
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
-       // 왼쪽 화살표 버튼
+        // 왼쪽 화살표 버튼
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //**********************actionbar_end**************************//
 
         SharedPreferences shPref = getSharedPreferences("MyPref", 0);
@@ -100,9 +175,10 @@ public class MainActivity
             Realm.setDefaultConfiguration(myConfig);
             mRealm = Realm.getInstance(myConfig);
 
-            Intent intent = new Intent(MainActivity.this, Olive.Pets.Activity.Tutorial.Intro.class);
+            Intent intent = new Intent(MainActivity.this, Intro.class);
             //finish();
             startActivity(intent);
+            return;
         } else {    // 튜토리얼이 끝났을 경우
             // 튜토리얼 끝났을 경우 && 앱을 깔고  첫번째 실행일 경우
             if (firstFlag == 0) {
@@ -130,8 +206,6 @@ public class MainActivity
                 Realm.setDefaultConfiguration(myConfig);
                 mRealm = Realm.getInstance(myConfig);
             }
-
-//            getActionBar().setDisplayHomeAsUpEnabled(true);
 
             //btn_daily_report
             btnDailyReport = (Button) findViewById(R.id.btn_daily_report);
@@ -193,9 +267,7 @@ public class MainActivity
         float posture_run=25;
         float posture_etc=25;
 
-        if (posture.size() == 0)
-        {   }
-        else{
+        if (posture.size() != 0){
                 PostureData pos_data = posture.last();
                 posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
                 posture_stand = (float) pos_data.getStand()+pos_data.getSit();
@@ -241,52 +313,17 @@ public class MainActivity
         pieChart.animateXY(1400, 1400);
 
         //*****************PieChart_end**********************//
+        return;
     }
 
-    public void loadDB(){
-        tvdogName = (TextView) findViewById(R.id.tv_my_dog_name);
-        tvdogInfo = (TextView) findViewById(R.id.tv_my_dog_info);
-
-        RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAll();
-
-        if (puppies.size() == 0) {
-            // 강아지 관련 DB없을 시 실행 > default 값 지정
-            tvdogName.setText("프로필 없음");
-            tvdogInfo.setText("null");
-        } else {
-            // 강아지 관련 DB 있을 경우
-            puppies = mRealm.where(DogProfile.class).findAll();
-            //첫번째로등록 된 놈 보이기
-            DogProfile myDog = puppies.first();
-            //Toast.makeText(this, myDog.getDogId() + ":id", Toast.LENGTH_SHORT).show();
-
-            String dogName = myDog.getDogName();
-            int dogAge = myDog.getDogAge();
-            String dogSex = myDog.getDogSex();
-            String dir = myDog.getDogPhoto();
-
-            // 사진 설정
-            tvdogName.setText(dogName);
-            tvdogInfo.setText(dogSex + "의 " + dogAge + "살 강아지");
-
-            File imgFile = null;
-            if (dir != null)
-                imgFile = new File(dir);
-            if(imgFile == null){return;}
-            if (imgFile.exists()) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                ivdogImage = (ImageView) findViewById(R.id.iv_my_dog_image);
-                ivdogImage.setImageBitmap(myBitmap);
-            }
-        }
-    }
     @Override
     protected void onResume() {
         // 여기서 디비를 다시 읽어온다.
         super.onResume();
         loadDB();
-      // if(dlDrawer.isDrawerOpen(R.id.sildmenu))
-      //     dlDrawer.closeDrawer(R.id.sildmenu);
+        // if(dlDrawer.isDrawerOpen(R.id.sildmenu))
+        //     dlDrawer.closeDrawer(R.id.sildmenu);
+        return;
     }
 
     @Override
@@ -294,7 +331,6 @@ public class MainActivity
         super.onDestroy();
     }
 
-    /* 옵션 메뉴 관련 메소드 시작 */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // 옵션 메뉴 이어주기
@@ -324,31 +360,9 @@ public class MainActivity
         return true;
     }
 
-    /***************piechart_method_end****************/
-    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-
-        if (e == null)
-            return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
-                        + ", DataSet index: " + dataSetIndex);
-    }
-
     @Override
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
     }
-
-    private SpannableString generateCenterSpannableText() {
-        SpannableString s = new SpannableString("PetTrack\ndeveloped by Olive_old");
-        s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
-        s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);
-        s.setSpan(new RelativeSizeSpan(.8f), 9, s.length() - 13, 0);
-        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
-        return s;
-    }
-    /***************piechart_method_end****************/
 
 }

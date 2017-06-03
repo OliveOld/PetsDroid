@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import Olive.Pets.Activity.CollectTrainingSet;
 import Olive.Pets.DB.DogProfile;
 import Olive.Pets.R;
 
@@ -32,7 +33,10 @@ import io.realm.Sort;
 
 import static java.lang.Integer.parseInt;
 
-public class InitDogProfile extends Activity implements View.OnClickListener{
+public class InitDogProfile
+        extends Activity
+        implements View.OnClickListener
+{
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_IMAGE = 2;
@@ -96,7 +100,8 @@ public class InitDogProfile extends Activity implements View.OnClickListener{
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode != RESULT_OK)
@@ -151,7 +156,7 @@ public class InitDogProfile extends Activity implements View.OnClickListener{
 
                 // 임시 파일 삭제
                 File f = new File(mImageCaptureUri.getPath());
-                if (f.exists()) {
+                if (f!= null && f.exists()) {
                     f.delete();
                 }
                 break;

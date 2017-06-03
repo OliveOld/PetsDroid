@@ -1,8 +1,5 @@
 package Olive.Pets.Activity;
 
-import Olive.Pets.Activity.Tutorial.*;
-import Olive.Pets.BLE.BeanPacket;
-import Olive.Pets.Profile.*;
 import Olive.Pets.R;
 
 import android.content.Intent;
@@ -15,9 +12,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-
-
-// 환경 설정 액티비티
+/**
+ * 환경 설정 액티비티
+ */
 public class Setting
         extends AppCompatActivity
 {
@@ -82,7 +79,6 @@ public class Setting
             }
         });
 
-
         //btn_setting
         btnSetting = (Button) findViewById(R.id.btn_setting_mi);
         btnSetting.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +89,6 @@ public class Setting
                 startActivity(intent);
             }
         });
-
-
-
 
         // 버튼 세팅
         btnManagerInfo = (Button) findViewById(R.id.btn_manager_info_setting);
@@ -120,10 +113,11 @@ public class Setting
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Setting.this,
-                        Olive.Pets.Activity.Tutorial.CollectTrainingSet.class);
+                        CollectTrainingSet.class);
                 finish();
                 startActivity(intent);
             }
         });
+        return;
     }
 }

@@ -12,7 +12,9 @@ import io.realm.annotations.PrimaryKey;
  * Created by KMJ on 2017-04-10.
  */
 
-public class BleData extends RealmObject {
+public class BleData
+        extends RealmObject
+{
     private static final String TAG = "Device";
 
     static HashMap<String, Bean> beans;

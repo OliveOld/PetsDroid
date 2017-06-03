@@ -7,7 +7,9 @@ import io.realm.annotations.PrimaryKey;
  * Created by KMJ on 2017-04-10.
  */
 
-public class PostureData extends RealmObject {
+public class PostureData
+        extends RealmObject
+{
     @PrimaryKey
     private String date;            // 데이터 측정 된 시간 저장
     private int Unknown;
@@ -24,7 +26,7 @@ public class PostureData extends RealmObject {
     public void setDateId(int data_id) {
         this.data_id = data_id;
     }
-*/
+    */
     public String getDate() { return date; }
     public void setDate(String date) {
         this.date = date;

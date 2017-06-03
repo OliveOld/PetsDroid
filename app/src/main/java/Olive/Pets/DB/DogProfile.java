@@ -12,7 +12,9 @@ import io.realm.annotations.PrimaryKey;
  * Created by KMJ on 2017-03-12.
  */
 
-public class DogProfile extends RealmObject {
+public class DogProfile
+        extends RealmObject
+{
     public static final String DOG_ID = "dog_id";
     private static AtomicInteger INTEGER_COUNTER = new AtomicInteger(0);
 

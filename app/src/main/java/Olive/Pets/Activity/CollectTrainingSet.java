@@ -1,4 +1,4 @@
-package Olive.Pets.Activity.Tutorial;
+package Olive.Pets.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,12 +22,10 @@ import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
-import Olive.Pets.Activity.Setting;
 import Olive.Pets.BLE.BeanPacket;
 import Olive.Pets.DB.PostureData;
 import Olive.Pets.MainActivity;
 import Olive.Pets.R;
-import Olive.Pets.Activity.Setting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +38,17 @@ public class CollectTrainingSet
         extends AppCompatActivity
         implements BeanDiscoveryListener, BeanListener, View.OnClickListener
 {
-    private Button btnSubmit;
-    int tutorialFlag;
-    private String state;
     final String TAG = "BlueBean";
     final List<Bean> beans = new ArrayList<>();
-    Bean bean = null;
-    String beanName;
+
+    private Button btnSubmit;
+    private String state;
+
     Realm mRealm;
+    Bean bean = null;
+
+    int tutorialFlag;
+    String beanName;
     int discovery_flag = 0;
     ProgressBar progress;
     int byteCnt = 1;
@@ -55,7 +56,7 @@ public class CollectTrainingSet
     byte[] tmp2byte = new byte[2];
     byte[] tmp6byte = new byte[6];
     Bean mBean;
-    BeanPacket packet = new BeanPacket();
+    BeanPacket packet;
     PostureData dogPosture;
     int testCnt = 1;
     ImageButton imgbtnWalk, imgbtnRun, imgbtnLie, imgbtnStand, imgbtnSeat, imgbtnLieBack, imgbtnLieSide;
@@ -136,25 +137,25 @@ public class CollectTrainingSet
                 layoutProgress.setVisibility(View.VISIBLE);
                 break;
             case R.id.imgbtn_walk:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Walk));
+                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Walk).toBytes());
                 break;
             case R.id.imgbtn_run:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Run));
+                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Run).toBytes());
                 break;
             case R.id.imgbtn_lie:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Lie));
+                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Lie).toBytes());
                 break;
             case R.id.imgbtn_lieback:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_LieBack));
+                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_LieBack).toBytes());
                 break;
             case R.id.imgbtn_stand:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Stand));
+                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Stand).toBytes());
                 break;
             case R.id.imgbtn_seat:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_Sit));
+                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Sit).toBytes());
                 break;
             case R.id.imgbtn_lieside:
-                mBean.sendSerialMessage(packet.makeTrainingBytes(BeanPacket.Pos.P_LieSide));
+                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_LieSide).toBytes());
                 break;
         }
     }

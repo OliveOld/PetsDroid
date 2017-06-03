@@ -3,7 +3,9 @@ package Olive.Pets.DB;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class Parent extends RealmObject {
+public class Parent
+        extends RealmObject
+{
     @SuppressWarnings("unused")
     private RealmList<DogProfile> profileList;
 

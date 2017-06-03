@@ -25,9 +25,9 @@
         <activity android:name=".Activity.ProfileList"/>
         <activity android:name=".Activity.ProfileEdit"/>
         <activity android:name=".Activity.Tutorial.InitDogProfile"/>
-        <activity android:name=".Activity.Tutorial.Intro"/>
-        <activity android:name=".Activity.Tutorial.Q1"/>
-        <activity android:name=".Activity.Tutorial.CollectTrainingSet"/>
+        <activity android:name=".Activity.Intro"/>
+        <activity android:name=".Activity.Tutorial.AskFirst"/>
+        <activity android:name=".Activity.CollectTrainingSet"/>
         <activity android:name=".Activity.PieChartActivity"/>
     </application>
 

@@ -13,13 +13,18 @@ import android.widget.Button;
 import Olive.Pets.MainActivity;
 import Olive.Pets.R;
 
-
-public class Q1 extends AppCompatActivity {
+/**
+ * 사용자에게 앱 사용이 처음인지 확인한다.
+ */
+public class AskFirst
+        extends AppCompatActivity
+{
     private Button yes;
     private Button no;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q1);
 
@@ -34,7 +39,7 @@ public class Q1 extends AppCompatActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Q1.this, InitDogProfile.class);
+                Intent intent = new Intent(AskFirst.this, InitDogProfile.class);
                 startActivity(intent);
             }
         });
@@ -44,7 +49,7 @@ public class Q1 extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Q1.this, MainActivity.class);
+                Intent intent = new Intent(AskFirst.this, MainActivity.class);
                 startActivity(intent);
 
                 finish();
