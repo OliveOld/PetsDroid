@@ -22,7 +22,7 @@ import com.punchthrough.bean.sdk.message.Callback;
 import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
 
-import Olive.Pets.BLE.BeanPacket;
+import Olive.Pets.BLE.Packet;
 import Olive.Pets.DB.PostureData;
 import Olive.Pets.MainActivity;
 import Olive.Pets.R;
@@ -56,7 +56,7 @@ public class CollectTrainingSet
     byte[] tmp2byte = new byte[2];
     byte[] tmp6byte = new byte[6];
     Bean mBean;
-    BeanPacket packet;
+    Packet packet;
     PostureData dogPosture;
     int testCnt = 1;
     ImageButton imgbtnWalk, imgbtnRun, imgbtnLie, imgbtnStand, imgbtnSeat, imgbtnLieBack, imgbtnLieSide;
@@ -137,25 +137,25 @@ public class CollectTrainingSet
                 layoutProgress.setVisibility(View.VISIBLE);
                 break;
             case R.id.imgbtn_walk:
-                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Walk).toBytes());
+                mBean.sendSerialMessage(Packet.Train(Packet.Pos.P_Walk).toBytes());
                 break;
             case R.id.imgbtn_run:
-                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Run).toBytes());
+                mBean.sendSerialMessage(Packet.Train(Packet.Pos.P_Run).toBytes());
                 break;
             case R.id.imgbtn_lie:
-                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Lie).toBytes());
+                mBean.sendSerialMessage(Packet.Train(Packet.Pos.P_Lie).toBytes());
                 break;
             case R.id.imgbtn_lieback:
-                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_LieBack).toBytes());
+                mBean.sendSerialMessage(Packet.Train(Packet.Pos.P_LieBack).toBytes());
                 break;
             case R.id.imgbtn_stand:
-                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Stand).toBytes());
+                mBean.sendSerialMessage(Packet.Train(Packet.Pos.P_Stand).toBytes());
                 break;
             case R.id.imgbtn_seat:
-                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_Sit).toBytes());
+                mBean.sendSerialMessage(Packet.Train(Packet.Pos.P_Sit).toBytes());
                 break;
             case R.id.imgbtn_lieside:
-                mBean.sendSerialMessage(BeanPacket.Train(BeanPacket.Pos.P_LieSide).toBytes());
+                mBean.sendSerialMessage(Packet.Train(Packet.Pos.P_LieSide).toBytes());
                 break;
         }
     }
@@ -244,12 +244,12 @@ public class CollectTrainingSet
             // 첫번째 바이트 처리
             case 1: {
                 switch (data[0]) {
-                    case BeanPacket.Oper.OP_Train:
+                    case Packet.Oper.OP_Train:
                         tmp2byte[0] = data[0];
                         byteCnt++;
                         // byte cnt = 2가 됨
                         break;
-                    case BeanPacket.Oper.OP_Sync:
+                    case Packet.Oper.OP_Sync:
                         tmp2byte[0] = data[0];
                         byteCnt++;
                         // byte cnt = 2가 됨
@@ -260,14 +260,14 @@ public class CollectTrainingSet
             // 두번째 바이트 처리 여기서부턴 Oper로 나눔
             case 2:
             {
-                if(tmp2byte[0]==BeanPacket.Oper.OP_Train) {
+                if(tmp2byte[0]== Packet.Oper.OP_Train) {
                     tmp2byte[1]=data[0];
                     byteCnt = 1;
-                } else if(tmp2byte[0]== BeanPacket.Oper.OP_Sync) {
+                } else if(tmp2byte[0]== Packet.Oper.OP_Sync) {
                     tmp2byte[1]=data[0];
                     byteCnt = 1;
                 }
-                if(tmp6byte[0]==BeanPacket.Oper.OP_Report) {
+                if(tmp6byte[0]== Packet.Oper.OP_Report) {
                     tmp6byte[1] = data[0];
                     byteCnt++;
                 }

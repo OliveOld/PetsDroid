@@ -1,5 +1,6 @@
 package Olive.Pets.Activity;
 
+import Olive.Pets.R;
 import Olive.Pets.BLE.*;
 import Olive.Pets.DB.*;
 
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import Olive.Pets.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -64,7 +64,7 @@ public class Bluetooth
     PostureData dogPosture;
     Bean bean = null;
     Bean mBean;
-    BeanPacket packet;
+    Packet packet;
     Realm mRealm;
 
     TextView tvConnect =null;
@@ -165,7 +165,7 @@ public class Bluetooth
         });
         sleep(10000);
 
-        sendRequest(BeanPacket.Oper.OP_Report, (byte)0, BeanPacket.Attr.A_Time);
+        sendRequest(Packet.Oper.OP_Report, (byte)0, Packet.Attr.A_Time);
     }
 
     @Override
@@ -201,21 +201,35 @@ public class Bluetooth
         Log.d(TAG,"cnt: " + testCnt++);
     }
 
+    @Override
+    public void onScratchValueChanged(ScratchBank bank, byte[] value) {
+        Log.d(TAG,"onScratchValueChanged");
+        Log.d(TAG,"bank: "+bank+"\tvalue: "+value);
+    }
+
+    @Override
+    public void onError(BeanError error) {
+        Log.d(TAG,"onError");
+        Log.d(TAG,"error: "+error);
+    }
+
+
     public void sendRequest(byte op, byte pos, byte att) {
         switch(op) {
-            case BeanPacket.Oper.OP_Discon:
-                mBean.sendSerialMessage(BeanPacket.Disconnect().toBytes());
+            case Packet.Oper.OP_Discon:
+                mBean.sendSerialMessage(Packet.Disconnect().toBytes());
                 break;
-            case BeanPacket.Oper.OP_Report:
+            case Packet.Oper.OP_Report:
                 // Report 요청 : 총 8개의 자세 요청함 : 총 16바이트 보냄
-                for (int i = 0; i < BeanPacket.Postures; i++)
-                    mBean.sendSerialMessage(BeanPacket.Report((byte)i, att).toBytes());
+                for (int i = 0; i < Packet.Postures; i++){
+                    mBean.sendSerialMessage(Packet.Report((byte)i, att).toBytes());
+                }
                 break;
-            case BeanPacket.Oper.OP_Sync:
-                mBean.sendSerialMessage(BeanPacket.Sync(pos, att, 0).toBytes());
+            case Packet.Oper.OP_Sync:
+                mBean.sendSerialMessage(Packet.Sync(pos, att, 0).toBytes());
                 break;
-            case BeanPacket.Oper.OP_Train:
-                mBean.sendSerialMessage(BeanPacket.Train(pos).toBytes());
+            case Packet.Oper.OP_Train:
+                mBean.sendSerialMessage(Packet.Train(pos).toBytes());
                 break;
         }
     }
@@ -226,23 +240,23 @@ public class Bluetooth
             // 첫번째 바이트 처리
             case 1: {
                 switch (data[0]) {
-                    case BeanPacket.Oper.OP_Discon:
+                    case Packet.Oper.OP_Discon:
                         //상관 없음 어짜피 연결 끝내니까
                         // 1바이트임
                         tmp1byte = -1;
                         byteCnt = 1;
                         break;
-                    case BeanPacket.Oper.OP_Report:
+                    case Packet.Oper.OP_Report:
                         tmp6byte[0] = data[0];
                         byteCnt++;
                         // byte cnt = 2가 됨
                         break;
-                    case BeanPacket.Oper.OP_Train:
+                    case Packet.Oper.OP_Train:
                         tmp2byte[0] = data[0];
                         byteCnt++;
                         // byte cnt = 2가 됨
                         break;
-                    case BeanPacket.Oper.OP_Sync:
+                    case Packet.Oper.OP_Sync:
                         tmp2byte[0] = data[0];
                         byteCnt++;
                         // byte cnt = 2가 됨
@@ -253,19 +267,19 @@ public class Bluetooth
             // 두번째 바이트 처리 여기서부턴 Oper로 나눔
             case 2:
             {
-                if(tmp2byte[0]==BeanPacket.Oper.OP_Train) {
+                if(tmp2byte[0]== Packet.Oper.OP_Train) {
                     tmp2byte[1]=data[0];
                     byteCnt = 1;
-                } else if(tmp2byte[0]== BeanPacket.Oper.OP_Sync) {
+                } else if(tmp2byte[0]== Packet.Oper.OP_Sync) {
                     tmp2byte[1]=data[0];
                     byteCnt = 1;
                 }
-                if(tmp6byte[0]==BeanPacket.Oper.OP_Report) {
+                if(tmp6byte[0]== Packet.Oper.OP_Report) {
                     tmp6byte[1] = data[0];
                     byteCnt++;
                 }
             }
-                break;
+            break;
             // 세번째 바이트 처리
             case 3:
                 tmp6byte[5] = data[0];
@@ -314,29 +328,29 @@ public class Bluetooth
                     dogPosture = realm.where(PostureData.class).equalTo("date", dataTime).findFirst();
                     int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
                     //dogPosture.setDate(dataTime);
-                    switch (BeanPacket.Posture(tmp6byte[1])) {
-                        case BeanPacket.Pos.P_Unknown:
+                    switch (Packet.Posture(tmp6byte[1])) {
+                        case Packet.Pos.P_Unknown:
                             dogPosture.setUnknown(prev_unknown + value);
                             break;
-                        case BeanPacket.Pos.P_Lie:
+                        case Packet.Pos.P_Lie:
                             dogPosture.setLie(prev_lie + value);
                             break;
-                        case BeanPacket.Pos.P_LieSide:
+                        case Packet.Pos.P_LieSide:
                             dogPosture.setLieSide(prev_lieside + value);
                             break;
-                        case BeanPacket.Pos.P_LieBack:
+                        case Packet.Pos.P_LieBack:
                             dogPosture.setLieBack(prev_lieback + value);
                             break;
-                        case BeanPacket.Pos.P_Sit:
+                        case Packet.Pos.P_Sit:
                             dogPosture.setSit(prev_sit + value);
                             break;
-                        case BeanPacket.Pos.P_Stand:
+                        case Packet.Pos.P_Stand:
                             dogPosture.setStand(prev_stand + value);
                             break;
-                        case BeanPacket.Pos.P_Walk:
+                        case Packet.Pos.P_Walk:
                             dogPosture.setWalk(prev_walk + value);
                             break;
-                        case BeanPacket.Pos.P_Run:
+                        case Packet.Pos.P_Run:
                             dogPosture.setRun(prev_run + value);
                             break;
                     }
@@ -350,39 +364,27 @@ public class Bluetooth
                     dogPosture = realm.createObject(PostureData.class, dataTime);
                     int value = (((int) tmp6byte[2] & 0xff) << 24 | ((int) tmp6byte[3] & 0xff) << 16 | ((int) tmp6byte[4] & 0xff) << 8 | ((int) tmp6byte[5] & 0xff));
                     //dogPosture.setDate(dataTime);
-                    switch (BeanPacket.Posture(tmp6byte[1])) {
-                        case BeanPacket.Pos.P_Unknown:
+                    switch (Packet.Posture(tmp6byte[1])) {
+                        case Packet.Pos.P_Unknown:
                             dogPosture.setUnknown(value);break;
-                        case BeanPacket.Pos.P_Lie:
+                        case Packet.Pos.P_Lie:
                             dogPosture.setLie(value);    break;
-                        case BeanPacket.Pos.P_LieSide:
+                        case Packet.Pos.P_LieSide:
                             dogPosture.setLieSide(value);break;
-                        case BeanPacket.Pos.P_LieBack:
+                        case Packet.Pos.P_LieBack:
                             dogPosture.setLieBack(value);break;
-                        case BeanPacket.Pos.P_Sit:
+                        case Packet.Pos.P_Sit:
                             dogPosture.setSit(value);  break;
-                        case BeanPacket.Pos.P_Stand:
+                        case Packet.Pos.P_Stand:
                             dogPosture.setStand(value);break;
-                        case BeanPacket.Pos.P_Walk:
+                        case Packet.Pos.P_Walk:
                             dogPosture.setWalk(value);break;
-                        case BeanPacket.Pos.P_Run:
+                        case Packet.Pos.P_Run:
                             dogPosture.setRun(value);break;
                     }
                 }
             });
         }
-    }
-
-    @Override
-    public void onScratchValueChanged(ScratchBank bank, byte[] value) {
-        Log.d(TAG,"onScratchValueChanged");
-        Log.d(TAG,"bank: "+bank+"\tvalue: "+value);
-    }
-
-    @Override
-    public void onError(BeanError error) {
-        Log.d(TAG,"onError");
-        Log.d(TAG,"error: "+error);
     }
 
 }

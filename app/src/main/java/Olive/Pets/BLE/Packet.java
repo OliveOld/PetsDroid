@@ -6,7 +6,7 @@ package Olive.Pets.BLE;
  *  @author KMJ
  *  @author luncliff
  */
-public class BeanPacket
+public class Packet
 {
     byte prefix;
     byte param;
@@ -38,30 +38,30 @@ public class BeanPacket
         public static final byte A_Time = 3;
     }
 
-    private BeanPacket(byte _prefix, byte _param, int _value){
+    private Packet(byte _prefix, byte _param, int _value){
         this.prefix = _prefix;
         this.param = _param;
         this.value = _value;
     }
 
-    public static BeanPacket Train(byte pos)
+    public static Packet Train(byte pos)
     {
-        return new BeanPacket(Oper.OP_Report, Param(pos,(byte)0), 0);
+        return new Packet(Oper.OP_Report, Param(pos,(byte)0), 0);
     }
 
-    public static BeanPacket Report(byte pos, byte attr)
+    public static Packet Report(byte pos, byte attr)
     {
-        return new BeanPacket(Oper.OP_Report, Param(pos,attr), 0);
+        return new Packet(Oper.OP_Report, Param(pos,attr), 0);
     }
 
-    public static BeanPacket Sync(byte pos, byte attr, int value)
+    public static Packet Sync(byte pos, byte attr, int value)
     {
-        return new BeanPacket(Oper.OP_Sync, Param(pos,attr), value);
+        return new Packet(Oper.OP_Sync, Param(pos,attr), value);
     }
 
-    public static BeanPacket Disconnect()
+    public static Packet Disconnect()
     {
-        return new BeanPacket(Oper.OP_Discon, (byte)0, 0);
+        return new Packet(Oper.OP_Discon, (byte)0, 0);
     }
 
 
