@@ -3,6 +3,7 @@ package Olive.Pets.Activity;
 import Olive.Pets.Activity.Tutorial.*;
 import Olive.Pets.BLE.BeanPacket;
 import Olive.Pets.Profile.*;
+import Olive.Pets.R;
 
 import android.content.Intent;
 import android.graphics.Color;

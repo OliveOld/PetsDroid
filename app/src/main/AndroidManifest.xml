@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.olive.pets">
+    package="Olive.Pets">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -13,25 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-
-            >
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BLE.BluetoothActivity" />
-        <activity android:name=".DailyReportActivity" />
-        <activity android:name=".SettingActivity"/>
-        <activity android:name=".Profile.DogProfileListActivity"/>
-        <activity android:name=".Profile.DogProfileEditActivity"/>
-        <activity android:name=".Tutorial.InitDogProfileActivity"/>
-        <activity android:name=".Tutorial.IntroActivity"/>
-        <activity android:name=".Tutorial.Q1Activity"/>
-        <activity android:name=".Tutorial.CollectTrainingSetActivity"/>
-        <activity android:name=".Chart.PieChart_Activity"/>
-
+        <activity android:name=".Activity.Bluetooth" />
+        <activity android:name=".Activity.DailyReport" />
+        <activity android:name=".Activity.Setting"/>
+        <activity android:name=".Activity.ProfileList"/>
+        <activity android:name=".Activity.ProfileEdit"/>
+        <activity android:name=".Activity.Tutorial.InitDogProfile"/>
+        <activity android:name=".Activity.Tutorial.Intro"/>
+        <activity android:name=".Activity.Tutorial.Q1"/>
+        <activity android:name=".Activity.Tutorial.CollectTrainingSet"/>
+        <activity android:name=".Activity.PieChartActivity"/>
     </application>
 
 </manifest>

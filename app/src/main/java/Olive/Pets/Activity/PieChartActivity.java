@@ -1,5 +1,6 @@
 package Olive.Pets.Activity;
 
+import Olive.Pets.R;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -20,9 +21,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import Olive.Pets.R;
-
 import java.util.ArrayList;
+
 
 /**
  * Created by seobink on 2017-05-16.

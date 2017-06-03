@@ -1,5 +1,6 @@
 package Olive.Pets.Activity;
 
+import Olive.Pets.R;
 import Olive.Pets.DB.DogProfile;
 import Olive.Pets.Profile.*;
 import Olive.Pets.Activity.*;
@@ -33,7 +34,7 @@ public class ProfileList
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
 
     private Realm mRealm;
-    private ProfileListAdapter adapter;
+    private Olive.Pets.Profile.ProfileListAdapter adapter;
     private Menu menu;
     ListView listView = null;
 
@@ -162,7 +163,7 @@ public class ProfileList
         switch (id) {
             case R.id.action_add:
                 // 강아지 추가 액티비티 이동 -> 튜토리얼 부분으로 이동하도록
-                Intent intent = new Intent(this, InitDogProfileActivity.class);
+                Intent intent = new Intent(this, InitDogProfile.class);
                 startActivity(intent);
                 //DataHelper.addItemAsync(mRealm);
                 return true;

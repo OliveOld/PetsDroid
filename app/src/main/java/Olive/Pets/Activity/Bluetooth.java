@@ -2,7 +2,6 @@ package Olive.Pets.Activity;
 
 import Olive.Pets.BLE.*;
 import Olive.Pets.DB.*;
-import Olive.Pets.R;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -29,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import Olive.Pets.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 

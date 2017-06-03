@@ -2,6 +2,7 @@ package Olive.Pets.Activity;
 
 import Olive.Pets.DB.*;
 import Olive.Pets.Profile.*;
+import Olive.Pets.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener;

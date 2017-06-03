@@ -27,7 +27,7 @@ import Olive.Pets.BLE.BeanPacket;
 import Olive.Pets.DB.PostureData;
 import Olive.Pets.MainActivity;
 import Olive.Pets.R;
-import Olive.Pets.SettingActivity;
+import Olive.Pets.Activity.Setting;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,10 @@
 package Olive.Pets;
 
+import Olive.Pets.DB.DogProfile;
+import Olive.Pets.DB.Parent;
+import Olive.Pets.DB.PostureData;
+import Olive.Pets.Activity.Tutorial.*;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -34,13 +39,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import Olive.Pets.BLE.BluetoothActivity;
-import Olive.Pets.Chart.PieChart_Activity;
-import Olive.Pets.DB.DogProfile;
-import Olive.Pets.DB.Parent;
-import Olive.Pets.DB.PostureData;
-import Olive.Pets.Profile.DogProfileListActivity;
-import Olive.Pets.Tutorial.IntroActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,7 +48,10 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 
-public class MainActivity extends AppCompatActivity implements OnChartValueSelectedListener {
+public class MainActivity
+        extends AppCompatActivity
+        implements OnChartValueSelectedListener
+{
    // private DrawerLayout dlDrawer;
     static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
     private Button btnDailyReport, btnDogInfo, btnSetting;
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             Realm.setDefaultConfiguration(myConfig);
             mRealm = Realm.getInstance(myConfig);
 
-            Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+            Intent intent = new Intent(MainActivity.this, Olive.Pets.Activity.Tutorial.Intro.class);
             //finish();
             startActivity(intent);
         } else {    // 튜토리얼이 끝났을 경우
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
                 @Override
                 public void onClick(View v) {
                     try {
-                       Intent j = new Intent(MainActivity.this, DailyReportActivity.class);
+                       Intent j = new Intent(MainActivity.this, Olive.Pets.Activity.DailyReport.class);
                         startActivity(j);
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(MainActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             btnDogInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, DogProfileListActivity.class);
+                    Intent intent = new Intent(MainActivity.this, Olive.Pets.Activity.ProfileList.class);
                     startActivity(intent);
                 }
             });
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             btnSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                    Intent intent = new Intent(MainActivity.this, Olive.Pets.Activity.Setting.class);
                     startActivity(intent);
                 }
             });
@@ -307,12 +308,12 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         // 옵션 메뉴의 아이템 눌렸을 때
         Intent intent;
         if (item.getItemId() == R.id.bluetooth) {
-            intent = new Intent(MainActivity.this, BluetoothActivity.class);
+            intent = new Intent(MainActivity.this, Olive.Pets.Activity.Bluetooth.class);
             startActivity(intent);
         } else {
             //파이차트테스트 버튼(bluetooth_pietest)
                 try {
-                    intent = new Intent(MainActivity.this, PieChart_Activity.class);
+                    intent = new Intent(MainActivity.this, Olive.Pets.Activity.PieChartActivity.class);
                     startActivity(intent);
                     return true;
                 } catch (Exception e) {
