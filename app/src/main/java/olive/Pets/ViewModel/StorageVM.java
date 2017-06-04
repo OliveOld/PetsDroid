@@ -1,5 +1,6 @@
 package olive.Pets.ViewModel;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
@@ -8,8 +9,11 @@ import android.widget.TextView;
 import java.io.File;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import olive.Pets.DB.DogProfile;
+import olive.Pets.DB.Parent;
+import olive.Pets.DB.PostureData;
 import olive.Pets.R;
 
 /**
@@ -18,18 +22,55 @@ import olive.Pets.R;
 
 public class StorageVM
 {
+
     Realm realm;
 
-    static StorageVM gStorage = new StorageVM();
+    static StorageVM gStorage;
 
-    private StorageVM()
+    private StorageVM(Context ctx)
     {
+        //튜토리얼 시작 전
+        Realm.init(ctx);
+        RealmConfiguration cfg = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .initialData(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.createObject(Parent.class);
+                    }
+                })
+                .name("PetTrack.realm")
+                .build();
+        Realm.setDefaultConfiguration(cfg);
+        realm = Realm.getInstance(cfg);
+    }
 
+    public synchronized static void setInstance(Context ctx)
+    {
+        gStorage = new StorageVM(ctx);
     }
 
     public synchronized static StorageVM getInstance()
     {
         return gStorage;
+    }
+
+
+    public RealmResults<PostureData> postures()
+    {
+        if (realm != null){
+            return realm.where(PostureData.class).findAll();
+        }
+        return null;
+    }
+
+    public RealmResults<DogProfile> puppies()
+    {
+        if (realm != null) {
+            return realm.where(DogProfile.class).findAll();
+        }
+        return null;
     }
 
     /**
