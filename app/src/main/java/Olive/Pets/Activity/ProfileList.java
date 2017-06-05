@@ -1,9 +1,8 @@
 package olive.Pets.Activity;
 
 import olive.Pets.R;
-import olive.Pets.DB.DogProfile;
+import olive.Pets.Model.DB.DogProfile;
 import olive.Pets.Profile.*;
-import olive.Pets.Activity.*;
 import olive.Pets.Activity.Tutorial.*;
 
 import android.content.Intent;

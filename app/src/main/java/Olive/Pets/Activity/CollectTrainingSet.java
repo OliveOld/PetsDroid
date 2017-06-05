@@ -1,6 +1,6 @@
 package olive.Pets.Activity;
 import olive.Pets.BLE.Packet;
-import olive.Pets.DB.PostureData;
+import olive.Pets.Model.DB.PostureData;
 import olive.Pets.MainActivity;
 import olive.Pets.R;
 

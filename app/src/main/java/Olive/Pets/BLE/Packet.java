@@ -80,31 +80,6 @@ public class Packet
         return (byte)(param & 0x0F);
     }
 
-    public byte[] toBytes()
-    {
-        byte[] data = null;
-        switch(this.prefix){
-            case Oper.OP_Discon:
-                data =  new byte[1];
-                data[0] = this.prefix;
-                break;
-            case Oper.OP_Report:
-            case Oper.OP_Train:
-                data =  new byte[2];
-                data[0] = this.prefix;
-                data[1] = this.param;
-                break;
-            case Oper.OP_Sync:
-                data =  new byte[6];
-                data[0] = this.prefix;
-                data[1] = this.param;
-                for(int i = 2; i< 6; i++){
-                    // to littel-endian
-                    data[i] = (byte)(this.value >> (i*8));
-                }
-                break;
-        }
-        return data;
-    }
+
 
 }

@@ -13,13 +13,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import olive.Pets.DB.DogProfile;
-import olive.Pets.MainActivity;
+import olive.Pets.Model.DB.DogProfile;
 import olive.Pets.R;
 
 import java.io.BufferedOutputStream;

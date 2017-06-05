@@ -1,7 +1,5 @@
 package olive.Pets.Activity;
 
-import olive.Pets.DB.*;
-import olive.Pets.Profile.*;
 import olive.Pets.R;
 
 import android.app.Activity;

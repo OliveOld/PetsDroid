@@ -1,11 +1,7 @@
 package olive.Pets.Chart;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -17,9 +13,6 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-
-import io.realm.RealmResults;
-import olive.Pets.DB.PostureData;
 
 /**
  * Chart modifier
@@ -33,11 +26,9 @@ public class TimePieChart
         chart = pie;
 
         chart.setUsePercentValues(true);
-
-        // 파이차트 생성부분
         chart.setDrawHoleEnabled(true);
         chart.setTransparentCircleRadius(10f); // 원주율
-        chart.setHoleRadius(50f); // 원안에 크기
+        chart.setHoleRadius(50f); // 안쪽 원 반지름
 
         final int White = 0x00000000; // 투명
         chart.setHoleColor(White);
@@ -71,16 +62,14 @@ public class TimePieChart
         this.setDataSet(set);
     }
 
-    public void setDataSet(PieDataSet set)
+    private void setDataSet(PieDataSet set)
     {
         set.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
-        // 밑에 value값 정의 생성됨
         PieData data = new PieData(set);
         data.setValueFormatter(new PercentFormatter());
-
-        data.setValueTextSize(15f); // 파이차트 숫자 텍스트 크기
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextSize(13f); // 파이차트 숫자 텍스트 크기
+        data.setValueTextColor(Color.BLACK);
 
         chart.setData(data);
     }
@@ -92,13 +81,12 @@ public class TimePieChart
     public void setCenterText(String text)
     {
         SpannableString s = new SpannableString(text);
-//        s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
-//        s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
-//        s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);
-//        s.setSpan(new RelativeSizeSpan(.8f), 9, s.length() - 13, 0);
-//        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
-//        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
-
+        //        s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
+        //        s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
+        //        s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);
+        //        s.setSpan(new RelativeSizeSpan(.8f), 9, s.length() - 13, 0);
+        //        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
+        //        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
         chart.setCenterText(s);        //원안의 텍스트
     }
 

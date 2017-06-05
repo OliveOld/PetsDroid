@@ -1,7 +1,7 @@
 package olive.Pets.Activity.Tutorial;
 
 import olive.Pets.Activity.CollectTrainingSet;
-import olive.Pets.DB.DogProfile;
+import olive.Pets.Model.DB.DogProfile;
 import olive.Pets.R;
 
 import android.app.Activity;

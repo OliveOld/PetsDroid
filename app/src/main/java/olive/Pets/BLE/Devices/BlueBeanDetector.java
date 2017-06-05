@@ -1,15 +1,13 @@
-package olive.Pets.Devices;
+package olive.Pets.BLE.Devices;
 
 import olive.Pets.BLE.Detector;
-import olive.Pets.BLE.Proxy;
+import olive.Pets.BLE.DeviceProxy;
 import android.util.Log;
-import android.view.View;
 
 import com.punchthrough.bean.sdk.Bean;
 import com.punchthrough.bean.sdk.BeanDiscoveryListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -19,27 +17,38 @@ import java.util.List;
 public class BlueBeanDetector
         implements Detector, BeanDiscoveryListener
 {
+    int idx;
     ArrayList<Bean> beans;
 
     public BlueBeanDetector()
     {
+        idx = -1;
         beans = new ArrayList<Bean>(12);
     }
 
+    /**
+     * Scan 준비/실행
+     */
     @Override
     public void begin()
     {
         // trigger scanning...
     }
 
+    /**
+     * 현재까지 찾아낸 모든 Bean들을 정리
+     */
     @Override
     public void end()
     {
         beans.clear();
     }
 
+    /**
+     * Scan 결과를 하나씩 획득
+     */
     @Override
-    public Proxy next()
+    public DeviceProxy next()
     {
         if(beans.size() > 0){
             Bean bean =  beans.get(0);

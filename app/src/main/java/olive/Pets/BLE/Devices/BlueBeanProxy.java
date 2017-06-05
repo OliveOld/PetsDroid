@@ -1,40 +1,15 @@
-package olive.Pets.Devices;
+package olive.Pets.BLE.Devices;
 
-import olive.Pets.Activity.Bluetooth;
+import olive.Pets.BLE.Conv;
 import olive.Pets.BLE.Packet;
-import olive.Pets.BLE.Proxy;
-import olive.Pets.DB.PostureData;
-import olive.Pets.R;
+import olive.Pets.BLE.DeviceProxy;
 
-import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.punchthrough.bean.sdk.Bean;
-import com.punchthrough.bean.sdk.BeanDiscoveryListener;
 import com.punchthrough.bean.sdk.BeanListener;
-import com.punchthrough.bean.sdk.BeanManager;
 import com.punchthrough.bean.sdk.message.BeanError;
-import com.punchthrough.bean.sdk.message.Callback;
-import com.punchthrough.bean.sdk.message.DeviceInfo;
 import com.punchthrough.bean.sdk.message.ScratchBank;
-
-import java.text.SimpleDateFormat;
-import java.text.StringCharacterIterator;
-import java.util.Calendar;
-
-
-import io.realm.Realm;
-import io.realm.RealmResults;
-
-import static android.os.SystemClock.sleep;
-import static android.view.View.VISIBLE;
 
 
 /**
@@ -42,7 +17,7 @@ import static android.view.View.VISIBLE;
  * @author luncliff
  */
 public class BlueBeanProxy
-        implements Proxy, BeanListener
+        implements DeviceProxy, BeanListener
 {
     static final String TAG = BlueBeanProxy.class.getName();
 
@@ -83,6 +58,7 @@ public class BlueBeanProxy
         return bean != null && bean.isConnected();
     }
 
+    // @// TODO: 6/5/2017 convert bytes in buffer to packet
     public Packet recv()
     {
         // check if packet is available
@@ -99,7 +75,7 @@ public class BlueBeanProxy
         if(readable() == false){
             return false;
         }
-        byte[] data = pkt.toBytes();
+        byte[] data = Conv.toBytes(pkt);
         bean.sendSerialMessage(data);
         return true;
     }

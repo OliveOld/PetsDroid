@@ -8,5 +8,5 @@ public interface Detector
 {
     void begin();
     void end();
-    Proxy next();
+    DeviceProxy next();
 }

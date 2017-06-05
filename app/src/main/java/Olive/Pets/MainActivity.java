@@ -1,31 +1,24 @@
 package olive.Pets;
 
 import olive.Pets.Chart.TimePieChart;
-import olive.Pets.DB.DogProfile;
-import olive.Pets.DB.Parent;
-import olive.Pets.DB.PostureData;
+import olive.Pets.Model.DB;
+import olive.Pets.Model.DB.DogProfile;
+import olive.Pets.Model.DB.PostureData;
 import olive.Pets.Activity.*;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,22 +27,13 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 
 import java.io.File;
-import java.util.ArrayList;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
-import olive.Pets.ViewModel.StorageVM;
 
 
 public class MainActivity
@@ -95,7 +79,7 @@ public class MainActivity
         chart = new TimePieChart((PieChart) findViewById(R.id.piechart_main));
 
         // mainactivity 실행 시 처음만 불려지도록 함..
-        StorageVM.setInstance(this);
+        DB.setInstance(this);
 
         // ---- ---- ---- ---- ----
 
@@ -112,7 +96,7 @@ public class MainActivity
 
     void loadProfile()
     {
-        RealmResults<DogProfile> puppies = StorageVM.getInstance().puppies();
+        RealmResults<DogProfile> puppies = DB.getInstance().puppies();
 
         if (puppies.size() == 0) {
             // 강아지 관련 DB없을 시 실행 > default 값 지정
@@ -232,7 +216,7 @@ public class MainActivity
 
     public void refreshChart()
     {
-        RealmResults<PostureData> posData = StorageVM.getInstance().postures();
+        RealmResults<PostureData> posData = DB.getInstance().postures();
 
         float[] ratio = {0,1,2,3,4};
 

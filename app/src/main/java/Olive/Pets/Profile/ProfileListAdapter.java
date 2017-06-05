@@ -1,7 +1,6 @@
 package olive.Pets.Profile;
 
-import olive.Pets.Activity.*;
-import olive.Pets.DB.DogProfile;
+import olive.Pets.Struct.*;
 import olive.Pets.R;
 
 import android.content.Context;

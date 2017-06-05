@@ -1,4 +1,4 @@
-package olive.Pets.DB;
+package olive.Pets.Struct;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -7,7 +7,8 @@ import io.realm.annotations.PrimaryKey;
  * Created by KMJ on 2017-04-10.
  */
 
-public class PostureData
+// @// TODO: 6/5/2017 Finalization
+public class DailyReport
         extends RealmObject
 {
     @PrimaryKey

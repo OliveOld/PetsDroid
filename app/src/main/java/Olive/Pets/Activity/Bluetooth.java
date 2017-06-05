@@ -2,7 +2,6 @@ package olive.Pets.Activity;
 
 import olive.Pets.R;
 import olive.Pets.BLE.*;
-import olive.Pets.DB.*;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package olive.Pets.DB;
+package olive.Pets.Struct;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,6 +12,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by KMJ on 2017-03-12.
  */
 
+// @// TODO: 6/5/2017 Finalization
 public class DogProfile
         extends RealmObject
 {
@@ -25,7 +26,7 @@ public class DogProfile
     private String dog_sex;
     private String dog_photo;
     private String dog_size;
-    private PostureData posture_data;
+    private DailyReport posture_data;
 
     public DogProfile(){}
     // 생성자
@@ -36,7 +37,7 @@ public class DogProfile
         this.dog_sex=dog_sex;
         this.dog_size=dog_size;
         this.dog_photo=dog_photo;
-        //PostureData pos= new PostureData();
+        //DailyReport pos= new DailyReport();
         //posture_data=pos;
     }
     // auto increment 기능이 따로 없음에 주의
