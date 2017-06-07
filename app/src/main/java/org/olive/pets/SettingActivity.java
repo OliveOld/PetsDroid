@@ -94,6 +94,14 @@ public class SettingActivity extends AppCompatActivity {
 
         // 버튼 세팅
         btnManagerInfo = (Button) findViewById(R.id.btn_manager_info_setting);
+        btnManagerInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, Developer_info.class);
+                finish();
+                startActivity(intent);
+            }
+        });
 
         // 블루투스 화면으로 넘어가기
         btnBTSetting = (Button) findViewById(R.id.btn_bt_setting);

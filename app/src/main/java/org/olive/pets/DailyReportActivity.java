@@ -162,10 +162,8 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
 
     public void piechart() {
 
-
         RealmResults<PostureData> posture = mRealm.where(PostureData.class).equalTo("date", selectedDate).findAll();
 
-        //**********************piechart**************************//
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
         pieChart.setUsePercentValues(true);
 
@@ -201,7 +199,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             posture_etc=(float)pos_data.getUnknown();
 
             total_act=posture_stand+posture_walk+posture_run;
-        }
+
         // entry(값(%), 인덱스)
         if(posture_lie!=0)
             yvalues.add(new Entry(posture_lie, 0)); //lie
@@ -252,8 +250,8 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
+        }
 
-        //*****************PieChart_end**********************//
     }
 
     /*****************************piechart_method_start********************************/
