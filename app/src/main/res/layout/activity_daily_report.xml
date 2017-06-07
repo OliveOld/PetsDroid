@@ -10,7 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#dcdcdc"
+        >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="23dp"
@@ -20,7 +22,7 @@
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#dcdcdc"
+                android:background="#FFFFFF"
                 app:textColorSelected="#000000"
                 app:textSizeDayName="14sp"
                 app:textSizeDayNumber="20sp"/>
@@ -29,14 +31,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="40dp"
+            android:paddingTop="18dp"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="340dp"
+                android:layout_height="400dp"
+                android:paddingTop="18dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:background="#FFFFFF">
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/piechart_daily_report"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:layout_width="320dp"
                 android:layout_height="320dp"/>
+
+            </LinearLayout>
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
@@ -46,8 +58,14 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_calendar_24dp"/>
+            android:src="@drawable/ic_calendar_24dp"
+            android:background="#dcdcdc"
+            />
     </LinearLayout>
+
+
+
+
 
 
     <!-- 슬라이딩메뉴 start -->
