@@ -51,7 +51,7 @@ public class DogProfileListActivity extends AppCompatActivity {
         // 왼쪽 화살표 버튼
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // 액션바 title 지정
-        getSupportActionBar().setTitle("Pet'Droid");
+        getSupportActionBar().setTitle(" ");
 
         //**********************actionbar_start**************************//
 

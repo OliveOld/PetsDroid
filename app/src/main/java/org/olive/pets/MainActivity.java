@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         data.setValueFormatter(new PercentFormatter());
         pieChart.setData(data);
 
-       // pieChart.setDescription("하루동안강아지는무엇을했을까요?");
+       pieChart.setDescription("  ");
 
         // 파이차트 생성부분
         pieChart.setDrawHoleEnabled(true);
