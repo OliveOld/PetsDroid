@@ -25,7 +25,7 @@ public class IntroActivity extends Activity {
 
 
         h= new Handler(); //딜래이를 주기 위해 핸들러 생성
-        h.postDelayed(mrun, 4000); // 딜레이 ( 런어블 객체는 mrun, 시간 2초)
+        h.postDelayed(mrun, 2000); // 딜레이 ( 런어블 객체는 mrun, 시간 2초)
 
 
 
