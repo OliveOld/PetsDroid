@@ -184,7 +184,6 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
         Log.d(TAG,"onDisconnected");
         // text박스에 결과 출력
         RealmResults<PostureData> postures = mRealm.where(PostureData.class).findAll();
-        postures = mRealm.where(PostureData.class).findAll();
         // 일단은 마지막 저장 된 값 된 놈 보이기
         PostureData posture = postures.last();
         tvData.append("\nunknown: " + posture.getUnknown() + "\n"
@@ -194,7 +193,8 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
                 + "Run: " + posture.getRun()   + "\n"
                 + "Sit: " + posture.getSit() + "\n"
                 + "Stand: " + posture.getStand() + "\n"
-                + "Walk: " + posture.getWalk()
+                + "Walk: " + posture.getWalk() + "\n"
+                +"time: " + posture.getDate() + "\n"
         );
     }
 

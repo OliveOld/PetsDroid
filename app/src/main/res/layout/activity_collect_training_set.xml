@@ -21,14 +21,25 @@
             android:textStyle="bold"
             android:paddingBottom="30dp"/>
 
-        <Button
-            android:layout_gravity="center"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="기기 연결"
-            android:background="@drawable/button"
-            android:id="@+id/btn_bt_training"/>
-
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기기 연결"
+                android:background="@drawable/button"
+                android:id="@+id/btn_bt_training"/>
+            <Button
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="건너뛰기"
+                android:background="@drawable/button"
+                android:id="@+id/btn_bt_cancel"/>
+        </LinearLayout>
 
     </LinearLayout>
 

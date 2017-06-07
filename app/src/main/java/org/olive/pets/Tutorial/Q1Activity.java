@@ -15,9 +15,7 @@ import org.olive.pets.R;
 
 
 public class Q1Activity extends AppCompatActivity {
-    private Button yes;
-    private Button no;
-    int tutorialFlag;
+    private Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,34 +28,13 @@ public class Q1Activity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
         //**********************actionbar_start**************************//
 
-
-        yes = (Button)findViewById(R.id.q1yes1);
-        yes.setOnClickListener(new View.OnClickListener() {
+        btnNext = (Button)findViewById(R.id.btn_next);
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Q1Activity.this, InitDogProfileActivity.class);
                 startActivity(intent);
             }
         });
-
-        no = (Button)findViewById(R.id.q1no1);
-        no.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-                SharedPreferences shPref = getSharedPreferences("MyPref", 0);
-                tutorialFlag = shPref.getInt("Flag", 0);
-                SharedPreferences.Editor prefEditor = shPref.edit();
-                prefEditor.putInt("Flag", ++tutorialFlag);
-                prefEditor.commit();
-                Intent intent = new Intent(Q1Activity.this, MainActivity.class);
-                finish();
-                startActivity(intent);
-
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-        });
-
     }
 }

@@ -1,6 +1,5 @@
 package org.olive.pets;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -47,9 +47,8 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
     Realm mRealm;
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
     private HorizontalCalendar horizontalCalendar;
-
     String selectedDate;
-    float posture_lie, posture_stand, posture_walk, posture_run=25;
+    float posture_lie, posture_stand, posture_walk, posture_run;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
 
         // 액션바 투명하게 해주기
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
 
         //btn_main
         btnMain = (Button) findViewById(R.id.btn_main_dr);
@@ -108,7 +106,12 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             }
         });
 
+        mRealm = Realm.getDefaultInstance();
+        setCalendar();
 
+    }
+
+    public void setCalendar() {
         // 여기부터 캘린더 설정
         /** end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
@@ -139,14 +142,17 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Date date, int position) {
-                Toast.makeText(DailyReportActivity.this, DateFormat.getDateInstance().format(date) + " is selected!", Toast.LENGTH_SHORT).show();
-                // 해당 날짜의 날짜 가져오기...
-                // 데이터베이스 불러오기...
+
+                // 해당 날짜의 날짜 가져오기
                 Calendar cal = Calendar.getInstance();
                 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd");
                 selectedDate = sdf1.format(date);
+                Toast.makeText(DailyReportActivity.this, selectedDate + " is selected!", Toast.LENGTH_SHORT).show();
 
-                piechart();
+                RealmResults<PostureData> posture = mRealm.where(PostureData.class).findAll();
+                PostureData pos = posture.where().equalTo("date", selectedDate).findFirst();
+
+                piechart(pos);
             }
         });
 
@@ -160,9 +166,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
     }
 
 
-    public void piechart() {
-
-        RealmResults<PostureData> posture = mRealm.where(PostureData.class).equalTo("date", selectedDate).findAll();
+    public void piechart(PostureData pos_data) {
 
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
         pieChart.setUsePercentValues(true);
@@ -183,15 +187,16 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         float posture_etc=0;
         float total_act=0;
 
-        if (posture.size() == 0)
+        if (pos_data == null)
         {
+            Toast.makeText(DailyReportActivity.this, "데이터가 없닿", Toast.LENGTH_SHORT).show();
             pieChart.setData(generateEmptyPieData());
             pieChart.setHighlightPerTapEnabled(false);
             pieChart.setDescription("  ");
             return;
         }
         else{
-            PostureData pos_data = posture.last();
+           // PostureData pos_data = posture.last();
             posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
             posture_stand = (float) pos_data.getStand()+pos_data.getSit();
             posture_walk = (float) pos_data.getWalk();
@@ -212,7 +217,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         if(posture_lie!=0)
             yvalues.add(new Entry(posture_etc, 4)); //etc
 
-
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("lie");
         xVals.add("sit/stand");
@@ -231,7 +235,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         pieChart.setRotationEnabled(true); //????
         pieChart.setDescription("  ");
 
-
         // 파이차트 생성부분
         pieChart.setDrawHoleEnabled(true);
         pieChart.setTransparentCircleRadius(10f); // 원주율
@@ -242,7 +245,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         data.setValueTextSize(15f); // 파이차트 숫자 텍스트 크기
         data.setValueTextColor(Color.WHITE);
         pieChart.setOnChartValueSelectedListener(this);
-
 
         pieChart.animateXY(1400, 1400);
 
