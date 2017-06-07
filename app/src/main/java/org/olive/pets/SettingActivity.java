@@ -110,7 +110,6 @@ public class SettingActivity extends AppCompatActivity {
 
         // 데이터 콜렉트 화면으로 넘어가기
         btnData = (Button) findViewById(R.id.btn_collect_data);
-        btnData = (Button) findViewById(R.id.btn_collect_data);
         btnData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

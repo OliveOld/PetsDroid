@@ -132,8 +132,8 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 .showDayName(true)
                 .showMonthName(true)
                 .defaultSelectedDate(defaultDate.getTime())
-                .textColor(Color.LTGRAY, Color.WHITE)
-                .selectedDateBackground(Color.GRAY)
+                .textColor(Color.LTGRAY, Color.BLACK)
+                .selectedDateBackground(Color.WHITE)
                 .build();
 
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
