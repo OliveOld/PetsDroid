@@ -135,6 +135,7 @@ public class DogProfileListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DogProfileListActivity.this, SettingActivity.class);
+                finish();
                 startActivity(intent);
             }
         });

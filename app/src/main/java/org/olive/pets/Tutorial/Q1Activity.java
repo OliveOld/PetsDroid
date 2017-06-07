@@ -1,6 +1,7 @@
 package org.olive.pets.Tutorial;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import org.olive.pets.R;
 public class Q1Activity extends AppCompatActivity {
     private Button yes;
     private Button no;
+    int tutorialFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +45,16 @@ public class Q1Activity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                SharedPreferences shPref = getSharedPreferences("MyPref", 0);
+                tutorialFlag = shPref.getInt("Flag", 0);
+                SharedPreferences.Editor prefEditor = shPref.edit();
+                prefEditor.putInt("Flag", ++tutorialFlag);
+                prefEditor.commit();
                 Intent intent = new Intent(Q1Activity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
 
-                finish();
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });

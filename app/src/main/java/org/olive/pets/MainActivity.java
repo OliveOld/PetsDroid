@@ -26,16 +26,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.olive.pets.BLE.BluetoothActivity;
-import org.olive.pets.Chart.PieChart_Activity;
 import org.olive.pets.DB.DogProfile;
 import org.olive.pets.DB.Parent;
 import org.olive.pets.DB.PostureData;
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
     static final String MAIN_FLAG = "mainflag"; // 해당 activity 실행 시 저장할 키 값
     private Button btnDailyReport, btnDogInfo, btnSetting;
     private ImageView ivdogImage;
-    private TextView tvdogName, tvdogInfo;
+    private TextView tvdogName, tvdogInfo, maindogfeel, maindogact;
     private Realm mRealm;
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
                 mRealm = Realm.getInstance(myConfig);
             }
 
-//            getActionBar().setDisplayHomeAsUpEnabled(true);
+
 
             //btn_daily_report
             btnDailyReport = (Button) findViewById(R.id.btn_daily_report);
@@ -171,6 +173,11 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             loadDB();
         }
 
+        piechart();
+
+    }
+
+    public void piechart() {
         //**********************piechart**************************//
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_main); //  원소
         pieChart.setUsePercentValues(true);
@@ -182,31 +189,48 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
 
         // 밑에 무슨 값인지 표시해 주는거
-        PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
+        PieDataSet dataSet = new PieDataSet(yvalues, " ");
 
         RealmResults<PostureData> posture = mRealm.where(PostureData.class).findAll();
 
-        float posture_lie = 25;
-        float posture_stand=25;
-        float posture_walk=25;
-        float posture_run=25;
-        float posture_etc=25;
+        float posture_lie = 0;
+        float posture_stand=0;
+        float posture_walk=0;
+        float posture_run=0;
+        float posture_etc=0;
+        float total_act=0;
 
         if (posture.size() == 0)
-        {   }
+        {
+            pieChart.setData(generateEmptyPieData());
+            pieChart.setHighlightPerTapEnabled(false);
+            pieChart.setDescription("  ");
+            maindogact=(TextView) findViewById(R.id.main_today_act);
+            maindogfeel=(TextView) findViewById(R.id.main_today_feel);
+            maindogact.setText("    오늘의 활동량 :  "+total_act+"%");
+            maindogfeel.setText("데이터를 받아주세요");
+            return;
+        }
         else{
-                PostureData pos_data = posture.last();
-                posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
-                posture_stand = (float) pos_data.getStand()+pos_data.getSit();
-                posture_walk = (float) pos_data.getWalk();
-                posture_run = (float) pos_data.getRun();
-                posture_etc=(float)pos_data.getUnknown();
+            PostureData pos_data = posture.last();
+            posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
+            posture_stand = (float) pos_data.getStand()+pos_data.getSit();
+            posture_walk = (float) pos_data.getWalk();
+            posture_run = (float) pos_data.getRun();
+            posture_etc=(float)pos_data.getUnknown();
+
+            total_act=posture_stand+posture_walk+posture_run;
         }
         // entry(값(%), 인덱스)
+        if(posture_lie!=0)
         yvalues.add(new Entry(posture_lie, 0)); //lie
+        if(posture_lie!=0)
         yvalues.add(new Entry(posture_stand, 1)); //sit/stand
+        if(posture_lie!=0)
         yvalues.add(new Entry(posture_walk, 2)); // walk
+        if(posture_lie!=0)
         yvalues.add(new Entry(posture_run, 3)); //run
+        if(posture_lie!=0)
         yvalues.add(new Entry(posture_etc, 4)); //etc
 
 
@@ -224,7 +248,10 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         data.setValueFormatter(new PercentFormatter());
         pieChart.setData(data);
 
-       pieChart.setDescription("  ");
+
+        pieChart.setRotationEnabled(true);
+        pieChart.setDescription("  ");
+
 
         // 파이차트 생성부분
         pieChart.setDrawHoleEnabled(true);
@@ -237,9 +264,32 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         data.setValueTextColor(Color.WHITE);
         pieChart.setOnChartValueSelectedListener(this);
 
+
         pieChart.animateXY(1400, 1400);
 
+        Legend l = pieChart.getLegend();
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        l.setXEntrySpace(7);
+        l.setYEntrySpace(5);
+
         //*****************PieChart_end**********************//
+
+        //*****************강아지 상태 메시지**********************//
+        maindogact=(TextView) findViewById(R.id.main_today_act);
+        maindogfeel=(TextView) findViewById(R.id.main_today_feel);
+
+        maindogact.setText("    오늘의 활동량 :  "+total_act+"%");
+
+        if(total_act>50)
+            maindogfeel.setText("오늘 기분이 좋은가봐요!");
+        else if(total_act>30)
+            maindogfeel.setText("오늘 충분해요");
+        else
+            maindogfeel.setText("오늘 함께 산책가는건 어떨까요?");
+
+
+        //*****************강아지 상태 메시지_end**********************//
+
     }
 
     public void loadDB(){
@@ -284,8 +334,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         // 여기서 디비를 다시 읽어온다.
         super.onResume();
         loadDB();
-      // if(dlDrawer.isDrawerOpen(R.id.sildmenu))
-      //     dlDrawer.closeDrawer(R.id.sildmenu);
+        piechart();
     }
 
     @Override
@@ -309,17 +358,8 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         if (item.getItemId() == R.id.bluetooth) {
             intent = new Intent(MainActivity.this, BluetoothActivity.class);
             startActivity(intent);
-        } else {
-            //파이차트테스트 버튼(bluetooth_pietest)
-                try {
-                    intent = new Intent(MainActivity.this, PieChart_Activity.class);
-                    startActivity(intent);
-                    return true;
-                } catch (Exception e) {
-                    Toast toast = Toast.makeText(MainActivity.this, "pie.java 생성실패", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
         }
+
         return true;
     }
 
@@ -347,6 +387,34 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
         s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
         return s;
+    }
+
+    protected PieData generateEmptyPieData() {
+        ArrayList<Entry> yVals = new ArrayList<>();
+        ArrayList<String> xVals = new ArrayList<>();
+
+        xVals.add(" ");
+        yVals.add(new Entry((float) 1, 1));
+
+        PieDataSet pieDataSet = new PieDataSet(yVals, "");
+        pieDataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return "";
+            }
+        });
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.rgb(153, 153, 153));
+        pieDataSet.setColors(colors);
+
+        pieDataSet.setSliceSpace(2f);
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextSize(12f);
+
+        PieData pieData = new PieData(xVals, pieDataSet);
+
+        return pieData;
     }
     /***************piechart_method_end****************/
 

@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -31,7 +32,6 @@ android {
         compile 'com.android.support:design:25.3.1'
         compile 'io.realm:android-adapters:2.0.0'
         testCompile 'junit:junit:4.12'
-        compile 'com.github.PhilJay:MPAndroidChart-Realm:v2.0.2@aar'
         compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
         compile 'com.punchthrough.bean.sdk:sdk:1.0.2'
         compile 'com.sothree.slidinguppanel:library:3.1.1'
@@ -39,6 +39,9 @@ android {
         compile 'org.assertj:assertj-core:1.7.1'
         compile 'de.greenrobot:eventbus:2.4.0'
         compile 'org.jetbrains:annotations-java5:15.0'
+        compile 'com.android.support:multidex:1.0.0'
+
+
     }
 }
 

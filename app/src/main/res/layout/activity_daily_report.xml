@@ -10,15 +10,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="25dp"
         android:orientation="vertical">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:background="#b4b4b4"
+            />
         <devs.mulham.horizontalcalendar.HorizontalCalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                app:textColorSelected="#FFFF"
+                android:background="#dcdcdc"
+                app:textColorSelected="#000000"
                 app:textSizeDayName="14sp"
                 app:textSizeDayNumber="20sp"/>
 
