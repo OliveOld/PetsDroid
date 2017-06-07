@@ -29,6 +29,7 @@
 
         <!-- Piechart 부분 -->
         <LinearLayout
+            android:id="@+id/daily_pie_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="18dp"

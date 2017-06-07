@@ -58,7 +58,7 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
     int testCnt = 1;
     ImageButton imgbtnWalk, imgbtnRun, imgbtnLie, imgbtnStand, imgbtnSeat, imgbtnLieBack, imgbtnLieSide;
     LinearLayout layoutButton, layoutConnect, layoutProgress;
-    Button btnTraining, btnConnect;
+    Button btnTraining, btnConnect, btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +86,9 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         layoutProgress = (LinearLayout)findViewById(R.id.layout_progress);
         layoutProgress.setVisibility(View.INVISIBLE);
 
+        // 튜토리얼 끝내기
+        btnCancel = (Button)findViewById(R.id.btn_bt_cancel);
+        btnCancel.setOnClickListener(this);
         // 기기 연결
         btnConnect = (Button) findViewById(R.id.btn_bt_training);
         btnConnect.setOnClickListener(this);
@@ -108,14 +111,17 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         imgbtnLieBack.setOnClickListener(this);
         imgbtnLieSide.setOnClickListener(this);
 
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_submit_tutorial:
+            case R.id.btn_bt_cancel:
                 //다음 페이지로 넘어가기 전에 완전히 튜토리얼 끝나면 endTutorial()로 마무리 해줘야함
-                mBean.disconnect();
+                if(mBean != null)
+                    mBean.disconnect();
                 SharedPreferences shPref = getSharedPreferences("MyPref", 0);
                 tutorialFlag = shPref.getInt("Flag", 0);
 
