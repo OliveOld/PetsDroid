@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background_iphone1"
-    tools:context="org.olive.pets.Chart.PieChart_Activity">
+    android:background="@drawable/background_iphone1">
 
     <LinearLayout
         android:id="@+id/bellow_actionbar"
@@ -100,6 +99,7 @@
             android:paddingStart="10dp"
             />
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="5dp" />
@@ -110,9 +110,9 @@
             android:layout_gravity="center"
             android:background="#FFFFFF"
             android:gravity="left|center_vertical"
-            android:text="      오늘의 활동량:  "
+            android:text="      오늘의 활동량  "
             android:textColor="#6e6e6e"
-            android:textSize="23dp"
+            android:textSize="20dp"
             />
         <TextView
             android:layout_width="match_parent"
@@ -123,10 +123,9 @@
             android:layout_height="55dp"
             android:layout_gravity="center"
             android:background="#FFFFFF"
-            android:gravity="left|center_vertical"
-            android:text="      오늘 둥둥이는 기분이 좋아요  "
+            android:text="강아지 상태"
             android:textColor="#6e6e6e"
-            android:textSize="23dp"
+            android:textSize="20dp"
             />
 
 

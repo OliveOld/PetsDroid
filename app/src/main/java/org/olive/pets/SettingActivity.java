@@ -92,7 +92,6 @@ public class SettingActivity extends AppCompatActivity {
 
 
 
-
         // 버튼 세팅
         btnManagerInfo = (Button) findViewById(R.id.btn_manager_info_setting);
 

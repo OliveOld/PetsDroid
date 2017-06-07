@@ -18,13 +18,16 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.olive.pets.DB.PostureData;
 import org.olive.pets.Profile.DogProfileListActivity;
@@ -55,10 +58,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
 
         // 액션바 투명하게 해주기
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // 색상넣기(투명색상 들어감)
-    //    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
-        // 왼쪽 화살표 버튼
-     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //btn_main
         btnMain = (Button) findViewById(R.id.btn_main_dr);
@@ -133,7 +133,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 .showMonthName(true)
                 .defaultSelectedDate(defaultDate.getTime())
                 .textColor(Color.LTGRAY, Color.WHITE)
-                .selectedDateBackground(Color.TRANSPARENT)
+                .selectedDateBackground(Color.GRAY)
                 .build();
 
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
@@ -146,72 +146,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd");
                 selectedDate = sdf1.format(date);
 
-                /*****************************piechart_start********************************/
-
-
-                RealmResults<PostureData> posture = mRealm.where(PostureData.class).equalTo("date", selectedDate).findAll();
-
-
-
-
-                if (posture.size() == 0)
-                {
-                    // 데이터가 없다고 표시하기
-                }
-                else{
-
-                    PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
-                    pieChart.setUsePercentValues(true);
-
-                    //원안의 텍스트
-                    pieChart.setCenterText(generateCenterSpannableText());
-
-                    // y값
-                    ArrayList<Entry> yvalues = new ArrayList<Entry>();
-
-                    // 밑에 무슨 값인지 표시해 주는거
-                    PieDataSet dataSet = new PieDataSet(yvalues, "자세분류상세");
-
-                    PostureData pos_data = posture.first();
-                    posture_lie = (float) pos_data.getLie();
-                    posture_stand = (float) pos_data.getStand();
-                    posture_walk = (float) pos_data.getWalk();
-                    posture_run = (float) pos_data.getSit();
-
-                    // entry(값(%), 인덱스)
-                    yvalues.add(new Entry(posture_lie, 0)); //lie
-                    yvalues.add(new Entry(posture_stand, 1)); //sit/stand
-                    yvalues.add(new Entry(posture_walk, 2)); // walk
-                    yvalues.add(new Entry(posture_run, 3)); //run
-
-                    ArrayList<String> xVals = new ArrayList<String>();
-                    xVals.add("lie");
-                    xVals.add("sit/stand");
-                    xVals.add("walk");
-                    xVals.add("run");
-
-                    // 밑에 value값 정의 생성됨
-                    PieData data = new PieData(xVals, dataSet);
-                    data.setValueFormatter(new PercentFormatter());
-                    pieChart.setData(data);
-
-                    pieChart.setDescription("하루동안강아지는무엇을했을까요?");
-
-                    // 파이차트 생성부분
-                    pieChart.setDrawHoleEnabled(true);
-                    pieChart.setTransparentCircleRadius(10f); // 원주율
-                    pieChart.setHoleRadius(50f); // 원안에 크기
-
-                    dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-                    data.setValueTextSize(15f);
-                    data.setValueTextColor(Color.WHITE);
-                    pieChart.setOnChartValueSelectedListener(DailyReportActivity.this);
-
-                    pieChart.animateXY(1400, 1400);
-
-                }
-
-                /*****************************piechart_end********************************/
+                piechart();
             }
         });
 
@@ -222,6 +157,103 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 horizontalCalendar.goToday(false);
             }
         });
+    }
+
+
+    public void piechart() {
+
+
+        RealmResults<PostureData> posture = mRealm.where(PostureData.class).equalTo("date", selectedDate).findAll();
+
+        //**********************piechart**************************//
+        PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
+        pieChart.setUsePercentValues(true);
+
+        //원안의 텍스트
+        pieChart.setCenterText(generateCenterSpannableText());
+
+        // y값
+        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+
+        // 밑에 무슨 값인지 표시해 주는거
+        PieDataSet dataSet = new PieDataSet(yvalues, " ");
+
+        float posture_lie = 0;
+        float posture_stand=0;
+        float posture_walk=0;
+        float posture_run=0;
+        float posture_etc=0;
+        float total_act=0;
+
+        if (posture.size() == 0)
+        {
+            pieChart.setData(generateEmptyPieData());
+            pieChart.setHighlightPerTapEnabled(false);
+            pieChart.setDescription("  ");
+            return;
+        }
+        else{
+            PostureData pos_data = posture.last();
+            posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
+            posture_stand = (float) pos_data.getStand()+pos_data.getSit();
+            posture_walk = (float) pos_data.getWalk();
+            posture_run = (float) pos_data.getRun();
+            posture_etc=(float)pos_data.getUnknown();
+
+            total_act=posture_stand+posture_walk+posture_run;
+        }
+        // entry(값(%), 인덱스)
+        if(posture_lie!=0)
+            yvalues.add(new Entry(posture_lie, 0)); //lie
+        if(posture_lie!=0)
+            yvalues.add(new Entry(posture_stand, 1)); //sit/stand
+        if(posture_lie!=0)
+            yvalues.add(new Entry(posture_walk, 2)); // walk
+        if(posture_lie!=0)
+            yvalues.add(new Entry(posture_run, 3)); //run
+        if(posture_lie!=0)
+            yvalues.add(new Entry(posture_etc, 4)); //etc
+
+
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("lie");
+        xVals.add("sit/stand");
+        xVals.add("walk");
+        xVals.add("run");
+        xVals.add("ETC");
+
+        int white = 0x00000000; // 투명
+
+        // 밑에 value값 정의 생성됨
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        pieChart.setData(data);
+
+
+        pieChart.setRotationEnabled(true); //????
+        pieChart.setDescription("  ");
+
+
+        // 파이차트 생성부분
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setTransparentCircleRadius(10f); // 원주율
+        pieChart.setHoleRadius(50f); // 원안에 크기
+        pieChart.setHoleColor(white);
+
+        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        data.setValueTextSize(15f); // 파이차트 숫자 텍스트 크기
+        data.setValueTextColor(Color.WHITE);
+        pieChart.setOnChartValueSelectedListener(this);
+
+
+        pieChart.animateXY(1400, 1400);
+
+        Legend l = pieChart.getLegend();
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        l.setXEntrySpace(7);
+        l.setYEntrySpace(5);
+
+        //*****************PieChart_end**********************//
     }
 
     /*****************************piechart_method_start********************************/
@@ -250,6 +282,34 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
         s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
         return s;
+    }
+
+    protected PieData generateEmptyPieData() {
+        ArrayList<Entry> yVals = new ArrayList<>();
+        ArrayList<String> xVals = new ArrayList<>();
+
+        xVals.add(" ");
+        yVals.add(new Entry((float) 1, 1));
+
+        PieDataSet pieDataSet = new PieDataSet(yVals, "");
+        pieDataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return "";
+            }
+        });
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.rgb(153, 153, 153));
+        pieDataSet.setColors(colors);
+
+        pieDataSet.setSliceSpace(2f);
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextSize(12f);
+
+        PieData pieData = new PieData(xVals, pieDataSet);
+
+        return pieData;
     }
     /*****************************piechart_method_end********************************/
 }

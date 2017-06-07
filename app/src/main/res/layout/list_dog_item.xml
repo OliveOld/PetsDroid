@@ -61,6 +61,7 @@
     <Button
         android:id="@+id/btn_dog_edit"
         android:text="Edit"
+        android:background="@drawable/button"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_gravity="end"/>
