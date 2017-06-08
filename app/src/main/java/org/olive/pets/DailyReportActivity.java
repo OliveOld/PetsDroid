@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,7 +32,6 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import org.olive.pets.DB.PostureData;
 import org.olive.pets.Profile.DogProfileListActivity;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,9 +45,10 @@ import io.realm.RealmResults;
 public class DailyReportActivity extends Activity implements OnChartValueSelectedListener {
     Realm mRealm;
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
+    private TextView maindogact;
     private HorizontalCalendar horizontalCalendar;
     String selectedDate;
-    float posture_lie, posture_stand, posture_walk, posture_run=25;
+    float posture_lie, posture_stand, posture_walk, posture_run;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +112,8 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
     }
 
     public void setCalendar() {
+
+
         // 여기부터 캘린더 설정
         /** end after 1 month from now */
         Calendar endDate = Calendar.getInstance();
@@ -147,12 +149,14 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 Calendar cal = Calendar.getInstance();
                 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy:MM:dd");
                 selectedDate = sdf1.format(date);
+
+
                 Toast.makeText(DailyReportActivity.this, selectedDate + " is selected!", Toast.LENGTH_SHORT).show();
 
                 RealmResults<PostureData> posture = mRealm.where(PostureData.class).findAll();
                 PostureData pos = posture.where().equalTo("date", selectedDate).findFirst();
-
                 piechart(pos);
+
             }
         });
 
@@ -165,8 +169,9 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         });
     }
 
+
     public void piechart(PostureData pos_data) {
-        //**********************piechart**************************//
+
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
         pieChart.setUsePercentValues(true);
 
@@ -192,6 +197,9 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             pieChart.setData(generateEmptyPieData());
             pieChart.setHighlightPerTapEnabled(false);
             pieChart.setDescription("  ");
+
+            maindogact=(TextView) findViewById(R.id.daily_today_act);
+            maindogact.setText("오늘의 활동량 :  "+total_act+"%");
             return;
         }
         else{
@@ -203,17 +211,17 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             posture_etc=(float)pos_data.getUnknown();
 
             total_act=posture_stand+posture_walk+posture_run;
-        }
+
         // entry(값(%), 인덱스)
         if(posture_lie!=0)
             yvalues.add(new Entry(posture_lie, 0)); //lie
-        if(posture_lie!=0)
+        if(posture_stand!=0)
             yvalues.add(new Entry(posture_stand, 1)); //sit/stand
-        if(posture_lie!=0)
+        if(posture_walk!=0)
             yvalues.add(new Entry(posture_walk, 2)); // walk
-        if(posture_lie!=0)
+        if(posture_run!=0)
             yvalues.add(new Entry(posture_run, 3)); //run
-        if(posture_lie!=0)
+        if(posture_etc!=0)
             yvalues.add(new Entry(posture_etc, 4)); //etc
 
         ArrayList<String> xVals = new ArrayList<String>();
@@ -252,7 +260,15 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
 
-        //*****************PieChart_end**********************//
+            //*****************강아지 상태 메시지**********************//
+            maindogact=(TextView) findViewById(R.id.daily_today_act);
+
+            maindogact.setText("오늘의 활동량 :  "+total_act+"%");
+
+            //*****************강아지 상태 메시지_end**********************//
+
+        }
+
     }
 
     /*****************************piechart_method_start********************************/
