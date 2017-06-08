@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -25,6 +26,8 @@ import com.punchthrough.bean.sdk.message.ScratchBank;
 
 import org.olive.pets.DB.PostureData;
 import org.olive.pets.R;
+import org.olive.pets.Tutorial.IntroActivity;
+import org.olive.pets.Tutorial.Q1Activity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,15 +45,11 @@ import static android.view.View.VISIBLE;
  */
 
 public class BluetoothActivity extends AppCompatActivity implements BeanDiscoveryListener, BeanListener{
-    private String state;
     final String TAG = "BlueBean";
     final List<Bean> beans = new ArrayList<>();
     Bean bean = null;
-    TextView tvConnect =null;
-    TextView tvData =null;
+    TextView tvConnect=null, tvData =null;
     String beanName;
-    int saveFlag=0;
-    String dirPath, fileName;
     Realm mRealm;
     int discovery_flag = 0;
     ProgressBar progress;
@@ -65,6 +64,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
     int testCnt=1;
     String dataTime;
     private final static int REQUEST_ENABLE_BT = 1;
+    Handler h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,7 +196,21 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
                 + "Walk: " + posture.getWalk() + "\n"
                 +"time: " + posture.getDate() + "\n"
         );
+        h= new Handler();
+        h.postDelayed(mrun, 3000);
     }
+
+    Runnable mrun = new Runnable(){
+        @Override
+        public void run(){
+            //Intent i = new Intent(IntroActivity.this, Q1Activity.class); //인텐트 생성(현 액티비티, 새로 실행할 액티비티)
+            //startActivity(i);
+
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            //overridePendingTransition 이란 함수를 이용하여 fade in,out 효과를줌. 순서가 중요
+        }
+    };
 
     @Override
     public void onSerialMessageReceived(byte[] data) {
