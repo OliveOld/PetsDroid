@@ -45,6 +45,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
     String dir, dog_size;
     private Realm mRealm;
     int tutorialFlag;
+    int last_id=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,12 +171,21 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
             if(cb_size_m.isChecked()==true) dog_size="M";
             if(cb_size_l.isChecked()==true) dog_size="L";
 
-            final int last_id;
+            final RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAllSorted("dog_id", Sort.DESCENDING);
 
-            if(tutorialFlag == 0)
+            if(tutorialFlag == 0) {
+                if (puppies.size() != 0) {
+                        mRealm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                puppies.deleteAllFromRealm();
+                            }
+                        });
+                    mRealm.close();
+                }
                 last_id = 1;
-            else {
-                RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAllSorted("dog_id", Sort.DESCENDING);
+
+            } else {
                 last_id = puppies.first().getDogId()+1;
             }
 
