@@ -7,12 +7,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -26,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -182,8 +183,8 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_main); //  원소
         pieChart.setUsePercentValues(true);
 
-        //원안의 텍스트
-        pieChart.setCenterText(generateCenterSpannableText());
+
+
 
         // y값
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
@@ -205,10 +206,14 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             pieChart.setData(generateEmptyPieData());
             pieChart.setHighlightPerTapEnabled(false);
             pieChart.setDescription("  ");
+            SpannableString s = new SpannableString("데이터없음");
+            s.setSpan(new RelativeSizeSpan(1.5f), 0, s.length(), 0);
+            pieChart.setCenterText(s);
             maindogact=(TextView) findViewById(R.id.main_today_act);
             maindogfeel=(TextView) findViewById(R.id.main_today_feel);
-            maindogact.setText("    오늘의 활동량 :  "+total_act+"%");
+            maindogact.setText("오늘의 활동량 :  "+total_act+"%");
             maindogfeel.setText("데이터를 받아주세요");
+
             return;
         }
         else {
@@ -219,8 +224,8 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             posture_run = (float) pos_data.getRun();
             posture_etc = (float) pos_data.getUnknown();
 
-            total_act = (posture_stand + posture_walk + posture_run) / (posture_stand + posture_walk + posture_run + posture_lie + posture_etc);
-        }
+            total_act = (posture_stand + posture_walk + posture_run) / (posture_stand + posture_walk + posture_run + posture_lie + posture_etc)*100;
+
             // entry(값(%), 인덱스)
             if (posture_lie != 0)
                 yvalues.add(new Entry(posture_lie, 0)); //lie
@@ -239,7 +244,14 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             xVals.add("sit/stand");
             xVals.add("walk");
             xVals.add("run");
-            xVals.add("ETC");
+            xVals.add("etc");
+
+            SpannableString ss = new SpannableString(".");
+            Drawable d = getResources().getDrawable(R.drawable.piechart_icon);
+            d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+            ss.setSpan(new ImageSpan(d), 0, 1, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+            //원안의 텍스트
+            pieChart.setCenterText(ss);
 
             int white = 0x00000000; // 투명
 
@@ -267,10 +279,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
 
             pieChart.animateXY(1400, 1400);
 
-            Legend l = pieChart.getLegend();
-            l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-            l.setXEntrySpace(7);
-            l.setYEntrySpace(5);
+
 
             //*****************PieChart_end**********************//
 
@@ -278,18 +287,22 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             maindogact = (TextView) findViewById(R.id.main_today_act);
             maindogfeel = (TextView) findViewById(R.id.main_today_feel);
 
-            maindogact.setText("오늘의 활동량 :  " + total_act + "%");
+            maindogact.setText("오늘의 활동량 :  " + (int)total_act + "%");
 
             if (total_act > 50)
                 maindogfeel.setText("오늘 기분이 좋은가봐요!");
+            else if (total_act > 40)
+                maindogfeel.setText("오늘 기분이 좋은가봐요!");
             else if (total_act > 30)
                 maindogfeel.setText("오늘 평소와 같아요");
+            else if (total_act > 20)
+                maindogfeel.setText("잠시 함께 놀아주는 건 어떨까요?");
             else
                 maindogfeel.setText("오늘 함께 산책가는건 어떨까요?");
 
 
         //*****************강아지 상태 메시지_end**********************//
-
+        }
     }
 
     public void loadDB(){
@@ -378,8 +391,8 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         Log.i("PieChart", "nothing selected");
     }
 
-    private SpannableString generateCenterSpannableText() {
-        SpannableString s = new SpannableString("PetTrack\ndeveloped by Olive_old");
+    private SpannableString generateCenterSpannableText(String p) {
+        SpannableString s = new SpannableString(p);
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 9, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 9, s.length() - 13, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 9, s.length() - 13, 0);

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -175,8 +177,6 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         PieChart pieChart = (PieChart) findViewById(R.id.piechart_daily_report); //  원소
         pieChart.setUsePercentValues(true);
 
-        //원안의 텍스트
-        pieChart.setCenterText(generateCenterSpannableText());
 
         // y값
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
@@ -193,11 +193,12 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
 
         if (pos_data == null)
         {
-            Toast.makeText(DailyReportActivity.this, "데이터가 없닿", Toast.LENGTH_SHORT).show();
             pieChart.setData(generateEmptyPieData());
             pieChart.setHighlightPerTapEnabled(false);
             pieChart.setDescription("  ");
-
+            SpannableString s = new SpannableString("데이터없음");
+            s.setSpan(new RelativeSizeSpan(1.5f), 0, s.length(), 0);
+            pieChart.setCenterText(s);
             maindogact=(TextView) findViewById(R.id.daily_today_act);
             maindogact.setText("오늘의 활동량 :  "+total_act+"%");
             return;
@@ -210,7 +211,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             posture_run = (float) pos_data.getRun();
             posture_etc=(float)pos_data.getUnknown();
 
-            total_act=posture_stand+posture_walk+posture_run;
+            total_act = (posture_stand + posture_walk + posture_run) / (posture_stand + posture_walk + posture_run + posture_lie + posture_etc)*100;
 
         // entry(값(%), 인덱스)
         if(posture_lie!=0)
@@ -230,6 +231,13 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
         xVals.add("walk");
         xVals.add("run");
         xVals.add("ETC");
+
+            SpannableString ss = new SpannableString(".");
+            Drawable d = getResources().getDrawable(R.drawable.piechart_icon);
+            d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+            ss.setSpan(new ImageSpan(d), 0, 1, SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+            //원안의 텍스트
+            pieChart.setCenterText(ss);
 
         int white = 0x00000000; // 투명
 
@@ -263,7 +271,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
             //*****************강아지 상태 메시지**********************//
             maindogact=(TextView) findViewById(R.id.daily_today_act);
 
-            maindogact.setText("오늘의 활동량 :  "+total_act+"%");
+            maindogact.setText("오늘의 활동량 :  "+(int)total_act+"%");
 
             //*****************강아지 상태 메시지_end**********************//
 
