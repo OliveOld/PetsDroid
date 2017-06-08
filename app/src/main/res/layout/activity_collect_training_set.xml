@@ -9,6 +9,7 @@
     >
 
     <LinearLayout
+        android:layout_marginTop="40dp"
         android:layout_height="180dp"
         android:id="@+id/layout_connect"
         android:orientation="vertical"

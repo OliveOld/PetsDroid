@@ -49,7 +49,7 @@ public class DogProfileListActivity extends AppCompatActivity {
         // 색상넣기(투명색상 들어감)
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
         // 왼쪽 화살표 버튼
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         // 액션바 title 지정
         getSupportActionBar().setTitle(" ");
 

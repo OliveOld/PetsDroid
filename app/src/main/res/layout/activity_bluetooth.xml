@@ -10,7 +10,7 @@
     android:background="@drawable/introback2">
 
     <TextView
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:textColor="@color/device_font_main"
         android:lineSpacingExtra="10dp"
         android:textSize="20dp"

@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         // 색상넣기(투명색상 들어감)
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
        // 왼쪽 화살표 버튼
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //**********************actionbar_end**************************//
 
         SharedPreferences shPref = getSharedPreferences("MyPref", 0);
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         float posture_walk=0;
         float posture_run=0;
         float posture_etc=0;
-        float total_act=0;
+        float total_act = 0;
 
         if (posture.size() == 0)
         {
@@ -211,81 +211,81 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
             maindogfeel.setText("데이터를 받아주세요");
             return;
         }
-        else{
+        else {
             PostureData pos_data = posture.last();
-            posture_lie = (float) pos_data.getLieSide()+pos_data.getLie()+pos_data.getLieBacke();
-            posture_stand = (float) pos_data.getStand()+pos_data.getSit();
+            posture_lie = (float) pos_data.getLieSide() + pos_data.getLie() + pos_data.getLieBacke();
+            posture_stand = (float) pos_data.getStand() + pos_data.getSit();
             posture_walk = (float) pos_data.getWalk();
             posture_run = (float) pos_data.getRun();
-            posture_etc=(float)pos_data.getUnknown();
+            posture_etc = (float) pos_data.getUnknown();
 
-            total_act=posture_stand+posture_walk+posture_run;
+            total_act = (posture_stand + posture_walk + posture_run) / (posture_stand + posture_walk + posture_run + posture_lie + posture_etc);
         }
-        // entry(값(%), 인덱스)
-        if(posture_lie!=0)
-        yvalues.add(new Entry(posture_lie, 0)); //lie
-        if(posture_stand!=0)
-        yvalues.add(new Entry(posture_stand, 1)); //sit/stand
-        if(posture_walk!=0)
-        yvalues.add(new Entry(posture_walk, 2)); // walk
-        if(posture_run!=0)
-        yvalues.add(new Entry(posture_run, 3)); //run
-        if(posture_etc!=0)
-        yvalues.add(new Entry(posture_etc, 4)); //etc
+            // entry(값(%), 인덱스)
+            if (posture_lie != 0)
+                yvalues.add(new Entry(posture_lie, 0)); //lie
+            if (posture_stand != 0)
+                yvalues.add(new Entry(posture_stand, 1)); //sit/stand
+            if (posture_walk != 0)
+                yvalues.add(new Entry(posture_walk, 2)); // walk
+            if (posture_run != 0)
+                yvalues.add(new Entry(posture_run, 3)); //run
+            if (posture_etc != 0)
+                yvalues.add(new Entry(posture_etc, 4)); //etc
 
 
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("lie");
-        xVals.add("sit/stand");
-        xVals.add("walk");
-        xVals.add("run");
-        xVals.add("ETC");
+            ArrayList<String> xVals = new ArrayList<String>();
+            xVals.add("lie");
+            xVals.add("sit/stand");
+            xVals.add("walk");
+            xVals.add("run");
+            xVals.add("ETC");
 
-        int white = 0x00000000; // 투명
+            int white = 0x00000000; // 투명
 
-        // 밑에 value값 정의 생성됨
-        PieData data = new PieData(xVals, dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        pieChart.setData(data);
-
-
-        pieChart.setRotationEnabled(true);
-        pieChart.setDescription("  ");
+            // 밑에 value값 정의 생성됨
+            PieData data = new PieData(xVals, dataSet);
+            data.setValueFormatter(new PercentFormatter());
+            pieChart.setData(data);
 
 
-        // 파이차트 생성부분
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setTransparentCircleRadius(10f); // 원주율
-        pieChart.setHoleRadius(50f); // 원안에 크기
-        pieChart.setHoleColor(white);
-
-        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        data.setValueTextSize(15f); // 파이차트 숫자 텍스트 크기
-        data.setValueTextColor(Color.WHITE);
-        pieChart.setOnChartValueSelectedListener(this);
+            pieChart.setRotationEnabled(true);
+            pieChart.setDescription("  ");
 
 
-        pieChart.animateXY(1400, 1400);
+            // 파이차트 생성부분
+            pieChart.setDrawHoleEnabled(true);
+            pieChart.setTransparentCircleRadius(10f); // 원주율
+            pieChart.setHoleRadius(50f); // 원안에 크기
+            pieChart.setHoleColor(white);
 
-        Legend l = pieChart.getLegend();
-        l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        l.setXEntrySpace(7);
-        l.setYEntrySpace(5);
+            dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+            data.setValueTextSize(15f); // 파이차트 숫자 텍스트 크기
+            data.setValueTextColor(Color.WHITE);
+            pieChart.setOnChartValueSelectedListener(this);
 
-        //*****************PieChart_end**********************//
 
-        //*****************강아지 상태 메시지**********************//
-        maindogact=(TextView) findViewById(R.id.main_today_act);
-        maindogfeel=(TextView) findViewById(R.id.main_today_feel);
+            pieChart.animateXY(1400, 1400);
 
-        maindogact.setText("오늘의 활동량 :  "+total_act+"%");
+            Legend l = pieChart.getLegend();
+            l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+            l.setXEntrySpace(7);
+            l.setYEntrySpace(5);
 
-        if(total_act>50)
-            maindogfeel.setText("오늘 기분이 좋은가봐요!");
-        else if(total_act>30)
-            maindogfeel.setText("오늘 충분해요");
-        else
-            maindogfeel.setText("오늘 함께 산책가는건 어떨까요?");
+            //*****************PieChart_end**********************//
+
+            //*****************강아지 상태 메시지**********************//
+            maindogact = (TextView) findViewById(R.id.main_today_act);
+            maindogfeel = (TextView) findViewById(R.id.main_today_feel);
+
+            maindogact.setText("오늘의 활동량 :  " + total_act + "%");
+
+            if (total_act > 50)
+                maindogfeel.setText("오늘 기분이 좋은가봐요!");
+            else if (total_act > 30)
+                maindogfeel.setText("오늘 평소와 같아요");
+            else
+                maindogfeel.setText("오늘 함께 산책가는건 어떨까요?");
 
 
         //*****************강아지 상태 메시지_end**********************//

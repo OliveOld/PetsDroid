@@ -73,7 +73,7 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         // 색상넣기(투명색상 들어감)
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ff0000")));
         // 왼쪽 화살표 버튼
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //**********************actionbar_start**************************//
 
         //**********************컨트롤들 선언부**************************//

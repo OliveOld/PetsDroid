@@ -24,17 +24,18 @@
             android:layout_height="wrap_content"
             android:text="Pets에 오신 것을 환영합니다."
             android:textColor="#ffffff"
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="앱을 시작하기 전, 강아지의 프로필을 지정해야 합니다.\n 그리고 강아지의 기초 자세에 대한 정보가 필요합니다.\n
+            android:text="앱을 시작하기 전, 강아지의 프로필을 지정해야 합니다.\n 그리고 정확한 분류를 위해\n강아지의 기초 자세에 대한 정보가 필요합니다.\n
 기기와 연결 할 때는 핸드폰을 만지지 마세요.\n"
             android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp" />
 
         <LinearLayout

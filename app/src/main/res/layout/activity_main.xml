@@ -155,7 +155,7 @@
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="3dp"
             android:background="#8c8c8c"/>
         <Button
             android:id="@+id/btn_main"
@@ -208,7 +208,7 @@
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:background="#8c8c8c"/>
         <Button
             android:id="@+id/btn_setting"
