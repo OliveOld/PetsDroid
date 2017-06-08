@@ -26,6 +26,7 @@
         <activity android:name=".BLE.BluetoothActivity" />
         <activity android:name=".DailyReportActivity" />
         <activity android:name=".SettingActivity"/>
+        <activity android:name=".Developer_info"/>
         <activity android:name=".Profile.DogProfileListActivity"/>
         <activity android:name=".Profile.DogProfileEditActivity"/>
         <activity android:name=".Tutorial.InitDogProfileActivity"/>

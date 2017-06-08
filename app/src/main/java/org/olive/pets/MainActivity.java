@@ -224,13 +224,13 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         // entry(값(%), 인덱스)
         if(posture_lie!=0)
         yvalues.add(new Entry(posture_lie, 0)); //lie
-        if(posture_lie!=0)
+        if(posture_stand!=0)
         yvalues.add(new Entry(posture_stand, 1)); //sit/stand
-        if(posture_lie!=0)
+        if(posture_walk!=0)
         yvalues.add(new Entry(posture_walk, 2)); // walk
-        if(posture_lie!=0)
+        if(posture_run!=0)
         yvalues.add(new Entry(posture_run, 3)); //run
-        if(posture_lie!=0)
+        if(posture_etc!=0)
         yvalues.add(new Entry(posture_etc, 4)); //etc
 
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements OnChartValueSelec
         maindogact=(TextView) findViewById(R.id.main_today_act);
         maindogfeel=(TextView) findViewById(R.id.main_today_feel);
 
-        maindogact.setText("    오늘의 활동량 :  "+total_act+"%");
+        maindogact.setText("오늘의 활동량 :  "+total_act+"%");
 
         if(total_act>50)
             maindogfeel.setText("오늘 기분이 좋은가봐요!");

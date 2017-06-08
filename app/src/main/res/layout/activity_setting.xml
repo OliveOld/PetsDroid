@@ -25,7 +25,10 @@
             android:padding="10dp"
             android:layout_margin="5dp"
             android:background="#44EEEEEE"
-            android:gravity="center_horizontal"/>
+            android:textSize="20dp"
+            android:textColor="#282828"
+            android:textAlignment="center"
+            />
 
         <Button
             android:id="@+id/btn_collect_data"
@@ -37,7 +40,10 @@
             android:layout_margin="5dp"
             android:layout_below="@id/btn_bt_setting"
             android:background="#44EEEEEE"
-            android:gravity="center_horizontal"/>
+            android:textSize="20dp"
+            android:textColor="#282828"
+            android:textAlignment="center"
+            />
 
         <Button
             android:id="@+id/btn_init_setting"
@@ -48,7 +54,11 @@
             android:text="초기화"
             android:padding="10dp"
             android:background="#44EEEEEE"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:textColor="#282828"
+            android:textAlignment="center"
+            />
 
         <Button
             android:id="@+id/btn_manager_info_setting"
@@ -60,7 +70,10 @@
             android:layout_margin="5dp"
             android:layout_below="@id/btn_init_setting"
             android:background="#44EEEEEE"
-            android:gravity="center_horizontal"/>
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textColor="#282828"
+            />
 
     </RelativeLayout>
 

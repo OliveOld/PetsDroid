@@ -109,8 +109,7 @@
             android:layout_height="55dp"
             android:layout_gravity="center"
             android:background="#FFFFFF"
-            android:gravity="left|center_vertical"
-            android:text="      오늘의 활동량  "
+            android:text="오늘의 활동량  "
             android:textColor="#6e6e6e"
             android:textSize="20dp"
             />

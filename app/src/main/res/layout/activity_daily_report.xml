@@ -37,7 +37,7 @@
 
             <LinearLayout
                 android:layout_width="340dp"
-                android:layout_height="400dp"
+                android:layout_height="350dp"
                 android:paddingTop="18dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical"
@@ -46,10 +46,24 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/piechart_daily_report"
                 android:layout_gravity="center"
-                android:layout_width="320dp"
-                android:layout_height="320dp"/>
+                android:layout_width="300dp"
+                android:layout_height="300dp"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+            <Button
+                android:id="@+id/daily_today_act"
+                android:layout_width="340dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:text="오늘의 활동량  "
+                android:textColor="#6e6e6e"
+                android:textSize="20dp"
+                />
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

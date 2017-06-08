@@ -4,13 +4,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/introback2">
+    android:background="@drawable/introback2"
+
+    >
 
     <LinearLayout
+        android:layout_height="180dp"
         android:id="@+id/layout_connect"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        >
 
         <TextView
             android:layout_width="match_parent"
@@ -24,11 +27,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
             <Button
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:text="기기 연결"
                 android:background="@drawable/button"
                 android:id="@+id/btn_bt_training"/>
@@ -36,6 +42,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:text="건너뛰기"
                 android:background="@drawable/button"
                 android:id="@+id/btn_bt_cancel"/>
@@ -47,7 +54,7 @@
         android:id="@+id/layout_progress"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp">
 
         <ProgressBar
             android:id="@+id/progress_bean_connect_t"
@@ -60,7 +67,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center_horizontal"
             android:text="기기와 연결중입니다..."
             android:textSize="20sp"
@@ -166,6 +173,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
+                    android:background="@drawable/button"
                     app:srcCompat="@drawable/dog_lying_side"
                     android:text="옆으로눕기"/>
             </LinearLayout>
@@ -178,6 +186,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:text="완료"
         android:id="@+id/btn_submit_tutorial"/>
 </LinearLayout>

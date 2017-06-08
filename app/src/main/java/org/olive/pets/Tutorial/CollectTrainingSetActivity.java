@@ -209,8 +209,8 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         });
         sleep(10000);
 
-        layoutProgress.setVisibility(View.INVISIBLE);
-        layoutConnect.setVisibility(View.INVISIBLE);
+        layoutProgress.setVisibility(View.GONE);
+        layoutConnect.setVisibility(View.GONE);
         layoutButton.setVisibility(View.VISIBLE);
         layoutButton.bringToFront();
     }
