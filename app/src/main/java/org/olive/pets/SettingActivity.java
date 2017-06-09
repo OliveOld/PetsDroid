@@ -1,9 +1,11 @@
 package org.olive.pets;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,19 +13,30 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.olive.pets.BLE.BluetoothActivity;
+import org.olive.pets.DB.DogProfile;
+import org.olive.pets.DB.PostureData;
 import org.olive.pets.Profile.DogProfileListActivity;
 import org.olive.pets.Tutorial.CollectTrainingSetActivity;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+
+import static java.lang.Integer.parseInt;
 
 
 // 환경 설정 액티비티
 public class SettingActivity extends AppCompatActivity {
     private Button btnDailyReport, btnMain, btnDogInfo, btnSetting;
     private Button btnBTSetting, btnManagerInfo, btnInit, btnData;
+    Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        // DB 설정 초기화
+        mRealm = Realm.getDefaultInstance();
 
         //**********************actionbar_start**************************//
         // 액션바 투명하게 해주기
@@ -61,7 +74,6 @@ public class SettingActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(SettingActivity.this, "pie.java 연결안됨", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
             }
         });
 
@@ -90,8 +102,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-
-
         // 버튼 세팅
         btnManagerInfo = (Button) findViewById(R.id.btn_manager_info_setting);
         btnManagerInfo.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +124,43 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        // 초기화 버튼
         btnInit = (Button) findViewById(R.id.btn_init_setting);
+        btnInit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //정말 초기화 하겠냐는 경고 다이얼로그를 띄운다
+                final RealmResults<DogProfile> profiles = mRealm.where(DogProfile.class).findAll();
+                final RealmResults<PostureData> postures = mRealm.where(PostureData.class).findAll();
+
+                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SettingActivity.this);
+                alert_confirm.setMessage("정말 모든 데이터를 초기화 하겠습니까?").setCancelable(false).setPositiveButton("확인",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 'YES'
+                                // 모든 데이터 베이스를 초기화 한다.
+                                mRealm.executeTransaction(new Realm.Transaction() {
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        profiles.deleteAllFromRealm();
+                                        postures.deleteAllFromRealm();
+                                    }
+                                });
+                                mRealm.close();
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 'No'
+                                return;
+                            }
+                        });
+                AlertDialog alert = alert_confirm.create();
+                alert.show();
+            }
+        });
 
         // 데이터 콜렉트 화면으로 넘어가기
         btnData = (Button) findViewById(R.id.btn_collect_data);

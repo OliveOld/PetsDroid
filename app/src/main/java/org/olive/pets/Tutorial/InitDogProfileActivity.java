@@ -173,6 +173,7 @@ public class InitDogProfileActivity extends Activity implements View.OnClickList
 
             final RealmResults<DogProfile> puppies = mRealm.where(DogProfile.class).findAllSorted("dog_id", Sort.DESCENDING);
 
+            // 튜토리얼 아직 안 끝났을 경우 계속해서 DB 지우고 처음으로 할당
             if(tutorialFlag == 0) {
                 if (puppies.size() != 0) {
                         mRealm.executeTransaction(new Realm.Transaction() {

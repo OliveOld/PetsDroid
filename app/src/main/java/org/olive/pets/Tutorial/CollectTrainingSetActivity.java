@@ -45,16 +45,12 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
     final List<Bean> beans = new ArrayList<>();
     Bean bean = null;
     String beanName;
-    Realm mRealm;
     int discovery_flag = 0;
-    ProgressBar progress;
     int byteCnt = 1;
-    byte tmp1byte = 0;
     byte[] tmp2byte = new byte[2];
     byte[] tmp6byte = new byte[6];
     Bean mBean;
     BeanPacket packet = new BeanPacket();
-    PostureData dogPosture;
     int testCnt = 1;
     ImageButton imgbtnWalk, imgbtnRun, imgbtnLie, imgbtnStand, imgbtnSeat, imgbtnLieBack, imgbtnLieSide;
     LinearLayout layoutButton, layoutConnect, layoutProgress;
