@@ -153,7 +153,7 @@ public class DailyReportActivity extends Activity implements OnChartValueSelecte
                 selectedDate = sdf1.format(date);
 
 
-                Toast.makeText(DailyReportActivity.this, selectedDate + " is selected!", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(DailyReportActivity.this, selectedDate + " is selected!", Toast.LENGTH_SHORT).show();
 
                 RealmResults<PostureData> posture = mRealm.where(PostureData.class).findAll();
                 PostureData pos = posture.where().equalTo("date", selectedDate).findFirst();
