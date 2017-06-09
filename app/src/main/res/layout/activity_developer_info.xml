@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="안녕하세요. pet'Droid에 오신 것을 환영합니다.\n이것은 컴퓨터종합설계로 제작한 어플리케이션입니다. \n궁금한 점이 있으면 kim-seobin@daum.net으로\n메일 주시기 바랍니다.\n현재 사용자의 어플리케이션은 최신 버전 입니다."
+        android:text="안녕하세요. pet'Droid에 오신 것을 환영합니다.\n이것은 컴퓨터종합설계로 제작한 어플리케이션입니다. \n궁금한 점이 있으면 kim-seobin@daum.net으로\n메일 주시기 바랍니다.\n현재 사용자의 어플리케이션은 최신 버전 입니다.\n\n\n\n개발자: 김민지,김서빈"
         android:textColor="#FFFFFF"
         android:textAlignment="center"
         android:textSize="19dp"

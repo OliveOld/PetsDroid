@@ -304,7 +304,7 @@ public class BluetoothActivity extends AppCompatActivity implements BeanDiscover
             case 6:
                 tmp6byte[2] = data[0];
                 for(int i=0; i<6; i++)
-                    tvData.append(tmp6byte[i]+" ");
+                    //tvData.append(tmp6byte[i]+" ");
                 // 다 받았을 경우에 해당하는 자세에 디비 저장 후 배열 초기화(는 안해도되겠지)
                 saveDB();
                 byteCnt=1;

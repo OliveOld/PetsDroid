@@ -178,16 +178,15 @@
                     app:srcCompat="@drawable/dog_lying_side"
                     android:text="옆으로눕기"/>
             </LinearLayout>
-
         </LinearLayout>
+        <Button
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:text="완료"
+            android:id="@+id/btn_submit_tutorial"/>
     </LinearLayout>
 
 
-    <Button
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button"
-        android:text="완료"
-        android:id="@+id/btn_submit_tutorial"/>
 </LinearLayout>

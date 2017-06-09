@@ -106,8 +106,6 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         imgbtnSeat.setOnClickListener(this);
         imgbtnLieBack.setOnClickListener(this);
         imgbtnLieSide.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -208,7 +206,6 @@ public class CollectTrainingSetActivity extends AppCompatActivity implements Bea
         layoutProgress.setVisibility(View.GONE);
         layoutConnect.setVisibility(View.GONE);
         layoutButton.setVisibility(View.VISIBLE);
-        layoutButton.bringToFront();
     }
 
     @Override
